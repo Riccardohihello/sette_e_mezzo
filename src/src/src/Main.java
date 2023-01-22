@@ -10,4 +10,5 @@ public class Main {
                 Carta cartaa = new Carta(10,"coppe");
                 System.out.println(cartaa.getSeme());
         }
+        
 }
