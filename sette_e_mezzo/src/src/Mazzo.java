@@ -17,6 +17,12 @@ class Mazzo {
         }
     }
 
+    public Carta pesca() {
+        if (carte.isEmpty()) {
+            system.out.println("Il mazzo è vuoto");
+        }
+        return carte.remove(0);
+
     public void mescola() {
         Collections.shuffle(carte);
     }
