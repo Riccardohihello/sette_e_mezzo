@@ -22,7 +22,7 @@ class Mazzo {
             system.out.println("Il mazzo è vuoto");
         }
         return carte.remove(0);
-
+    }
     public void mescola() {
         Collections.shuffle(carte);
     }
