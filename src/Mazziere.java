@@ -1,5 +1,4 @@
 package src;
-import java.util.List;
 
 public class Mazziere extends Giocatore {
 

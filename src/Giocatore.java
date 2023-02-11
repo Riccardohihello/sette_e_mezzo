@@ -1,7 +1,6 @@
 package src;
 
 import java.util.ArrayList;
-import src.Carta;
 
 public class Giocatore {
     private final String nome;
@@ -9,7 +8,7 @@ public class Giocatore {
     private int gettoni;
     private ArrayList<Carta> carte_giocatore;
 
-    public Giocatore(String nome, int gettoni) {
+    public Giocatore(String nome) {
         this.nome = nome;
         this.punteggio = 0;
         this.gettoni = gettoni;
@@ -17,14 +16,17 @@ public class Giocatore {
     }
 
     public String getNome() {
+
         return nome;
     }
 
     public double getPunteggio() {
+
         return punteggio;
     }
 
     public int getGettoni() {
+
         return gettoni;
     }
 

@@ -1,6 +1,5 @@
 package src;
 
-import src.Carta;
 
 public class Main {
 

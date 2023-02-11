@@ -2,7 +2,7 @@ package src;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import src.Carta;
+
 
 class Mazzo {
     private ArrayList<Carta> carte;
@@ -19,7 +19,7 @@ class Mazzo {
 
     public Carta pesca() {
         if (carte.isEmpty()) {
-            system.out.println("Il mazzo è vuoto");
+            System.out.println("Il mazzo è vuoto");
         }
         return carte.remove(0);
     }
