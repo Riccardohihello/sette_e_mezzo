@@ -12,7 +12,7 @@ class Mazzo {
         String[] semi = {"coppe", "denari", "spade", "bastoni"};
         for (int i = 0; i < 10; i++) {
             for (String seme : semi) {
-                carte.add(new Carta(i, seme));
+                carte.add(new Carta(i+1, seme));
             }
         }
     }
@@ -26,5 +26,11 @@ class Mazzo {
     public void mescola() {
         Collections.shuffle(carte);
     }
-
+    public void stampa() {
+        for (Carta carta : carte) {
+            String seme = carta.getSeme();
+            int valore = carta.getValore();
+            System.out.println("Valore: " + valore + " Seme: " + seme);
+        }
+    }
 }
