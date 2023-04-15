@@ -4,16 +4,25 @@ import java.util.Collections;
 
 
 class Mazzo {
-    private ArrayList<Carta> carte;
+    private final ArrayList<Carta> carte;
 
-    public Mazzo() {
+    private Mazzo() {
         carte = new ArrayList<Carta>();
+        
         String[] semi = {"coppe", "denari", "spade", "bastoni"};
         for (int i = 0; i < 10; i++) {
             for (String seme : semi) {
                 carte.add(new Carta(i+1, seme));
             }
         }
+    }
+
+    private static Mazzo instanza;
+    public static Mazzo creaMazzo()
+    {
+        if(instanza == null) {
+            instanza = new Mazzo();
+        } return instanza;
     }
 
     public Carta pesca() {
