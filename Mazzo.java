@@ -7,7 +7,7 @@ class Mazzo {
     private final ArrayList<Carta> carte;
 
     private Mazzo() {
-        carte = new ArrayList<Carta>();
+        carte = new ArrayList<>();
         
         String[] semi = {"coppe", "denari", "spade", "bastoni"};
         for (String seme : semi) {
@@ -34,6 +34,9 @@ class Mazzo {
     }
     public void mescola() {
         Collections.shuffle(carte);
+    }
+    public void rimuovi() {
+        carte.remove(0); // metodo non completo, rimuove solo dall'indice 0
     }
     public void stampa() {
         for (Carta carta : carte) {

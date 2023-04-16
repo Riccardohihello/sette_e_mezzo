@@ -7,5 +7,8 @@ public class Mazziere extends Giocatore {
         super(nome);
         this.mazzo = mazzo;
     }
+    public void getMazzo() {
+       mazzo.stampa();
+    }
 
 }
