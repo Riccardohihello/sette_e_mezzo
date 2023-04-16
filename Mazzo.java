@@ -10,19 +10,20 @@ class Mazzo {
         carte = new ArrayList<Carta>();
         
         String[] semi = {"coppe", "denari", "spade", "bastoni"};
-        for (int i = 0; i < 10; i++) {
-            for (String seme : semi) {
+        for (String seme : semi) {
+            for (int i = 0; i < 10; i++) {
                 carte.add(new Carta(i+1, seme));
             }
         }
     }
 
-    private static Mazzo instanza;
+    private static Mazzo instanzaMazzo;
     public static Mazzo creaMazzo()
     {
-        if(instanza == null) {
-            instanza = new Mazzo();
-        } return instanza;
+        if(instanzaMazzo == null) {
+            instanzaMazzo = new Mazzo();
+        }
+        return instanzaMazzo;
     }
 
     public Carta pesca() {

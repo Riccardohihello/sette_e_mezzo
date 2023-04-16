@@ -1,7 +1,7 @@
 
 public class Mazziere extends Giocatore {
 
-    private Mazzo mazzo;
+    private final Mazzo mazzo;
 
     public Mazziere(String nome, Mazzo mazzo) {
         super(nome);
