@@ -7,7 +7,7 @@ public class Mazziere extends Giocatore {
         super(nome);
         this.mazzo = mazzo;
     }
-    public void getMazzo() {
+    public void getMazzo() { //metodo per stampare il mazzo di carte del mazziere
        mazzo.stampa();
     }
 
