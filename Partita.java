@@ -1,25 +1,25 @@
-
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.random.RandomGenerator;
 
 class Partita {
-    private ArrayList<Giocatore> giocatori;
-    private Mazzo mazzo ;
-    private Mazziere mazziere;
-    private int indiceMazziere = 0;
+
+    Random rand = new Random();
 
     public Partita() {
-        ArrayList<Giocatore> giocatori = new ArrayList<>(); //sistemare la creazione dei giocatori
+        int indiceMazziere = rand.nextInt(Costanti.n);   //indice del mazziere generato casualmente
+        Mazzo mazzo = Mazzo.creaMazzo();
         String[] nomi = {"Pippo","Pluto","Paperino","Topolino"};
-        for(int i = 0; i < 4; i++)
+        ArrayList<Giocatore> giocatori = new ArrayList<>(); //sistemare la creazione dei giocatori
+
+        for(int i = 0; i < Costanti.n; i++)
             giocatori.add(new Giocatore(nomi[i]));
         for (Giocatore giocatore : giocatori) {
             System.out.println(giocatore.getNome());
         }
+
+       mazzo.stampa();
+        new Mazziere(giocatori.get(indiceMazziere));
     }
 
-    public void setMazziere(ArrayList<Giocatore> giocatori,int indiceMazziere,Mazzo mazzo) {
-        this.mazziere = new Mazziere(giocatori.get(indiceMazziere).getNome(),mazzo);
-        this.indiceMazziere++;
-        System.out.println("Mazziere: " + indiceMazziere);
-    }
 }

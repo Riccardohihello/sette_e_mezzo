@@ -3,19 +3,17 @@ import java.util.ArrayList;
 
 public class Giocatore {
     private final String nome;
-    private double punteggio;
-    private int gettoni;
-    private ArrayList<Carta> carte_giocatore;
+    protected int punteggio;
+    protected int gettoni;
 
     public Giocatore(String nome) {
         this.nome = nome;
         this.punteggio = 0;
-        this.gettoni = gettoni;
-        this.carte_giocatore = new ArrayList<Carta>();
+        this.gettoni = Costanti.n;
+        ArrayList<Carta> carte_giocatore = new ArrayList<Carta>();
     }
 
     public String getNome() {
-
         return nome;
     }
 

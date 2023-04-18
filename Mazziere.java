@@ -1,14 +1,9 @@
 
 public class Mazziere extends Giocatore {
 
-    private final Mazzo mazzo;
+    public Mazziere(Giocatore g) {
+        super(g.getNome());
 
-    public Mazziere(String nome, Mazzo mazzo) {
-        super(nome);
-        this.mazzo = mazzo;
+        System.out.println("Mazziere " + getNome() + " creato");
     }
-    public void getMazzo() { //metodo per stampare il mazzo di carte del mazziere
-       mazzo.stampa();
-    }
-
 }

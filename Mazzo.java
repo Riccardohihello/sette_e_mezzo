@@ -2,7 +2,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 class Mazzo {
     private final ArrayList<Carta> carte;
 
