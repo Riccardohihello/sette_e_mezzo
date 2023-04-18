@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.random.RandomGenerator;
 
 class Partita {
 

@@ -9,8 +9,8 @@ public class Giocatore {
     public Giocatore(String nome) {
         this.nome = nome;
         this.punteggio = 0;
-        this.gettoni = Costanti.n;
-        ArrayList<Carta> carte_giocatore = new ArrayList<Carta>();
+        this.gettoni = Costanti.m;
+        ArrayList<Carta> carte_giocatore = new ArrayList<>();
     }
 
     public String getNome() {
