@@ -1,5 +1,4 @@
 
-import java.util.ArrayList;
 
 public class Giocatore {
     private final String nome;
@@ -10,7 +9,6 @@ public class Giocatore {
         this.nome = nome;
         this.punteggio = 0;
         this.gettoni = Costanti.m;
-        ArrayList<Carta> carte_giocatore = new ArrayList<>();
     }
 
     public String getNome() {
