@@ -4,9 +4,10 @@ import java.util.Random;
 public class Partita {
     Random rand = new Random();
     Scanner sc = new Scanner(System.in);
-    private int indiceMazziere = rand.nextInt(Costanti.n); //indice del mazziere generato casualmente
+    private int indiceMazziere; //indice del mazziere generato casualmente
 
     private Partita() {
+        this.indiceMazziere = rand.nextInt(Costanti.n);
         System.out.println("Quanti turni vuoi simulare?");
         int turni = sc.nextInt();
         for (int i = 1; i <= turni; i++) {
