@@ -12,7 +12,7 @@ public class Mano {
         this.punti+=c.getValore();
     }
     public void svuotaMano(){
-       this.carte.clear();
+        this.carte.clear();
     }
 
 }

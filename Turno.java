@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 
 class Turno {
+    Mazzo mazzo;
 
-    public Turno(Mazzo m,int imazziere) {
+    public Turno(int imazziere) {
+        this.mazzo = Mazzo.creaMazzo();
         String[] nomi = {"Pippo","Pluto","Paperino","Topolino"};
         ArrayList<Giocatore> giocatori = new ArrayList<>(); //creazione dei giocatori
 
@@ -12,7 +14,9 @@ class Turno {
             System.out.print(giocatore.getNome()+", ");
         }
 
-        new Mazziere(giocatori.get(imazziere));
+        new Mazziere(giocatori.get(imazziere%giocatori.size()));
+        this.mazzo.mescola();
+
     }
 
 }
