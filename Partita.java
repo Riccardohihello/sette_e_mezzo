@@ -17,6 +17,7 @@ public class Partita {
         }
     }
     private static Partita instanzaPartita = null;
+
     public static Partita start() {
         if (instanzaPartita == null) {
             instanzaPartita = new Partita();
