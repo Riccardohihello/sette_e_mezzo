@@ -5,7 +5,7 @@ public class Mano {
     private int punti;
 
     public Mano() {
-        this.carte = new ArrayList<Carta>();
+        this.carte = new ArrayList<>();
     }
     public void addCarta(Carta c){
         this.carte.add(c);
