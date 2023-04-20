@@ -6,12 +6,12 @@ class Mazzo {
     private final ArrayList<Carta> carte;
 
     private Mazzo() {
-        carte = new ArrayList<>();
+        this.carte = new ArrayList<>();
         
         String[] semi = {"coppe", "denari", "spade", "bastoni"};
         for (String seme : semi) {
             for (int i = 0; i < 10; i++) {
-                carte.add(new Carta(i+1, seme));
+                this.carte.add(new Carta(i+1, seme));
             }
         }
     }
@@ -26,19 +26,19 @@ class Mazzo {
     }
 
     public Carta pesca() {
-        if (carte.isEmpty()) {
+        if (this.carte.isEmpty()) {
             System.out.println("Il mazzo è vuoto");
         }
-        return carte.remove(0);
+        return this.carte.remove(0);
     }
     public void mescola() {
-        Collections.shuffle(carte);
+        Collections.shuffle(this.carte);
     }
     public void rimuovi() {
         carte.remove(0); // metodo non completo, rimuove solo dall'indice 0
     }
     public void stampa() {
-        for (Carta carta : carte) {
+        for (Carta carta : this.carte) {
             String seme = carta.getSeme();
             int valore = carta.getValore();
             System.out.println("Valore: " + valore + " Seme: " + seme);

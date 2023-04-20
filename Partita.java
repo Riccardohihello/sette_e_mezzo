@@ -1,24 +1,21 @@
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Random;
 
-class Partita {
-
+public class Partita {
     Random rand = new Random();
+    Scanner sc = new Scanner(System.in);
+    private int indiceMazziere = rand.nextInt(Costanti.n); //indice del mazziere generato casualmente
+    private Mazzo mazzo = Mazzo.creaMazzo();
 
     public Partita() {
-        int indiceMazziere = rand.nextInt(Costanti.n);   //indice del mazziere generato casualmente
-        Mazzo mazzo = Mazzo.creaMazzo();
-        String[] nomi = {"Pippo","Pluto","Paperino","Topolino"};
-        ArrayList<Giocatore> giocatori = new ArrayList<>(); //sistemare la creazione dei giocatori
-
-        for(int i = 0; i < Costanti.n; i++)
-            giocatori.add(new Giocatore(nomi[i]));
-        for (Giocatore giocatore : giocatori) {
-            System.out.println(giocatore.getNome());
+        System.out.println("Quanti turni vuoi simulare?");
+        int turni = sc.nextInt();
+        for (int i = 1; i <= turni; i++) {
+            System.out.println("\nturno numero: "+i);
+            new Turno(mazzo,this.indiceMazziere);
         }
-
-       mazzo.stampa();
-        new Mazziere(giocatori.get(indiceMazziere));
     }
+
 
 }
