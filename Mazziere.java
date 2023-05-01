@@ -1,4 +1,3 @@
-
 public class Mazziere extends Giocatore {
 
     public Mazziere(Giocatore g) {

@@ -1,5 +1,4 @@
-
-public class Carta {
+public class Carta implements CartaInterface {
     private final int valore;
     private final String seme;
 
@@ -8,6 +7,7 @@ public class Carta {
         this.seme = seme;
     }
 
+    @Override
     public int getValore() {
         return valore;
     }
@@ -15,4 +15,5 @@ public class Carta {
     public String getSeme() {
         return seme;
     }
+
 }

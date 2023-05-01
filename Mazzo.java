@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -34,14 +33,21 @@ class Mazzo {
     public void mescola() {
         Collections.shuffle(this.carte);
     }
-    public void rimuovi() {
-        carte.remove(0); // metodo non completo, rimuove solo dall'indice 0
+    public void addCarta(Carta carta) {
+        this.carte.add(carta);
     }
+
+    public Carta removeCarta() throws Exception {
+        return carte.remove(carte.size()); // rimuove solo dalla fine del mazzo, non da una posizione specifica, da implementare in futuro
+    }
+
+    public int getValore() {
+        return this.carte.size();
+    };
+
     public void stampa() {
         for (Carta carta : this.carte) {
-            String seme = carta.getSeme();
-            int valore = carta.getValore();
-            System.out.println("Valore: " + valore + " Seme: " + seme);
+            System.out.println("Valore: " + carta.getValore() + " Seme: " + carta.getSeme());
         }
     }
 }
