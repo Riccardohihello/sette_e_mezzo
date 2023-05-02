@@ -6,9 +6,7 @@ public class Giocatore {
     private Strategia strat;
 
     public void stileDiGioco() {
-        if(this.getGettoni() >= Costanti.m) {
-            strat.strategiaDiGioco(this.mano);
-        }
+            strat.strategiaDiGioco(mano);
 
     }
 
