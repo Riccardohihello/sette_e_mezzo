@@ -15,8 +15,7 @@ class Turno {
         }
 
         new Mazziere(giocatori.get(imazziere%giocatori.size()));
-        this.mazzo.mescola();
-
+        this.mazzo.mischia();
     }
 
 }

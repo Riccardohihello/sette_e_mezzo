@@ -1,11 +1,10 @@
-
-public class StrategiaDifensiva implements Strategia {
+public class StrategiaComputer implements Strategia {
     @Override
     public String strategiaDiGioco(Mano m) {
-        if (m.getValore() >= 3) {
+        if (m.getValore() >= 4) {
             return "stai";
         } else {
             return "prendi un'altra carta";
         }
     }
- }
+}

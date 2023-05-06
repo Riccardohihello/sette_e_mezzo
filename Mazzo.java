@@ -28,18 +28,15 @@ class Mazzo {
         if (this.carte.isEmpty()) {
             System.out.println("Il mazzo è vuoto");
         }
-        return this.carte.remove(0);
+        return this.carte.remove(carte.size()-1);
     }
-    public void mescola() {
+    public void mischia() {
         Collections.shuffle(this.carte);
     }
     public void addCarta(Carta carta) {
         this.carte.add(carta);
     }
 
-    public Carta removeCarta() throws Exception {
-        return carte.remove(carte.size()); // rimuove solo dalla fine del mazzo, non da una posizione specifica, da implementare in futuro
-    }
 
     public int getValore() {
         return this.carte.size();
