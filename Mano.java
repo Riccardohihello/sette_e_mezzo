@@ -9,7 +9,7 @@ public class Mano implements CartaInterface {
     }
     public void addCarta(Carta c){
         this.carte.add(c);
-        this.valore=c.getValore();
+        this.valore+=c.getValore();
     }
 
     public void removeCarta() {
