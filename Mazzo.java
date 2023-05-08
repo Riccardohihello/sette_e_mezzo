@@ -6,7 +6,7 @@ class Mazzo {
 
     private Mazzo() {
         this.carte = new ArrayList<>();
-        
+
         String[] semi = {"coppe", "denari", "spade", "bastoni"};
         for (String seme : semi) {
             for (int i = 0; i < 10; i++) {
@@ -36,7 +36,6 @@ class Mazzo {
     public void addCarta(Carta carta) {
         this.carte.add(carta);
     }
-
 
     public int getValore() {
         return this.carte.size();

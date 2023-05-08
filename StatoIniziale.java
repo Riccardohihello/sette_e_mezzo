@@ -32,7 +32,7 @@ public int getPunteggioGiocatore() {
         return punteggioGiocatore;
         }
 
-public boolean isGiocoFinito() {
+public boolean GiocoFinito() {
         return false;
         }
 }

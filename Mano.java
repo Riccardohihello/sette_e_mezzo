@@ -1,19 +1,19 @@
 import java.util.ArrayList;
 
 public class Mano implements CartaInterface {
-    private final ArrayList<Carta> carte;
+    private final ArrayList<Carta> ManoDicarte;
     private int valore;
 
     public Mano() {
-        this.carte = new ArrayList<>();
+        this.ManoDicarte = new ArrayList<>();
     }
     public void addCarta(Carta c){
-        this.carte.add(c);
+        this.ManoDicarte.add(c);
         this.valore+=c.getValore();
     }
 
-    public void removeCarta() {
-        this.carte.clear();
+    public Carta cartaPescata(){
+        return this.ManoDicarte.get(this.ManoDicarte.size()-1);
     }
 
     @Override
