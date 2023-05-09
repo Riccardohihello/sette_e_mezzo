@@ -1,12 +1,12 @@
 
 public class StrategiaDifensiva implements Strategia {
     @Override
-    public String strategiaDiGioco(Mano m) {
+    public boolean strategiaDiGioco(Mano m) {
         int somma = m.getValore();
         if (somma >= 5) {
-            return "stai";
+            return true;
         } else {
-            return "prendi un'altra carta";
+            return false;
         }
     }
  }

@@ -33,9 +33,6 @@ class Mazzo {
     public void mischia() {
         Collections.shuffle(this.carte);
     }
-    public void addCarta(Carta carta) {
-        this.carte.add(carta);
-    }
 
     public int getValore() {
         return this.carte.size();

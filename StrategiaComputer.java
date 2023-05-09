@@ -1,11 +1,12 @@
 public class StrategiaComputer implements Strategia{
 
     @Override
-    public String strategiaDiGioco(Mano m) {
-        if(m.cartaPescata().getValore()<6){
-            return "Stai";
-        } else {
-            return "prendi un'altra carta";
-        }
+    public boolean strategiaDiGioco(Mano m) {
+//        while (m.getValore()<5)
+            if(m.cartaPescata().getValore()<4){
+                return true;
+            } else {
+                return false;
+            }
     }
 }
