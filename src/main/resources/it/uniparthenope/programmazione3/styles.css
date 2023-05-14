@@ -1,0 +1,30 @@
+.root {
+    /*This applies styling for the root node*/
+    -fxbackground-position: center center ;
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat ;
+    -fx-background-image: url("images/bg.jpg");
+}
+
+.label {
+    /* Styling for all Control with the class of 'label' */
+    -fx-padding: -2px;
+    -fx-start-margin: 2px;
+    -fx-end-margin: 2px;
+}
+
+.guide-link {
+    /*Unique class customized by user*/
+}
+
+#loginTitleLabel,
+#errorLabel {
+    -fx-font-family: "Chilanka";
+}
+.button{
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+    -fx-background-size: 100;
+}
