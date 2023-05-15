@@ -14,8 +14,8 @@
                                     </Label>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
                                         <children>
-                                            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Button" />
-                                            <Button onAction="#onHelloButtonClick" text="Exit" />
+                                            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Start" />
+                                            <Button onAction="#exitButton" text="Exit" />
                                         </children>
                                     </HBox>
       </children>
