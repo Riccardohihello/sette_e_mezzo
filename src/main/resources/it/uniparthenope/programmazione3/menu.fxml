@@ -12,7 +12,7 @@
          </font>
       </Label>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Start" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" text="Start" />
             <Button onAction="#exitButton" text="Exit" />
         </HBox>
     </VBox>
