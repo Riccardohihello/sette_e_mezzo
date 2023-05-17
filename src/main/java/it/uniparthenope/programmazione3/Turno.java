@@ -19,6 +19,10 @@ class Turno {
 
         new Mazziere(giocatori.get(imazziere%giocatori.size()));
         this.mazzo.mischia();
+        while(this.mazzo.hasNext()) {
+            Carta carta = this.mazzo.next();
+            System.out.println("Valore: " + carta.getValore()+" Seme: " + carta.getSeme() + " Iteratore: " + this.mazzo.getIteratorPosition());
+        }
     }
 
     public void setQuota(int quota) {

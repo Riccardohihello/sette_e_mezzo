@@ -2,8 +2,12 @@ package it.uniparthenope.programmazione3;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
-class Mazzo {
+public class Mazzo implements Iterator<Carta> {
+
+    private final int carteTotali = 40;
+    private int iteratorPosition = 0;
     private final ArrayList<Carta> carte;
 
     private Mazzo() {
@@ -15,6 +19,7 @@ class Mazzo {
                 this.carte.add(new Carta(i+1, seme));
             }
         }
+        this.mischia();
     }
 
     private static Mazzo instanzaMazzo;
@@ -25,24 +30,26 @@ class Mazzo {
         }
         return instanzaMazzo;
     }
-
-    public Carta pesca() {
-        if (this.carte.isEmpty()) {
-            System.out.println("Il mazzo è vuoto");
-        }
-        return this.carte.remove(carte.size()-1);
+    public int getIteratorPosition() {
+        return iteratorPosition;
     }
     public void mischia() {
         Collections.shuffle(this.carte);
+        iteratorPosition = 0;
+    }
+    @Override
+    public boolean hasNext() {
+        if(iteratorPosition < carteTotali)
+            return true;
+        else
+            return false;
+    }
+    @Override
+    public Carta next() {
+        Carta c = carte.get(iteratorPosition);
+        iteratorPosition++;
+
+        return c;
     }
 
-    public int getValore() {
-        return this.carte.size();
-    };
-
-    public void stampa() {
-        for (Carta carta : this.carte) {
-            System.out.println("Valore: " + carta.getValore() + " Seme: " + carta.getSeme());
-        }
-    }
 }
