@@ -46,10 +46,26 @@ public class Mazzo implements Iterator<Carta> {
     }
     @Override
     public Carta next() {
-        Carta c = carte.get(iteratorPosition);
-        iteratorPosition++;
+        if (iteratorPosition < carte.size() - 1) {
+            iteratorPosition++;
+        } else {
+            iteratorPosition = 0;
+        }
 
+        Carta c = carte.get(iteratorPosition);
         return c;
     }
+
+    public Carta previous() {
+        if (iteratorPosition > 0) {
+            iteratorPosition--;
+        } else {
+            iteratorPosition = carte.size() - 1; // Torna all'ultima carta se sei all'inizio della lista
+        }
+
+        Carta c = carte.get(iteratorPosition);
+        return c;
+    }
+
 
 }
