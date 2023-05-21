@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 public class Mazzo implements Iterator<Carta> {
 
-    private final int carteTotali = 40;
     private int iteratorPosition = 0;
     private final ArrayList<Carta> carte;
 
@@ -19,7 +18,6 @@ public class Mazzo implements Iterator<Carta> {
                 this.carte.add(new Carta(i+1, seme));
             }
         }
-        this.mischia();
     }
 
     private static Mazzo instanzaMazzo;
@@ -30,15 +28,18 @@ public class Mazzo implements Iterator<Carta> {
         }
         return instanzaMazzo;
     }
+
+    public void mischia() {
+        Collections.shuffle(this.carte);
+    }
+
     public int getIteratorPosition() {
         return iteratorPosition;
     }
-    public void mischia() {
-        Collections.shuffle(this.carte);
-        iteratorPosition = 0;
-    }
+
     @Override
     public boolean hasNext() {
+        int carteTotali = 40;
         if(iteratorPosition < carteTotali)
             return true;
         else
@@ -52,8 +53,7 @@ public class Mazzo implements Iterator<Carta> {
             iteratorPosition = 0;
         }
 
-        Carta c = carte.get(iteratorPosition);
-        return c;
+        return carte.get(iteratorPosition);
     }
 
     public Carta previous() {
@@ -63,8 +63,7 @@ public class Mazzo implements Iterator<Carta> {
             iteratorPosition = carte.size() - 1; // Torna all'ultima carta se sei all'inizio della lista
         }
 
-        Carta c = carte.get(iteratorPosition);
-        return c;
+        return carte.get(iteratorPosition);
     }
 
 

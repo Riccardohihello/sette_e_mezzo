@@ -1,0 +1,32 @@
+package it.uniparthenope.programmazione3;
+
+public abstract class GiocatoreAbstract {
+    protected String nome;
+    protected Mano mano;
+    protected int gettoni;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Mano getMano() {
+        return mano;
+    }
+
+    public void addCarta(Carta c) {
+        this.mano.addCarta(c);
+    }
+
+    public void setGettoni(int gettoni) {
+        this.gettoni = gettoni;
+    }
+
+    public int getGettoni() {
+        return gettoni;
+    }
+    public void versaQuota(int quotaDaVersare){
+        this.gettoni -= quotaDaVersare;
+        System.out.println(this.nome + " ha versato " + quotaDaVersare + " gettoni");
+    }
+}
+

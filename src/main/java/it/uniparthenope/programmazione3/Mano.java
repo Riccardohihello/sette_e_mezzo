@@ -9,6 +9,7 @@ public class Mano implements CartaInterface {
     public Mano() {
         this.ManoDicarte = new ArrayList<>();
     }
+
     public void addCarta(Carta c){
         this.ManoDicarte.add(c);
         this.valore+=c.getValore();

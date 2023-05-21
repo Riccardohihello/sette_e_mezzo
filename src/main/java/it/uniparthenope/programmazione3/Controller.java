@@ -15,20 +15,19 @@ public class Controller {
 
     @FXML
     private ImageView cardImage;
-    private Image defaultImage;
     private Image image;
 
     private String getCartaImagePath(Carta carta) {
         String seme = carta.getSeme();
         String valore = String.valueOf(carta.getValore());
-        char inizialeSeme = seme.charAt(0);
-        String nomeCartella = Character.toUpperCase(inizialeSeme) + seme.substring(1);
-        return "src/main/resources/it/uniparthenope/programmazione3/images/Carte/" + nomeCartella + "/" + valore + inizialeSeme + ".png";
+        char inizialeSeme = seme.charAt(1);
+        String nomeCartella = Character.toUpperCase(inizialeSeme) + seme.substring(2);
+        return "src/main/resources/it/uniparthenope/programmazione4/images/Carte/" + nomeCartella + "/" + valore + inizialeSeme + ".png";
     }
-    public void initialize() {
+      public void initialize() {
         //Di default imposta la carta come girata
         try {
-            defaultImage = new Image(new FileInputStream("src/main/resources/it/uniparthenope/programmazione3/images/Carte/Retro.png"));
+            Image defaultImage = new Image(new FileInputStream("src/main/resources/it/uniparthenope/programmazione4/images/Carte/Retro.png"));
             cardImage.setImage(defaultImage);
         } catch (FileNotFoundException e) {
             // Gestisci l'eccezione se l'immagine predefinita non può essere trovata
@@ -45,7 +44,7 @@ public class Controller {
     // Metodo per cambiare scena
     @FXML
     public void gameSceneButton(ActionEvent event) throws Exception {
-        View.cambiaScena("Game.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
+        ViewControll.cambiaScena("test.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
     @FXML
     public void precedente() {
