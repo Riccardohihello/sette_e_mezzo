@@ -10,9 +10,18 @@ public class Mano implements CartaInterface {
         this.ManoDicarte = new ArrayList<>();
     }
 
-    public void addCarta(Carta c){
+    public void addCarta(Carta c) {
         this.ManoDicarte.add(c);
-        this.valore+=c.getValore();
+        if (c.getValore() == 10 && "denari".equals(c.getSeme()) ) {
+            //Pescata matta il giocatore deve scegliere il valore (necessità input)
+            System.out.println("Matta");
+        } else if (c.getValore() > 7) {
+            //Pescata figura, valgono mezzo punto
+            this.valore += 0.5;
+        } else {
+            //Tutte le altre carte valgono tanti punti quanto è il loro valore numerico
+            this.valore += c.getValore();
+        }
     }
 
     public Carta cartaPescata(){
