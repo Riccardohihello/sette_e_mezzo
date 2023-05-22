@@ -1,17 +1,16 @@
 package it.uniparthenope.programmazione3;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 class Turno {
-    Mazzo mazzo;
-    Mazziere mazziere;
-    Random random = new Random();
+    private final Random random = new Random();
     private int quota; //quota totale versata dai giocatori
-    ArrayList<Giocatore> giocatori;
+    private final ArrayList<Giocatore> giocatori;
 
     public Turno(int indiceMazziere, String[] nomi) {
-        this.mazzo = Mazzo.creaMazzo();
+        Mazzo mazzo = Mazzo.creaMazzo();
         giocatori = new ArrayList<>(); //creazione dei giocatori
 
        aggiungiGiocatori(nomi);
@@ -20,9 +19,9 @@ class Turno {
             System.out.print(giocatore.getNome()+", ");
         }
 
-        sceltaMazziere(indiceMazziere);
+       Mazziere mazziere = sceltaMazziere(indiceMazziere);
 
-        raccoltaQuote(giocatori);
+        raccoltaQuote(giocatori, mazziere);
         stampaQuota();
     }
 
@@ -30,10 +29,11 @@ class Turno {
         this.quota += quota;
     }
 
-    public void raccoltaQuote(ArrayList<Giocatore> giocatori) {
+    public void raccoltaQuote(ArrayList<Giocatore> giocatori, Mazziere m) {
         int quotaDaVersare = random.nextInt(1,11);
         for (Giocatore giocatore : giocatori) {
-            setQuota(giocatore.versaQuota(quotaDaVersare));
+            if (!Objects.equals(giocatore.getNome(), m.getNome())) // controllo che a versare la quota siano solo i giocatori e NON il mazziere
+                setQuota(giocatore.versaQuota(quotaDaVersare));    //I giocatori versano la quota
         }
     }
 
@@ -41,8 +41,8 @@ class Turno {
         System.out.println("Quota: " + quota);
     }
 
-    public void sceltaMazziere(int i) {
-        this.mazziere = new Mazziere(giocatori.get( i % giocatori.size()));
+    public Mazziere sceltaMazziere(int i) {
+        return new Mazziere(giocatori.get(i % giocatori.size()));
     }
 
     public void aggiungiGiocatori(String[] nomi) {

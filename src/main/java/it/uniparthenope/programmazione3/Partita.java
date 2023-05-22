@@ -4,9 +4,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Partita {
-    Random rand = new Random();
-    Scanner sc = new Scanner(System.in);
-    String[] nomi = {"Pippo","Pluto","Paperino","Topolino"};
+    private Random rand = new Random();
+    private Scanner sc = new Scanner(System.in);
+    private String[] nomi = {"Pippo","Pluto","Paperino","Topolino"};
 
     public Partita() {
         //indice del mazziere generato casualmente
