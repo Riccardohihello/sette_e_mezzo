@@ -10,30 +10,44 @@ class Turno {
     private int quota; //quota totale versata dai giocatori
     ArrayList<Giocatore> giocatori;
 
-    public Turno(int indiceMazziere) {
+    public Turno(int indiceMazziere, String[] nomi) {
         this.mazzo = Mazzo.creaMazzo();
-        String[] nomi = {"Pippo","Pluto","Paperino","Topolino"};
         giocatori = new ArrayList<>(); //creazione dei giocatori
 
-        for(int i = 0; i < Costanti.n; i++)
-            giocatori.add(new Giocatore(nomi[i]));
+       aggiungiGiocatori(nomi);
+
         for (Giocatore giocatore : giocatori) {
             System.out.print(giocatore.getNome()+", ");
         }
 
         sceltaMazziere(indiceMazziere);
 
-        quota = random.nextInt(1,11);
-        for (Giocatore giocatore : giocatori) {
-            giocatore.versaQuota(quota);
-        }
+        raccoltaQuote(giocatori);
+        stampaQuota();
     }
 
     public void setQuota(int quota) {
-        this.quota = quota;
+        this.quota += quota;
+    }
+
+    public void raccoltaQuote(ArrayList<Giocatore> giocatori) {
+        int quotaDaVersare = random.nextInt(1,11);
+        for (Giocatore giocatore : giocatori) {
+            setQuota(giocatore.versaQuota(quotaDaVersare));
+        }
+    }
+
+    public void stampaQuota() {
+        System.out.println("Quota: " + quota);
     }
 
     public void sceltaMazziere(int i) {
         this.mazziere = new Mazziere(giocatori.get( i % giocatori.size()));
+    }
+
+    public void aggiungiGiocatori(String[] nomi) {
+        for (String nome : nomi) {
+            giocatori.add(new Giocatore(nome));
+        }
     }
 }
