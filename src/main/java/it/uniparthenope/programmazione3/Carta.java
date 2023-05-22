@@ -10,7 +10,7 @@ public class Carta implements CartaInterface {
     }
 
     @Override
-    public int getValore() {
+    public double getValore() {
         return valore;
     }
 
