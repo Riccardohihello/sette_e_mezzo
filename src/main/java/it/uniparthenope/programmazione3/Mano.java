@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Mano implements CartaInterface {
     private final ArrayList<Carta> ManoDicarte;
-    private int valore;
+    private double valore;
 
     public Mano() {
         this.ManoDicarte = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Mano implements CartaInterface {
     }
 
     @Override
-    public int getValore(){
+    public double getValore(){
         return this.valore;
     }
 }
