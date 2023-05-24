@@ -4,27 +4,28 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Partita {
-    Random rand = new Random();
-    Scanner sc = new Scanner(System.in);
+    private Random rand = new Random();
+    private Scanner sc = new Scanner(System.in);
+    private String[] nomi = {"Pippo","Pluto","Paperino","Topolino"};
 
-    private Partita() {
+    public Partita() {
         //indice del mazziere generato casualmente
         int indiceMazziere = rand.nextInt(Costanti.n);
+
         System.out.println("Quanti turni vuoi simulare?");
+
         int turni = sc.nextInt();
+
+        creaTurni(turni,indiceMazziere, nomi);
+
+    }
+
+    public void creaTurni(int turni,int indiceMazziere, String[] nomi) {
         for (int i = 1; i <= turni; i++) {
             System.out.println("\nturno numero: "+i);
-            new Turno(indiceMazziere);
+            new Turno(indiceMazziere, nomi);
             indiceMazziere += 1;
         }
-    }
-    private static Partita instanzaPartita = null;
-
-    public static Partita start() {
-        if (instanzaPartita == null) {
-            instanzaPartita = new Partita();
-        }
-        return instanzaPartita;
     }
 
 

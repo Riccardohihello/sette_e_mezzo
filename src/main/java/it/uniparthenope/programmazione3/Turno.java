@@ -1,39 +1,55 @@
 package it.uniparthenope.programmazione3;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 class Turno {
-    Mazzo mazzo;
-    Mazziere mazziere;
-    Random random = new Random();
-    private int quota; //quota totale versata dai giocatori
-    ArrayList<Giocatore> giocatori;
+    private final Random random = new Random();
+    private int piatto; //quota totale versata dai giocatori
+    private final ArrayList<Giocatore> giocatori;
+    Computer computer;
 
-    public Turno(int indiceMazziere) {
-        this.mazzo = Mazzo.creaMazzo();
-        String[] nomi = {"Pippo","Pluto","Paperino","Topolino"};
+    public Turno(int indiceMazziere, String[] nomi) {
+        Mazzo mazzo = Mazzo.creaMazzo();
         giocatori = new ArrayList<>(); //creazione dei giocatori
+        this.computer = Computer.getInstanza();
 
-        for(int i = 0; i < Costanti.n; i++)
-            giocatori.add(new Giocatore(nomi[i]));
+       aggiungiGiocatori(nomi);
+
         for (Giocatore giocatore : giocatori) {
             System.out.print(giocatore.getNome()+", ");
         }
 
-        sceltaMazziere(indiceMazziere);
+       Mazziere mazziere = sceltaMazziere(indiceMazziere);
 
-        quota = random.nextInt(1,11);
+        raccoltaQuote(giocatori, mazziere);
+        stampaQuotaPiatto();
+    }
+
+    public void setQuota(int piatto) {
+        this.piatto += piatto;
+    }
+
+    public void raccoltaQuote(ArrayList<Giocatore> giocatori, Mazziere m) {
+        int quotaDaVersare = random.nextInt(1,11);
         for (Giocatore giocatore : giocatori) {
-            giocatore.versaQuota(quota);
+            if (!Objects.equals(giocatore.getNome(), m.getNome())) // controllo che a versare la piatto siano solo i giocatori e NON il mazziere
+                setQuota(giocatore.versaQuota(quotaDaVersare));    //I giocatori versano la piatto
         }
     }
 
-    public void setQuota(int quota) {
-        this.quota = quota;
+    public void stampaQuotaPiatto() {
+        System.out.println("Quota totale piatto: " + piatto);
     }
 
-    public void sceltaMazziere(int i) {
-        this.mazziere = new Mazziere(giocatori.get( i % giocatori.size()));
+    public Mazziere sceltaMazziere(int i) {
+        return new Mazziere(giocatori.get(i % giocatori.size()));
+    }
+
+    public void aggiungiGiocatori(String[] nomi) {
+        for (String nome : nomi) {
+            giocatori.add(new Giocatore(nome));
+        }
     }
 }

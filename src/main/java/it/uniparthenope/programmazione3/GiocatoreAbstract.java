@@ -24,9 +24,10 @@ public abstract class GiocatoreAbstract {
     public int getGettoni() {
         return gettoni;
     }
-    public void versaQuota(int quotaDaVersare){
+    public int versaQuota(int quotaDaVersare){
         this.gettoni -= quotaDaVersare;
         System.out.println(this.nome + " ha versato " + quotaDaVersare + " gettoni");
+        return quotaDaVersare;
     }
 }
 
