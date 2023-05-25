@@ -34,7 +34,6 @@ public class Controller {
             } catch (FileNotFoundException e) {
                 // Gestisci l'eccezione se l'immagine predefinita non può essere trovata
                 e.printStackTrace();
-                System.out.println("Mammttttt!");
             }
         }
     }
