@@ -19,19 +19,23 @@ public class Controller {
 
     private String getCartaImagePath(Carta carta) {
         String seme = carta.getSeme();
-        String valore = String.valueOf(carta.getValore());
-        char inizialeSeme = seme.charAt(1);
-        String nomeCartella = Character.toUpperCase(inizialeSeme) + seme.substring(2);
-        return "src/main/resources/it/uniparthenope/programmazione4/images/Carte/" + nomeCartella + "/" + valore + inizialeSeme + ".png";
+        String valore = String.valueOf((int)carta.getValore());
+        char inizialeSeme = Character.toUpperCase(seme.charAt(0));
+        String nomeCartella = Character.toUpperCase(inizialeSeme) + seme.substring(1);
+        return "src/main/resources/it/uniparthenope/programmazione3/images/Carte/" + nomeCartella + "/" + valore + inizialeSeme + ".png";
     }
-      public void initialize() {
-        //Di default imposta la carta come girata
-        try {
-            Image defaultImage = new Image(new FileInputStream("src/main/resources/it/uniparthenope/programmazione4/images/Carte/Retro.png"));
-            cardImage.setImage(defaultImage);
-        } catch (FileNotFoundException e) {
-            // Gestisci l'eccezione se l'immagine predefinita non può essere trovata
-            e.printStackTrace();
+    public void initialize() {
+        //Di default imposta la carta come girata verifico di trovarmi nella scena in cui viene usato cardImage
+        //Per evitare di trovare null
+        if (cardImage != null) {
+            try {
+                Image defaultImage = new Image(new FileInputStream("src/main/resources/it/uniparthenope/programmazione3/images/Carte/Retro.png"));
+                cardImage.setImage(defaultImage);
+            } catch (FileNotFoundException e) {
+                // Gestisci l'eccezione se l'immagine predefinita non può essere trovata
+                e.printStackTrace();
+                System.out.println("Mammttttt!");
+            }
         }
     }
 
