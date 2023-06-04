@@ -4,13 +4,7 @@ public class StrategiaComputer implements Strategia{
 
     @Override
     public boolean strategiaDiGioco(Mano m) {
-        return m.cartaPescata().getValore() < 4;
+        return m.cartaPescata().getValore() < 4 && m.getValore() < 5;
     }
 
-    public int quotaComputer(int piatto,int numPuntate){
-        if (numPuntate==0)
-            return 10;
-        else
-            return piatto/numPuntate;
-    }
 }

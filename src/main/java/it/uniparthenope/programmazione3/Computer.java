@@ -1,16 +1,10 @@
 package it.uniparthenope.programmazione3;
 
-public class Computer extends GiocatoreAbstract{
-    private Strategia strat;
-
-    public void stileDiGioco() {
-        strat.strategiaDiGioco(mano);
-
-    }
+public class Computer extends Giocatore{
+    private Strategia strat = new StrategiaComputer();
 
     private Computer() {
-        this.nome = "COMPUTER";
-        this.gettoni = Costanti.m;
+        super("COMPUTER");
     }
 
     private static Computer instanza = null;
@@ -20,6 +14,13 @@ public class Computer extends GiocatoreAbstract{
             instanza = new Computer();
         }
         return instanza;
+    }
+
+    public int quotaComputer(int piatto,int numPuntate, int quotaDaVersare){
+        if (numPuntate==0)
+            return quotaDaVersare;
+        else
+            return piatto/numPuntate;
     }
 
 

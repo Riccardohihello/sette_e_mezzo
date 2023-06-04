@@ -6,8 +6,8 @@ public class Giocatore extends GiocatoreAbstract {
 
     private Strategia strat;
 
-    public void stileDiGioco() {
-            strat.strategiaDiGioco(mano);
+    public boolean stileDiGioco() {
+            return strat.strategiaDiGioco(mano);
 
     }
 
