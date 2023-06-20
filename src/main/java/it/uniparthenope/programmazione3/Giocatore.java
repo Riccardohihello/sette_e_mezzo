@@ -1,13 +1,13 @@
 package it.uniparthenope.programmazione3;
 
-public class Giocatore extends Persona {
+public class Giocatore extends GiocatoreAbstract {
     protected int gettoni;
     private Mano mano;
 
     private Strategia strat;
 
-    public void stileDiGioco() {
-            strat.strategiaDiGioco(mano);
+    public boolean stileDiGioco() {
+            return strat.strategiaDiGioco(mano);
 
     }
 
@@ -16,15 +16,4 @@ public class Giocatore extends Persona {
         this.gettoni = Costanti.m;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setGettoni(int gettoni) {
-        this.gettoni = gettoni;
-    }
-
-    public int getGettoni() {
-        return gettoni;
-    }
 }
