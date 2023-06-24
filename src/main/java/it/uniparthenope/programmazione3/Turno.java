@@ -28,7 +28,9 @@ class Turno {
         raccoltaQuote(giocatori, mazziere);
         stampaQuotaPiatto();
         sceltaStrategie();
+        mazzo.mischia();
         sfida(mazzo);
+        stampaManoGiocatori();
     }
 
 
@@ -55,6 +57,11 @@ class Turno {
         System.out.println("Quota totale piatto: " + piatto);
     }
 
+    public void stampaManoGiocatori() {
+        for (Giocatore g: giocatori)
+            System.out.println( g.getNome()+ " = " + g.getMano().getValore());
+    }
+
     public Mazziere sceltaMazziere(int i) {
         return new Mazziere(giocatori.get(i % giocatori.size()));
     }
@@ -71,14 +78,15 @@ class Turno {
     }
 
     public void sfida(Mazzo m){
-        while(giocatori.get(0).strategiaScelta()){
-            giocatori.get(0).addCarta(m.next());
-            System.out.println(giocatori.get(0).getNome()+" ha aggiunto una carta");
-        }
-        System.out.print("valore della mano di carte di pippo = " + giocatori.get(0).getMano().getValore() + " ");
-        if (giocatori.get(0).getMano().getValore()>7.5)
-        {
-            System.out.println("quindi ha sballato");
+        int i;
+        for(i=0; i<giocatori.size();i++) {
+            while (giocatori.get(i).strategiaScelta()) {
+                giocatori.get(i).addCarta(m.next());
+                System.out.println(giocatori.get(i).getNome() + " ha aggiunto una carta");
+            }
+            if (giocatori.get(i).getMano().getValore() > 7.5) {
+                System.out.println(giocatori.get(i).getNome() +" ha sballato");
+            }
         }
     }
 }
