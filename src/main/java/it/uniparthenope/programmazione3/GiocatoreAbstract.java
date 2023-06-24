@@ -2,8 +2,9 @@ package it.uniparthenope.programmazione3;
 
 public abstract class GiocatoreAbstract {
     protected String nome;
-    protected Mano mano;
+    protected Mano mano = new Mano();
     protected int gettoni;
+    protected Strategia strategia;
 
     public String getNome() {
         return nome;

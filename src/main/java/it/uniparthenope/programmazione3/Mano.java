@@ -7,7 +7,7 @@ public class Mano implements CartaInterface {
     private double valore;
 
     public Mano() {
-        this.ManoDicarte = new ArrayList<>();
+        this.ManoDicarte = new ArrayList<Carta>();
     }
 
     public void addCarta(Carta c) {

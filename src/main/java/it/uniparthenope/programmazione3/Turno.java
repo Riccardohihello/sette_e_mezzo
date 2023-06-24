@@ -27,6 +27,8 @@ class Turno {
 
         raccoltaQuote(giocatori, mazziere);
         stampaQuotaPiatto();
+        sceltaStrategie();
+        sfida(mazzo);
     }
 
 
@@ -42,10 +44,10 @@ class Turno {
 
         for (Giocatore giocatore : giocatoriShuffled) {
             if (!Objects.equals(giocatore.getNome(), m.getNome()) && !Objects.equals(giocatore.getNome(), "COMPUTER")) // controllo che a versare la piatto siano solo i giocatori e NON il mazziere o il computer
-                setQuota(giocatore.versaQuota(quotaDaVersare));    //I giocatori versano la piatto
+                setQuota(giocatore.versaQuota(quotaDaVersare));    //I giocatori versano nel piatto
             numeroPuntate++;
             if (Objects.equals(giocatore.getNome(), "COMPUTER"))
-                computer.quotaComputer(piatto, numeroPuntate,quotaDaVersare);
+               setQuota(computer.quotaComputer(piatto, numeroPuntate,quotaDaVersare));
         }
     }
 
@@ -62,10 +64,21 @@ class Turno {
             giocatori.add(new Giocatore(nome));
         }
     }
+    public void sceltaStrategie(){
+        for(Giocatore g: giocatori){
+            g.setStrat(new StrategiaAggressiva());
+        }
+    }
 
     public void sfida(Mazzo m){
-        while(giocatori.get(0).stileDiGioco()){
+        while(giocatori.get(0).strategiaScelta()){
             giocatori.get(0).addCarta(m.next());
+            System.out.println(giocatori.get(0).getNome()+" ha aggiunto una carta");
+        }
+        System.out.print("valore della mano di carte di pippo = " + giocatori.get(0).getMano().getValore() + " ");
+        if (giocatori.get(0).getMano().getValore()>7.5)
+        {
+            System.out.println("quindi ha sballato");
         }
     }
 }
