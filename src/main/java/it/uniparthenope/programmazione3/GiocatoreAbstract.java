@@ -25,10 +25,34 @@ public abstract class GiocatoreAbstract {
     public int getGettoni() {
         return gettoni;
     }
+
     public int versaQuota(int quotaDaVersare){
         this.gettoni -= quotaDaVersare;
         System.out.println(this.nome + " ha versato " + quotaDaVersare + " gettoni");
         return quotaDaVersare;
+    }
+
+    public void riscuoti(int importo) {
+        gettoni += importo;
+    }
+
+    public void setStrat(Strategia strat) {
+        this.strategia = strat;
+    }
+
+    public boolean strategiaScelta() {
+        return strategia.strategiaDiGioco(mano);
+    }
+
+    public Strategia getStrategia() {
+        return strategia;
+    }
+
+    public double sfida(Mazzo m){
+        while (this.strategiaScelta()) {
+            this.addCarta(m.next());
+        }
+        return mano.getValore();
     }
 }
 

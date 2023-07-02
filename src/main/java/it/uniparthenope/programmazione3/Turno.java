@@ -6,16 +6,21 @@ import java.util.Objects;
 import java.util.Random;
 
 class Turno {
+    private final ArrayList<Giocatore> giocatori;
+    Mazziere mazziere;
+    Mazzo mazzo;
+    Computer computer;
+    RegistroVincite vincitori;
     private final Random random = new Random();
     private int piatto; //quota totale versata dai giocatori
-    private final ArrayList<Giocatore> giocatori;
+    int quotaDaVersare = random.nextInt(1,11);
     private int numeroPuntate = 0;
-    Computer computer;
 
     public Turno(int indiceMazziere, String[] nomi) {
-        Mazzo mazzo = Mazzo.creaMazzo();
+        mazzo = Mazzo.creaMazzo();
         giocatori = new ArrayList<>(); //creazione dei giocatori
-        this.computer = Computer.getInstanza();
+        computer = Computer.getInstanza();
+        vincitori= RegistroVincite.getInstance();
 
        aggiungiGiocatori(nomi);
 
@@ -23,14 +28,21 @@ class Turno {
             System.out.print(giocatore.getNome()+", ");
         }
 
-       Mazziere mazziere = sceltaMazziere(indiceMazziere);
+       this.mazziere = sceltaMazziere(indiceMazziere);
 
-        raccoltaQuote(giocatori, mazziere);
-        stampaQuotaPiatto();
+        raccoltaQuote();
+        for (Giocatore g: giocatori){
+            System.out.println(g.getNome()+ " ha inizialmente " + g.gettoni);
+        }
         sceltaStrategie();
         mazzo.mischia();
-        sfida(mazzo);
-        stampaManoGiocatori();
+        match();
+        mazziere.riscuoti(piatto);
+        registraVincitori();
+        vincitori.pagaVincite(mazziere,quotaDaVersare);
+        vincitori.stampaVincitori();
+        vincitori.reset();
+
     }
 
 
@@ -38,14 +50,13 @@ class Turno {
         this.piatto += quotaVersata;
     }
 
-    public void raccoltaQuote(ArrayList<Giocatore> giocatori, Mazziere m) {
-        int quotaDaVersare = random.nextInt(1,11);
+    public void raccoltaQuote() {
         ArrayList<Giocatore> giocatoriShuffled = new ArrayList<>(giocatori);
         giocatoriShuffled.add(computer);
         Collections.shuffle(giocatoriShuffled);
 
         for (Giocatore giocatore : giocatoriShuffled) {
-            if (!Objects.equals(giocatore.getNome(), m.getNome()) && !Objects.equals(giocatore.getNome(), "COMPUTER")) // controllo che a versare la piatto siano solo i giocatori e NON il mazziere o il computer
+            if (!Objects.equals(giocatore.getNome(), mazziere.getNome()) && !Objects.equals(giocatore.getNome(), "COMPUTER")) // controllo che a versare la piatto siano solo i giocatori e NON il mazziere o il computer
                 setQuota(giocatore.versaQuota(quotaDaVersare));    //I giocatori versano nel piatto
             numeroPuntate++;
             if (Objects.equals(giocatore.getNome(), "COMPUTER"))
@@ -75,18 +86,26 @@ class Turno {
         for(Giocatore g: giocatori){
             g.setStrat(new StrategiaAggressiva());
         }
+        mazziere.setStrat(new StrategiaDifensiva());
     }
 
-    public void sfida(Mazzo m){
-        int i;
-        for(i=0; i<giocatori.size();i++) {
-            while (giocatori.get(i).strategiaScelta()) {
-                giocatori.get(i).addCarta(m.next());
-                System.out.println(giocatori.get(i).getNome() + " ha aggiunto una carta");
+    public void match(){
+        double manoM = mazziere.sfida(mazzo);
+        for (Giocatore g: giocatori) {
+            if (!Objects.equals(g.getNome(), mazziere.getNome())) {
+                if(g.sfida(mazzo)>manoM){
+                    System.out.println(g.getNome() + " ha battuto il mazziere");
+                }
             }
-            if (giocatori.get(i).getMano().getValore() > 7.5) {
-                System.out.println(giocatori.get(i).getNome() +" ha sballato");
+            else {
+                System.out.println("Sono il mazziere ");
             }
+        }
+    }
+    public void registraVincitori(){
+        for (Giocatore g: giocatori){
+            if(g.getMano().getValore() > mazziere.getMano().getValore() && !Objects.equals(g.getNome(), mazziere.getNome()))
+                vincitori.registraVincitori(g);
         }
     }
 }
