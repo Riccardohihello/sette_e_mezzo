@@ -37,6 +37,10 @@ public class Mazzo implements Iterator<Carta> {
         return iteratorPosition;
     }
 
+    public Carta primaPosizione(){
+        return carte.get(0);
+    }
+
     @Override
     public boolean hasNext() {
         int carteTotali = 40;

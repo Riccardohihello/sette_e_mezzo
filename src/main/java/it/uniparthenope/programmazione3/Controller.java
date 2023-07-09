@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 
 public class Controller {
     Mazzo mazzo = Mazzo.creaMazzo();
+    boolean premuto = false;
 
     @FXML
     private ImageView cardImage;
@@ -47,7 +48,7 @@ public class Controller {
     // Metodo per cambiare scena
     @FXML
     public void gameSceneButton(ActionEvent event) throws Exception {
-        ViewControll.cambiaScena("test.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
+        ViewControll.cambiaScena("game.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
     @FXML
     public void precedente() {
@@ -63,16 +64,22 @@ public class Controller {
     }
     @FXML
     public void successiva() {
-        Carta carta = this.mazzo.next();
+        Carta c;
+        if (!premuto) {
+            c = this.mazzo.primaPosizione();
+            premuto= true;
+        } else {
+            c = this.mazzo.next();
+        }
         try {
-            String imagePath = getCartaImagePath(carta);
+            String imagePath = getCartaImagePath(c);
             image = new Image(new FileInputStream(imagePath));
             cardImage.setImage(image);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Valore: " + carta.getValore() + " Seme: " + carta.getSeme() + " Iteratore: " + this.mazzo.getIteratorPosition());
+        System.out.println("Valore: " + c.getValore() + " Seme: " + c.getSeme() + " Iteratore: " + this.mazzo.getIteratorPosition());
     }
     @FXML
     public void mischia() {
