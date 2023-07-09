@@ -52,7 +52,10 @@ public abstract class GiocatoreAbstract {
         while (this.strategiaScelta()) {
             this.addCarta(m.next());
         }
-        return mano.getValore();
+        if(mano.getValore() > 7.5)
+            return 0;
+        else
+            return mano.getValore();
     }
 }
 

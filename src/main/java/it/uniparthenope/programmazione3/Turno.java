@@ -38,7 +38,6 @@ class Turno {
         mazzo.mischia();
         match();
         mazziere.riscuoti(piatto);
-        registraVincitori();
         vincitori.pagaVincite(mazziere,quotaDaVersare);
         vincitori.stampaVincitori();
         vincitori.reset();
@@ -93,19 +92,17 @@ class Turno {
         double manoM = mazziere.sfida(mazzo);
         for (Giocatore g: giocatori) {
             if (!Objects.equals(g.getNome(), mazziere.getNome())) {
-                if(g.sfida(mazzo)>manoM){
+                if (g.sfida(mazzo) > manoM) {
+                    vincitori.registraVincitori(g);
                     System.out.println(g.getNome() + " ha battuto il mazziere");
+                } else {
+                    System.out.println(g.getNome() + " ha perso");
+
                 }
             }
             else {
-                System.out.println("Sono il mazziere ");
+                System.out.println("Sono il mazziere e possiedo "+ mazziere.gettoni);
             }
-        }
-    }
-    public void registraVincitori(){
-        for (Giocatore g: giocatori){
-            if(g.getMano().getValore() > mazziere.getMano().getValore() && !Objects.equals(g.getNome(), mazziere.getNome()))
-                vincitori.registraVincitori(g);
         }
     }
 }
