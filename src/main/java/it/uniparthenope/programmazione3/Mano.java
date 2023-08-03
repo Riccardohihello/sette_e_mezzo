@@ -24,6 +24,7 @@ public class Mano implements CartaInterface {
         }
     }
 
+
     public Carta cartaPescata(){
         return this.ManoDicarte.get(this.ManoDicarte.size()-1);
     }

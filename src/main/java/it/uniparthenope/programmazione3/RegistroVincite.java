@@ -36,6 +36,14 @@ public class RegistroVincite {
             vincitori.clear();
             instance = null;
         }
+
+    public int numeroVincitori() {
+            return vincitori.size();
+    }
+
+    public Giocatore[] getVincitori() {
+            return vincitori.toArray(new Giocatore[0]);
+    }
 }
 
 

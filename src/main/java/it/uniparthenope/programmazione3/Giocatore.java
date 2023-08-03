@@ -9,5 +9,10 @@ public class Giocatore extends GiocatoreAbstract {
     }
 
 
+    public void aumentaGettoni(int vincita) {
+    }
 
+    public int quotaComputer(int piatto, int numeroPuntate, int quotaDaVersare) {
+        return 0;
+    }
 }
