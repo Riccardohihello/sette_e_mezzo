@@ -31,6 +31,7 @@ public class Mazzo implements Iterator<Carta> {
 
     public void mischia() {
         Collections.shuffle(this.carte);
+        iteratorPosition = 0;
     }
 
     public int getIteratorPosition() {
