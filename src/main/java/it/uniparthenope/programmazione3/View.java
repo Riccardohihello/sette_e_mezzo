@@ -15,13 +15,14 @@ public class View extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1280  , 800);
         Controller controller = fxmlLoader.getController();  // Ottieni l'istanza del controllore
         stage.setTitle("sette e mezzo");
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
+
         stage.setScene(scene);
         stage.show();
 
         Partita partita = new Partita(controller);
 
         //Partita partita = new Partita();
-        //scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
 
     }
 
