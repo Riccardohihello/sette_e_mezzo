@@ -133,14 +133,19 @@ public class Controller implements Observer{
         cardImages.add(cardImage4);
     }
     public void resetCardImages() {
+        int i = 0;
         for (ImageView cardImage : cardImages) {
-            cardImage.setVisible(false);
-            try {
-                Image defaultImage = new Image(new FileInputStream("src/main/resources/it/uniparthenope/programmazione3/images/Carte/Retro.png"));
-                cardImage.setImage(defaultImage);
-                cardImage.setVisible(true);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            if (i==0) {
+                i++;
+                try {
+                    Image defaultImage = new Image(new FileInputStream("src/main/resources/it/uniparthenope/programmazione3/images/Carte/Retro.png"));
+                    cardImage.setImage(defaultImage);
+                    cardImage.setVisible(true);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                cardImage.setVisible(false);
             }
         }
     }
