@@ -3,8 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -27,76 +27,6 @@
       <RowConstraints maxHeight="246.4000244140625" minHeight="166.4000244140625" percentHeight="20.0" prefHeight="246.4000244140625" />
    </rowConstraints>
 
-   <VBox alignment="CENTER" GridPane.rowIndex="2">
-      <ImageView fitHeight="70.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
-         </image>
-      </ImageView>
-      <Label text="Paolo">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-      <Label text="6.5">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-   </VBox>
-
-   <!-- Area sinistra -->
-   <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
-      <!-- Contenuto area sinistra -->
-      <ImageView fitHeight="70.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
-         </image>
-      </ImageView>
-      <Label text="Gennaro">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-      <Label text="Sballato">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-   </VBox>
-
-   <!-- Area centrale -->
-   <VBox alignment="CENTER" GridPane.rowIndex="3">
-      <!-- Contenuto area centrale -->
-      <ImageView fitHeight="70.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
-         </image>
-      </ImageView>
-      <Label text="Riccardo">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-      <Label text="Sta giocando..">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-   </VBox>
-
-   <!-- Area destra -->
-   <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
-      <!-- Contenuto area destra -->
-      <ImageView fitHeight="70.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
-         </image>
-      </ImageView>
-      <Label text="Enzo">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-      <Label text="In Attesa">
-         <font>
-            <Font size="18.0" />
-         </font></Label>
-   </VBox>
-
    <!-- Area in basso -->
    <VBox alignment="BOTTOM_CENTER" maxHeight="300.0" prefHeight="300.0" GridPane.columnIndex="1">
       <!-- Contenuto area in basso -->
@@ -109,17 +39,16 @@
          </VBox.margin>
       </Label>
       <HBox alignment="CENTER" spacing="20.0">
-         <ImageView fx:id="cardImage11" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
-         <ImageView fx:id="cardImage2" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
             <HBox.margin>
                <Insets top="20.0" />
             </HBox.margin></ImageView>
-         <ImageView fx:id="cardImage31" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
-         <ImageView fx:id="cardImage4" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
       </HBox>
    </VBox>
 
-   <!-- Area in basso a destra -->
    <VBox alignment="BOTTOM_CENTER" maxHeight="300.0" prefHeight="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <!-- Contenuto area in basso a destra -->
       <Label text="Carte Riccardo">
@@ -138,44 +67,8 @@
          <ImageView fx:id="cardImage4" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
       </HBox>
    </VBox>
-   <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2">
-      <children>
-         <ImageView fitHeight="70.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
-            </image>
-         </ImageView>
-         <Label text="Piergiorgio">
-            <font>
-               <Font size="18.0" />
-            </font></Label>
-         <Label text="In Attesa">
-            <font>
-               <Font size="18.0" />
-            </font></Label>
-      </children>
-   </VBox>
-   <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3">
-      <children>
-         <ImageView fitHeight="70.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
-            </image>
-         </ImageView>
-         <Label text="Mariagiorgianna">
-            <font>
-               <Font size="18.0" />
-            </font></Label>
-         <Label text="Prossimo Turno">
-            <font>
-               <Font size="18.0" />
-            </font></Label>
-      </children>
-   </VBox>
    <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-      <children>
          <TextArea fx:id="textArea" minHeight="80.0" prefHeight="90.0" />
-      </children>
    </VBox>
    <HBox alignment="CENTER" spacing="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
       <Button mnemonicParsing="false" onAction="#successiva" text="Pesca">
@@ -189,4 +82,7 @@
          </font>
       </Button>
    </HBox>
+   <ListView fx:id="giocatoriSx" prefHeight="315.0" prefWidth="320.0" GridPane.rowIndex="1" GridPane.rowSpan="3" />
+   <ListView fx:id="giocatoriDx" layoutX="10.0" layoutY="170.0" prefHeight="315.0" prefWidth="320.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="3" />
+
 </GridPane>

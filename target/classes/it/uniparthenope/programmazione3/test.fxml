@@ -57,21 +57,21 @@
                      <children>
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
+                              <Image url="@images/avatar.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
                         <Label text="Punteggio" />
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
+                              <Image url="@images/avatar.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
                         <Label text="Punteggio" />
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
+                              <Image url="@images/avatar.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
@@ -152,21 +152,21 @@
                      <children>
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
+                              <Image url="@images/avatar.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
                         <Label text="Punteggio" />
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
+                              <Image url="@images/avatar.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
                         <Label text="Punteggio" />
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/lovepik-cartoon-avatar-png-image_401440477_wh1200.png" />
+                              <Image url="@images/avatar.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
