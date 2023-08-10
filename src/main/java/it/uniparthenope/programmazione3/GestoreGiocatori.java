@@ -9,7 +9,7 @@ class GestoreGiocatori {
     private Mazziere mazziere;
     private Random rand = new Random();
     private int indiceMazziere = rand.nextInt(Costanti.n);
-    public String nomiGiocatori[] = {"Giovanni", "Marco", "Francesco", "Luca"};
+    public String[] nomiGiocatori = {"Giovanni", "Marco", "Francesco", "Luca"};
 
     public GestoreGiocatori() {
         aggiungiGiocatori(nomiGiocatori);
