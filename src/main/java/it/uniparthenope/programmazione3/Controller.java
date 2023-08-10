@@ -19,10 +19,7 @@ import java.util.Objects;
 public class Controller implements Observer {
 
     Mazzo mazzo = Mazzo.creaMazzo();
-    boolean premuto = false;
-    private int index = 0;
-    private int numPlayers = 0;
-    private boolean sto = false;
+    private boolean premuto = false;
     @FXML
     ListView<String> giocatoriSx;
     @FXML
@@ -41,31 +38,29 @@ public class Controller implements Observer {
     @FXML
     private ListView<String> carteListView;
     @FXML
-    private TextField nomeGiocatore;
-    private int cacca=0;
+    private TextField formPlayer;
     @FXML
     private void addTextToArea(String text) {
         textArea.appendText(text + "\n");
     }
-
     @Override
+    //Metodo definito in observer, gestisce le notifiche da parte di turno
     public void update(String label, String args) {
-
             if (textArea != null) {
                 addTextToArea(args);
             } else {
                 System.out.println("textArea is null");
             }
-        // Aggiorna l'interfaccia utente con le nuove informazioni dai giocatori e dal mazziere
-        // Chiamate ai metodi per aggiornare l'interfaccia grafica qui
+
     }
 
     @Override
+    //Metodo definito in observer, riceve gli aggiornamenti che riguardano i giocatori (stato,punteggio)
     public void partecipanti(Giocatore giocatori, int size) {
-        // Creare una lista di nomi dei giocatori
+        // Crea una lista di nomi dei giocatori
         nomiGiocatori.add(giocatori.getNome());
-        numPlayers++;
-        if (numPlayers == size) {
+        if (nomiGiocatori.size() == size) {
+            //Divido i giocatori in due liste per averli in due colonne separate, ai lati della scena
             int halfSize = size / 2;
             List<String> nomiSx = new ArrayList<>(nomiGiocatori.subList(0, halfSize));
             List<String> nomiDx = new ArrayList<>(nomiGiocatori.subList(halfSize, size));
@@ -77,11 +72,10 @@ public class Controller implements Observer {
             riempiLista(giocatoriDx, FXCollections.observableArrayList(nomiDx));
 
             nomiGiocatori.clear();
-            numPlayers = 0; // Reimposta il contatore
         }
 
     }
-
+    //REIMPLEMENTAZIONE DELLE CLASSI CELL DI LIST VIEW DA SISTEMARE!
     static class Cell extends ListCell<String> {
         VBox vbox = new VBox();
         Label nameLabel = new Label("");
@@ -115,32 +109,36 @@ public class Controller implements Observer {
 
     }
     @FXML
+    //Handler del pulsante avvia partita
     public void avviaPartita() {
-        System.out.println("VAMOS");
+        //Nasconde il pulsante appena cliccato, cambia la mainLabel e avvia il Turno
         avviaPartita.setVisible(false);
         mainLabel.setText("Partita Iniziata!");
-        Turno turno = new Turno(this,nomiGiocatori);
+        new Turno(this,nomiGiocatori);
     }
     @FXML
+    //Metodo per l'inserimento dei giocatori. Necessario per inserire dinamicamente i players
     public void riempiPlayers() {
-        if (cacca == 0 ) {
-            cacca = Integer.parseInt(nomeGiocatore.getText());
-            nomeGiocatore.setMaxWidth(300);
+        int n = 0;
+        //Primo input servirà per inserire il numero di giocatori
+        if (n == 0 ) {
+            n = Integer.parseInt(formPlayer.getText());
+            formPlayer.setMaxWidth(300);
             mainLabel.setText("Inserisci nome giocatore");
-            nomeGiocatore.clear();
-        } else if (nomiGiocatori.size() < cacca) {
-            nomiGiocatori.add(nomeGiocatore.getText());
-            nomeGiocatore.clear();
+            formPlayer.clear();
+            //Secondo input inserisce n nomi nella lista
+        } else if (nomiGiocatori.size() < n) {
+            nomiGiocatori.add(formPlayer.getText());
+            formPlayer.clear();
             riempiLista(prePartita, (ObservableList<String>) nomiGiocatori);
-            if (nomiGiocatori.size() == cacca) {
+            if (nomiGiocatori.size() == n) {
                 mainLabel.setText("Giocatori inseriti!");
-                nomeGiocatore.setVisible(false);
+                formPlayer.setVisible(false);
                 avviaPartita.setVisible(true);
-
-
             }
         }
     }
+    //Ricava dai campi di carta il path dell'immagine relativa a quella carta
     private String getCartaImagePath(Carta carta) {
         String seme = carta.getSeme();
         String valore = String.valueOf((int) carta.getValore());
@@ -149,8 +147,6 @@ public class Controller implements Observer {
         String imagePath = "/it/uniparthenope/programmazione3/images/Carte/" + nomeCartella + "/" + valore + inizialeSeme + ".png";
         return getClass().getResource(imagePath).toExternalForm();
     }
-
-
    /* public void resetCardImages() {
         int i = 0;
         for (ImageView cardImage : cardImages) {
@@ -168,7 +164,7 @@ public class Controller implements Observer {
             }
         }
     }*/
-
+    //Metodo generico per riempire una listView, controllo interno per vedere se è carta o lista giocatori
     public void riempiLista(ListView<String> lista, ObservableList<String> args) {
         if (lista == carteListView) {
             System.out.println("Url: "+ args);
@@ -179,34 +175,24 @@ public class Controller implements Observer {
             lista.setCellFactory(param -> new Cell());
             lista.setMouseTransparent(true); // Impedisce la selezione
         }
-
     }
-
     @FXML
     public void initialize() {
+        //Metodi inutili, vanno messi nel css
         giocatoriSx.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
         giocatoriDx.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
         carteListView.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
         prePartita.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
+       //Inizializzo variabili scena
         mainLabel.setText("Benvenuto, quanti giocatori siete?");
         this.mazzo.mischia();
-        index = 0;
-        premuto = false;
         textArea.clear();
-        String text = "Mazzo resettato";
-        addTextToArea(text);
-        System.out.println("DIOCSAJIJIAJ");
         avviaPartita.setVisible(false);
-
-
     }
-
-
     @FXML
     private void exitButton() {
         System.exit(0);
     }
-
     // Metodo per cambiare scena
     @FXML
     public void gameSceneButton(ActionEvent event) throws Exception {
@@ -214,10 +200,10 @@ public class Controller implements Observer {
     }
     @FXML
     public void sto() {
-        sto = true;
         mischia();
     }
     @FXML
+    //Simula lo svolgimento del turno, quando un giocatore pesca una carta la si aggiunge alla view
     public void successiva() {
         Carta c;
         boolean sballato = false;
@@ -238,7 +224,7 @@ public class Controller implements Observer {
         }
 
     }
-
+    //Resetta il mazzo e pulisce la scena
     public void mischia() {
         this.mazzo.mischia();
         textArea.clear();
@@ -246,8 +232,7 @@ public class Controller implements Observer {
         riempiLista(carteListView,carteList);
         premuto = false;
     }
-
-
+    //REIMPLEMENTAZIONE DELLE CLASSI CELL DI LIST VIEW DA SISTEMARE!
     public class CartaCell extends ListCell<String> {
         private ImageView img = new ImageView();
 
