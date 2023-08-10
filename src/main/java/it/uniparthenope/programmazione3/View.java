@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class View extends Application {
     @Override
@@ -19,10 +20,6 @@ public class View extends Application {
         stage.show();
 
         Turno turno = new Turno(controller);
-
-        //Partita partita = new Partita();
-        //scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
-
     }
 
     public static void main(String[] args) {
