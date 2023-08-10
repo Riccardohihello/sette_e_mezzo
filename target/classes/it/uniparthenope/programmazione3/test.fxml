@@ -57,21 +57,21 @@
                      <children>
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/avatar.png" />
+                              <Image url="@images/avatar3.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
                         <Label text="Punteggio" />
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/avatar.png" />
+                              <Image url="@images/avatar3.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
                         <Label text="Punteggio" />
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/avatar.png" />
+                              <Image url="@images/avatar3.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
@@ -152,21 +152,21 @@
                      <children>
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/avatar.png" />
+                              <Image url="@images/avatar3.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
                         <Label text="Punteggio" />
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/avatar.png" />
+                              <Image url="@images/avatar3.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
                         <Label text="Punteggio" />
                         <ImageView fitHeight="90.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/avatar.png" />
+                              <Image url="@images/avatar3.png" />
                            </image>
                         </ImageView>
                         <Label text="Nome" />
