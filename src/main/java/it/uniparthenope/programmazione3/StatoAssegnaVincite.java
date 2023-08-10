@@ -23,4 +23,7 @@ class StatoAssegnaVincite implements StatoTurno {
             System.out.println(giocatore.getNome() + " ha ora " + giocatore.getGettoni() + " gettoni.");
         }
     }
+
+
 }
+

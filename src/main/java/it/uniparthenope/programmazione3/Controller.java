@@ -26,15 +26,23 @@ public class Controller implements Observer {
     @FXML
     ListView<String> giocatoriSx;
     @FXML
+    ListView<String> prePartita;
+    @FXML
     ListView<String> giocatoriDx;
     @FXML
     private TextArea textArea;
-    List<String> nomiGiocatori = new ArrayList<>();
+    public ObservableList<String> nomiGiocatori = FXCollections.observableArrayList();
     ObservableList<String> listView = FXCollections.observableArrayList();
     private ObservableList<String> carteList = FXCollections.observableArrayList();
     @FXML
+    private Label mainLabel;
+    @FXML
+    private Button avviaPartita;
+    @FXML
     private ListView<String> carteListView;
-
+    @FXML
+    private TextField nomeGiocatore;
+    private int cacca=0;
     @FXML
     private void addTextToArea(String text) {
         textArea.appendText(text + "\n");
@@ -106,7 +114,33 @@ public class Controller implements Observer {
         }
 
     }
+    @FXML
+    public void avviaPartita() {
+        System.out.println("VAMOS");
+        avviaPartita.setVisible(false);
+        mainLabel.setText("Partita Iniziata!");
+        Turno turno = new Turno(this,nomiGiocatori);
+    }
+    @FXML
+    public void riempiPlayers() {
+        if (cacca == 0 ) {
+            cacca = Integer.parseInt(nomeGiocatore.getText());
+            nomeGiocatore.setMaxWidth(300);
+            mainLabel.setText("Inserisci nome giocatore");
+            nomeGiocatore.clear();
+        } else if (nomiGiocatori.size() < cacca) {
+            nomiGiocatori.add(nomeGiocatore.getText());
+            nomeGiocatore.clear();
+            riempiLista(prePartita, (ObservableList<String>) nomiGiocatori);
+            if (nomiGiocatori.size() == cacca) {
+                mainLabel.setText("Giocatori inseriti!");
+                nomeGiocatore.setVisible(false);
+                avviaPartita.setVisible(true);
 
+
+            }
+        }
+    }
     private String getCartaImagePath(Carta carta) {
         String seme = carta.getSeme();
         String valore = String.valueOf((int) carta.getValore());
@@ -153,7 +187,8 @@ public class Controller implements Observer {
         giocatoriSx.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
         giocatoriDx.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
         carteListView.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
-
+        prePartita.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
+        mainLabel.setText("Benvenuto, quanti giocatori siete?");
         this.mazzo.mischia();
         index = 0;
         premuto = false;
@@ -161,6 +196,7 @@ public class Controller implements Observer {
         String text = "Mazzo resettato";
         addTextToArea(text);
         System.out.println("DIOCSAJIJIAJ");
+        avviaPartita.setVisible(false);
 
 
     }

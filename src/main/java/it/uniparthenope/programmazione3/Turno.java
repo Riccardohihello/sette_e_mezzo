@@ -1,6 +1,9 @@
 package it.uniparthenope.programmazione3;
 
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -8,7 +11,7 @@ class Turno {
     private StatoTurno statoTurno;
     private final Observer osservatore;
     private final GestoreGiocatori gestoreGiocatori;
-    private final GestoreMazzo gestoreMazzo;
+   private final GestoreMazzo gestoreMazzo;
     private final RegistroVincite registroVincite;
     private final Scanner sc = new Scanner(System.in);
     public int piatto;
@@ -16,9 +19,9 @@ class Turno {
     public Random random = new Random();
     public int quotaDaVersare = random.nextInt(1,11);
 
-    public Turno(Observer osservatore) {
+    public Turno(Observer osservatore, ObservableList<String> nomiGiocatori) {
         this.osservatore = osservatore;
-        gestoreGiocatori = new GestoreGiocatori();
+        gestoreGiocatori = new GestoreGiocatori(nomiGiocatori);
         notificaMazziere();
         gestoreMazzo = new GestoreMazzo();
         registroVincite = RegistroVincite.getInstance();
@@ -35,7 +38,7 @@ class Turno {
         stampaRisultati();
     }
 
-    public Mazzo getMazzo() {
+   public Mazzo getMazzo() {
         return gestoreMazzo.getMazzo();
     }
     public Mazziere getMazziere() {

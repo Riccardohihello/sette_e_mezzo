@@ -17,10 +17,10 @@ public class View extends Application {
         Scene scene = new Scene((Parent)fxmlLoader.load(), 1280.0, 800.0);
         Controller controller = (Controller)fxmlLoader.getController();
         stage.setTitle("sette e mezzo");
-        scene.getStylesheets().add(((URL)Objects.requireNonNull(this.getClass().getResource("styles.css"))).toExternalForm());
+        //scene.getStylesheets().add(((URL)Objects.requireNonNull(this.getClass().getResource("styles.css"))).toExternalForm());
         stage.setScene(scene);
         stage.show();
-        Turno turno = new Turno(controller);
+        // Turno turno = new Turno(controller);
     }
 
     public static void main(String[] args) {
