@@ -4,7 +4,6 @@ public abstract class GiocatoreAbstract {
     protected String nome;
     protected Mano mano = new Mano();
     protected int gettoni;
-    protected Strategia strategia;
 
     public String getNome() {
         return nome;
@@ -36,23 +35,5 @@ public abstract class GiocatoreAbstract {
         gettoni += importo;
     }
 
-    public void setStrat(Strategia strat) {
-        this.strategia = strat;
-    }
-
-    public boolean strategiaScelta() {
-        return strategia.strategiaDiGioco(mano);
-    }
-
-    public Strategia getStrategia() {
-        return strategia;
-    }
-
-    public double sfida(Mazzo m){
-        while (this.strategiaScelta()) {
-            this.addCarta(m.next());
-        }
-            return mano.getValore();
-    }
 }
 

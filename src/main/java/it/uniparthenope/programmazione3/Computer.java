@@ -3,7 +3,7 @@ package it.uniparthenope.programmazione3;
 public class Computer extends Giocatore{
     private final Strategia strat = new StrategiaComputer();
 
-    private Computer() {
+    Computer() {
         super("COMPUTER");
     }
 

@@ -41,8 +41,8 @@ public class RegistroVincite {
             return vincitori.size();
     }
 
-    public Giocatore[] getVincitori() {
-            return vincitori.toArray(new Giocatore[0]);
+    public ArrayList<Giocatore> getVincitori() {
+            return vincitori;
     }
 }
 

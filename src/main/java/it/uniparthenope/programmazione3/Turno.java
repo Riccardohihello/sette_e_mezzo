@@ -1,90 +1,99 @@
 package it.uniparthenope.programmazione3;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 class Turno {
-    private Partita partita;  //riferimento a Partita
-
-    //Cosi posso usare i metodi dell'istanza di partita che crea il turno
-    public Turno(Partita partita) {
-        this.partita = partita;
-    }
-    public Computer computer = Computer.getInstanza();
-    public RegistroVincite vincitori = RegistroVincite.getInstance();
-    public ArrayList<Giocatore> giocatori = new ArrayList<>();
-    private final Random random = new Random();
+    private StatoTurno statoTurno;
+    private final Observer osservatore;
+    private final GestoreGiocatori gestoreGiocatori;
+    private final GestoreMazzo gestoreMazzo;
+    private final RegistroVincite registroVincite;
+    private final Scanner sc = new Scanner(System.in);
     public int piatto;
-    public Mazzo mazzo = Mazzo.creaMazzo();
-    public Mazziere mazziere;
-    int numeroPuntate = 0;
+    public int numeroPuntate = 0;
+    public Random random = new Random();
+    public int quotaDaVersare = random.nextInt(1,11);
 
-    int quotaDaVersare = random.nextInt(1,11);
-    private StatoTurno statoCorrente;
+    public Turno(Observer osservatore) {
+        this.osservatore = osservatore;
+        gestoreGiocatori = new GestoreGiocatori();
+        notificaMazziere();
+        gestoreMazzo = new GestoreMazzo();
+        registroVincite = RegistroVincite.getInstance();
+        setStatoTurno(new StatoRaccoltaQuote());
 
-    public void sceltaStrategie(){
-        for(Giocatore g: giocatori){
-            g.setStrat(new StrategiaAggressiva());
+        eseguiTurno();
+    }
 
+    private void eseguiTurno() {
+        eseguiAzione();
+        eseguiAzione();
+        eseguiAzione();
+        eseguiAzione();
+        stampaRisultati();
+    }
+
+    public Mazzo getMazzo() {
+        return gestoreMazzo.getMazzo();
+    }
+    public Mazziere getMazziere() {
+        return gestoreGiocatori.getMazziere();
+    }
+    public void notificaMazziere() {
+        String args = "Il mazziere è " + gestoreGiocatori.getMazziere().getNome();
+        notificaOsservatore("mazziere", args);
+    }
+    public Computer getComputer() {
+        return gestoreGiocatori.getComputer();
+    }
+    public ArrayList<Giocatore> getGiocatori() {
+        return gestoreGiocatori.getGiocatori();
+    }
+    public ArrayList<Giocatore> getVincitori() {
+        return registroVincite.getVincitori();
+    }
+    public int getNumeroVincitori() {
+        return registroVincite.getVincitori().size();
+    }
+    public void registraVincitori(Giocatore g) {
+        registroVincite.registraVincitori(g);
+    }
+
+    private void notificaOsservatore(String label, String args) {
+        if (osservatore != null) {
+            osservatore.update(label, args);
         }
     }
 
-    public Mazziere sceltaMazziere(int indiceMazziere) {
-        return new Mazziere(giocatori.get(indiceMazziere % giocatori.size()));
-
-
+    public void eseguiAzione() {
+        statoTurno.eseguiAzione(this);
     }
 
-    public void creaMazziere(int indiceMazziere) {
-       mazziere = sceltaMazziere(indiceMazziere);
-       String args = "Il mazziere è " + mazziere.getNome();
-       partita.notificaOsservatore("mazziere",args);
+    private void stampaRisultati() {
+        statoTurno.eseguiAzione(this);
+        for (Giocatore giocatore : gestoreGiocatori.getGiocatori()) {
+            System.out.println(giocatore.getNome() + " ha ora " + giocatore.gettoni + " gettoni.");
+            String args = giocatore.getNome() + " ha ora " + giocatore.gettoni + " gettoni";
+            notificaOsservatore("risultati", args);
+            inviaPartecipanti(giocatore, gestoreGiocatori.getGiocatori().size());
+        }
+    }
+
+    private void inviaPartecipanti(Giocatore giocatori, int size) {
+        if (osservatore != null) {
+            osservatore.partecipanti(giocatori, size);
+        }
     }
 
     public void setStatoTurno(StatoTurno stato) {
-        this.statoCorrente = stato;
-    }
-
-    public void raccoltaQuote() {
-        statoCorrente.raccoltaQuote(this);
-    }
-    public void mischiaMazzo() {
-        statoCorrente.mischiaMazzo(this);
-    }
-    public void svolgiMatch() {
-        statoCorrente.svolgiMatch(this);
-
-    }
-    public void assegnaVincite() {
-        statoCorrente.assegnaVincite(this);
-    }
-    public void stampaRisultati() {
-        statoCorrente.stampaRisultati(this);
-        boolean finito = false;
-        int indice = 0;
-        for (Giocatore giocatore : giocatori) {
-            System.out.println(giocatore.getNome() + " ha ora " + giocatore.gettoni + " gettoni.");
-            String args = giocatore.getNome() + " ha ora " + giocatore.gettoni + " gettoni";
-            partita.notificaOsservatore("risultati",args);
-            indice++;
-            partita.inviaPartecipanti(giocatore,giocatori.size());
-        }
+        this.statoTurno = stato;
     }
 
     public void setQuota(int i) {
-        this.quotaDaVersare = i;
-    }
-
-    public void stampaMazziere() {
-        System.out.println("il mazziere è:  " + mazziere.getNome());
-    }
-
-    public void aggiungiGiocatori(String[] nomi) {
-        for (String nome : nomi) {
-            giocatori.add(new Giocatore(nome));
-        }
     }
 }
+
 
 

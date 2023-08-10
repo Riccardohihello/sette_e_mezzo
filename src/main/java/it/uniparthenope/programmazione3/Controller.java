@@ -84,7 +84,6 @@ public class Controller implements Observer{
             numPlayers = 0; // Reimposta il contatore
         }
 
-        // Aggiornare la lista Pietro con i nomi dei giocatori
     }
 
     static class Cell extends ListCell<String> {

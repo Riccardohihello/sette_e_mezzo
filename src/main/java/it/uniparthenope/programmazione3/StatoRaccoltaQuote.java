@@ -6,33 +6,46 @@ import java.util.Objects;
 
 class StatoRaccoltaQuote implements StatoTurno {
     @Override
-    public void raccoltaQuote(Turno turno) {
-        ArrayList<Giocatore> giocatoriShuffled = new ArrayList<>(turno.giocatori);
-        giocatoriShuffled.add(turno.computer);
-        Collections.shuffle(giocatoriShuffled);
-
-        for (Giocatore giocatore : giocatoriShuffled) {
-            if (!Objects.equals(giocatore.getNome(), turno.mazziere.getNome()) && !Objects.equals(giocatore.getNome(), "COMPUTER"))
-                turno.setQuota(giocatore.versaQuota(turno.quotaDaVersare));
-            turno.numeroPuntate++;
-            if (Objects.equals(giocatore.getNome(), "COMPUTER"))
-                turno.setQuota(turno.computer.quotaComputer(turno.piatto, turno.numeroPuntate, turno.quotaDaVersare));
-        }
-
-        // Passa allo stato successivo: mischiatura del mazzo
+    public void eseguiAzione(Turno turno) {
+        raccoltaQuote(turno);
         turno.setStatoTurno(new StatoMischiaMazzo());
     }
 
-    // Implementazione degli altri metodi, se necessario (potrebbero essere vuoti)
-    @Override
-    public void mischiaMazzo(Turno turno) {}
+    private void raccoltaQuote(Turno turno) {
+        ArrayList<Giocatore> giocatoriShuffled = mescolaGiocatori(turno.getGiocatori());
+        giocatoriShuffled.add(turno.getComputer());
+        giocatoriShuffled = mescolaGiocatori(turno.getGiocatori());
 
-    @Override
-    public void svolgiMatch(Turno turno) {}
+        for (Giocatore giocatore : giocatoriShuffled) {
+            gestisciVersamentoQuota(giocatore, turno);
+            turno.numeroPuntate++;
+            gestisciCalcoloQuotaComputer(giocatore, turno);
+        }
+    }
 
-    @Override
-    public void assegnaVincite(Turno turno) {}
+    private ArrayList<Giocatore> mescolaGiocatori(ArrayList<Giocatore> giocatori) {
+        ArrayList<Giocatore> shuffled = new ArrayList<>(giocatori);
+        Collections.shuffle(shuffled);
+        return shuffled;
+    }
 
-    @Override
-    public void stampaRisultati(Turno turno) {}
-}
+    private void gestisciVersamentoQuota(Giocatore giocatore, Turno turno) {
+        if (deveVersareQuota(giocatore, turno)) {
+            turno.setQuota(giocatore.versaQuota(turno.quotaDaVersare));
+        }
+    }
+
+    private boolean deveVersareQuota(Giocatore giocatore, Turno turno) {
+        return !Objects.equals(giocatore.getNome(), turno.getMazziere().getNome()) &&
+                !Objects.equals(giocatore.getNome(), "COMPUTER");
+    }
+
+    private void gestisciCalcoloQuotaComputer(Giocatore giocatore, Turno turno) {
+        if (deveCalcolareQuotaComputer(giocatore)) {
+            turno.setQuota(turno.getComputer().quotaComputer(turno.piatto, turno.numeroPuntate, turno.quotaDaVersare));
+        }
+    }
+
+    private boolean deveCalcolareQuotaComputer(Giocatore giocatore) {
+        return Objects.equals(giocatore.getNome(), "COMPUTER");
+    }}

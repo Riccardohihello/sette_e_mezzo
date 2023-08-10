@@ -7,7 +7,6 @@ public class Mazziere extends GiocatoreAbstract {
         this.nome = g.getNome();
         this.mano = new Mano();
         this.gettoni = g.gettoni;
-        this.strategia = g.getStrategia();
 
         System.out.println("\nMazziere " + this.nome + " creato");
     }

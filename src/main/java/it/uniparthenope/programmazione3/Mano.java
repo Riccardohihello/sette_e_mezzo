@@ -12,18 +12,41 @@ public class Mano implements CartaInterface {
 
     public void addCarta(Carta c) {
         this.ManoDicarte.add(c);
-        if (c.getValore() == 10 && "denari".equals(c.getSeme()) ) {
-            //Pescata matta il giocatore deve scegliere il valore (necessità input)
-            System.out.println("Matta");
-        } else if (c.getValore() > 7) {
-            //Pescata figura, valgono mezzo punto
-            this.valore += 0.5;
+
+        if (Matta(c)) {
+            gestisciMatta(c);
+        } else if (isCartaSpeciale(c)) {
+            aggiornaValoreCartaSpeciale();
         } else {
-            //Tutte le altre carte valgono tanti punti quanto è il loro valore numerico
-            this.valore += c.getValore();
+            aggiornaValoreCartaNormale(c);
         }
     }
 
+    private boolean isCartaSpeciale(Carta c) {
+        return c.getValore() > 7;
+    }
+
+    private boolean Matta(Carta c) {
+        return c.getValore() == 10 && "denari".equals(c.getSeme());
+    }
+
+    private void gestisciMatta(Carta c) {
+        System.out.println("Matta");
+
+        if (this.valore % 1.0 == 0.5) {
+            this.valore = 7.5;
+        } else {
+            this.valore = 7;
+        }
+    }
+
+    private void aggiornaValoreCartaSpeciale() {
+        this.valore += 0.5;
+    }
+
+    private void aggiornaValoreCartaNormale(Carta c) {
+        this.valore += c.getValore();
+    }
 
     public Carta cartaPescata(){
         return this.ManoDicarte.get(this.ManoDicarte.size()-1);
