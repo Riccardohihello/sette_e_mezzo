@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3;
 
 class GestoreMazzo {
-    private final Mazzo mazzo;
+    public final Mazzo mazzo;
 
     public GestoreMazzo() {
         mazzo = Mazzo.creaMazzo(); // Esempio, crea il mazzo
@@ -11,8 +11,9 @@ class GestoreMazzo {
         mazzo.mischia(); // Esempio, mischia il mazzo
     }
 
-    public Mazzo getMazzo() {
-        return mazzo;
-    }
+    //public Mazzo getMazzo() {
+     //   return mazzo;
+   // }
+
 
 }

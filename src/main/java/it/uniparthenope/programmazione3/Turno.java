@@ -24,6 +24,7 @@ class Turno {
         gestoreGiocatori = new GestoreGiocatori(nomiGiocatori);
         notificaMazziere();
         gestoreMazzo = new GestoreMazzo();
+        gestoreMazzo.mischiaMazzo();
         registroVincite = RegistroVincite.getInstance();
         setStatoTurno(new StatoRaccoltaQuote());
 
@@ -38,15 +39,14 @@ class Turno {
         stampaRisultati();
     }
 
-   public Mazzo getMazzo() {
-        return gestoreMazzo.getMazzo();
-    }
+
+
     public Mazziere getMazziere() {
         return gestoreGiocatori.getMazziere();
     }
     public void notificaMazziere() {
         String args = "Il mazziere è " + gestoreGiocatori.getMazziere().getNome();
-        notificaOsservatore("mazziere", args);
+        notificaOsservatore("mazziere", args,null);
     }
     public Computer getComputer() {
         return gestoreGiocatori.getComputer();
@@ -64,9 +64,9 @@ class Turno {
         registroVincite.registraVincitori(g);
     }
 
-    private void notificaOsservatore(String label, String args) {
+    private void notificaOsservatore(String label, String args,Mano mano) {
         if (osservatore != null) {
-            osservatore.update(label, args);
+            osservatore.update(label, args,mano);
         }
     }
 
@@ -79,22 +79,61 @@ class Turno {
         for (Giocatore giocatore : gestoreGiocatori.getGiocatori()) {
             System.out.println(giocatore.getNome() + " ha ora " + giocatore.gettoni + " gettoni.");
             String args = giocatore.getNome() + " ha ora " + giocatore.gettoni + " gettoni";
-            notificaOsservatore("risultati", args);
+            notificaOsservatore("risultati", args, null);
             inviaPartecipanti(giocatore, gestoreGiocatori.getGiocatori().size());
         }
     }
-
     private void inviaPartecipanti(Giocatore giocatori, int size) {
         if (osservatore != null) {
             osservatore.partecipanti(giocatori, size);
         }
     }
 
+
     public void setStatoTurno(StatoTurno stato) {
         this.statoTurno = stato;
     }
 
     public void setQuota(int i) {
+    }
+
+    //Ricava dai campi di carta il path dell'immagine relativa a quella carta
+    private String getCartaImagePath(Carta carta) {
+        String seme = carta.getSeme();
+        String valore = String.valueOf((int) carta.getValore());
+        char inizialeSeme = Character.toUpperCase(seme.charAt(0));
+        String nomeCartella = Character.toUpperCase(inizialeSeme) + seme.substring(1);
+        String imagePath = "/it/uniparthenope/programmazione3/images/Carte/" + nomeCartella + "/" + valore + inizialeSeme + ".png";
+        return getClass().getResource(imagePath).toExternalForm();
+    }
+
+    public String pesca () {
+        for (Giocatore giocatore : gestoreGiocatori.getGiocatori()) {
+            if (giocatore.getNome().equals("Paolo")) {
+                if(gestoreMazzo.mazzo.hasNext()) {
+                    Carta c = gestoreMazzo.mazzo.next();
+                    giocatore.addCarta(c);
+                    notificaOsservatore("carta",getCartaImagePath(c),giocatore.getMano());
+                }
+                return "Paolo ha pescato";
+            } else return "Non è il tuo turno!";
+        }
+        return "Ciao";
+    }
+
+    public void stai () {
+        for (Giocatore giocatore : gestoreGiocatori.getGiocatori()) {
+            if (giocatore.getNome().equals("Paolo")) {
+                Mano  m = giocatore.getMano();
+                if(m.getValore() > 7.5) {
+                    notificaOsservatore("valore","il bro ha sballato",null);
+                } else if (m.getValore() < 7.5) {
+                    notificaOsservatore("valore","il bro ha "+String.valueOf(m.getValore()),null);
+                } else if (m.getValore() == 7.5) {
+                    notificaOsservatore("valore", "il bro c'ha le palle",null);
+                }
+            }
+        }
     }
 }
 

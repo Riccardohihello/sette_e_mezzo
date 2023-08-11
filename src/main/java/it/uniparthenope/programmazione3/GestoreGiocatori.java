@@ -6,12 +6,10 @@ import java.util.Random;
 
 class GestoreGiocatori {
     private final ArrayList<Giocatore> giocatori = new ArrayList<>();
-    public boolean finito = false;
     private final Computer computer = new Computer();
     private Mazziere mazziere;
     private Random rand = new Random();
     private int indiceMazziere = rand.nextInt(Costanti.n);
-    public String[] nomiGiocatori;// = {"Giovanni", "Marco", "Francesco", "Luca"}
 
     public GestoreGiocatori(List<String> nomiGiocatori) {
         aggiungiGiocatori(nomiGiocatori);
@@ -32,6 +30,7 @@ class GestoreGiocatori {
             this.mazziere = new Mazziere(getGiocatori().get(this.indiceMazziere % getGiocatori().size()));
             indiceMazziere++;
         }
+
     }
     public Mazziere getMazziere(){
         return mazziere;

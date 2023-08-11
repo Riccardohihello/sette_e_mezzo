@@ -6,7 +6,7 @@ import java.util.List;
 public interface Observer {
 
     List<String> nomiGiocatori = new ArrayList<>();
-    public void update(String label, String args);
+    public void update(String label, String args,Mano mano);
     public void partecipanti(Giocatore giocatori,int size);
 
 }
