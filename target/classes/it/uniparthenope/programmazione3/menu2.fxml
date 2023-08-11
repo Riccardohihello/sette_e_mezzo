@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -11,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.Controller">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.Controller">
     <columnConstraints>
         <ColumnConstraints percentWidth="25" />
         <ColumnConstraints percentWidth="50" />
@@ -25,33 +24,37 @@
         <RowConstraints maxHeight="246.4000244140625" minHeight="166.4000244140625" percentHeight="20.0" prefHeight="246.4000244140625" />
     </rowConstraints>
 
-    <!-- Area in basso -->
-    <VBox alignment="BOTTOM_CENTER" maxHeight="600.0" prefHeight="600.0" GridPane.columnIndex="1">
-        <!-- Contenuto area in basso -->
-        <Label fx:id="mainLabel" text="Inserisci nomi player" textAlignment="CENTER">
-            <font>
-                <Font size="20.0" />
-            </font>
-            <VBox.margin>
-                <Insets top="50.0" />
-            </VBox.margin>
-        </Label>
-        <TextField fx:id="formPlayer" alignment="CENTER" maxWidth="100.0" onAction="#riempiPlayers" prefWidth="100.0" />
-        <Button fx:id="avviaPartita" onAction="#avviaPartita" text="Avvia Partita" />
+                            <!-- Area in basso -->
+    <VBox alignment="CENTER" maxHeight="600.0" prefHeight="600.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <TextField fx:id="formPlayer" alignment="CENTER" maxWidth="100.0" onAction="#riempiPlayers" prefWidth="100.0">
+         <font>
+            <Font name="System Italic" size="16.0" />
+         </font></TextField>
+        <Button fx:id="avviaPartita" onAction="#avviaPartita" text="Avvia Partita" textAlignment="CENTER" />
     </VBox>
-   <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
+   <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
       <children>
-          <ListView fx:id="prePartita" orientation="HORIZONTAL" prefHeight="200.0" prefWidth="200.0" />
+          <ListView fx:id="prePartita" editable="true" orientation="HORIZONTAL" prefHeight="192.0" prefWidth="442.0" />
       </children>
    </VBox>
-   <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
       <children>
           <Label fx:id="secondLabel" alignment="CENTER" textAlignment="CENTER">
             <font>
-               <Font size="20.0" />
+               <Font name="System Bold" size="20.0" />
             </font>
          </Label>
       </children>
    </VBox>
+   <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+      <children>
+           <!-- Contenuto area in basso -->
+           <Label fx:id="mainLabel" text="Inserisci nomi player" textAlignment="CENTER">
+               <font>
+                   <Font name="System Bold" size="20.0" />
+               </font>
+           </Label>
+      </children>
+   </VBox>
 
-</GridPane>
+            </GridPane>

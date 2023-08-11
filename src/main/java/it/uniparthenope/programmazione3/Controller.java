@@ -2,6 +2,7 @@ package it.uniparthenope.programmazione3;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.Size;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -42,19 +44,21 @@ public class Controller {
 
     //REIMPLEMENTAZIONE DELLE CLASSI CELL DI LIST VIEW DA SISTEMARE!
     static class Cell extends ListCell<String> {
-        VBox vbox = new VBox();
+        VBox hbox = new VBox();
         Label nameLabel = new Label("");
         Label saldoLabel = new Label("");
         ImageView img = new ImageView();
 
         public Cell() {
             super();
-            img.setFitWidth(120);  // Imposta la larghezza desiderata dell'immagine
-            img.setFitHeight(70); // Imposta l'altezza desiderata dell'immagine
+            img.setFitWidth(140);  // Imposta la larghezza desiderata dell'immagine
+            img.setFitHeight(80); // Imposta l'altezza desiderata dell'immagine
             img.setPreserveRatio(true);
-            vbox.setAlignment(Pos.CENTER);
-            vbox.getChildren().addAll(img, nameLabel, saldoLabel);
-            setGraphic(vbox);
+            nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px;");
+            saldoLabel.setStyle("-fx-font-size: 18px;");
+            hbox.setAlignment(Pos.CENTER);
+            hbox.getChildren().addAll(img, nameLabel, saldoLabel);
+            setGraphic(hbox);
             setStyle("-fx-background-color: transparent;");
         }
 
@@ -64,9 +68,9 @@ public class Controller {
 
             if (name != null && !empty) {
                 nameLabel.setText(name);
-                saldoLabel.setText("In attesa");
+                saldoLabel.setText("Aggiunto");
                 img.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/uniparthenope/programmazione3/images/avatar.png"))));
-                setGraphic(vbox);
+                setGraphic(hbox);
             } else {
                 setGraphic(null);
             }
@@ -85,7 +89,7 @@ public class Controller {
         MatchController matchController = loader.getController();
         matchController.avviaTurno(nomiGiocatori);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root,1280,800);
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
@@ -96,7 +100,7 @@ public class Controller {
         if (index == 0 ) {
             index = Integer.parseInt(formPlayer.getText());
             formPlayer.setMaxWidth(300);
-            mainLabel.setText("Inserisci nome: (Paolo)");
+            mainLabel.setText("Inserisci nome: \n(Inserisci Paolo se vuoi pescare)");
             secondLabel.setText("Numero giocatori: "+index);
             formPlayer.clear();
             //Secondo input inserisce index nomi nella lista
@@ -116,7 +120,7 @@ public class Controller {
     public void riempiLista(ListView<String> lista, ObservableList<String> args) {
             lista.setItems(args);
             lista.setCellFactory(param -> new Cell());
-            lista.setMouseTransparent(true); // Impedisce la selezione
+            //lista.setMouseTransparent(true); // Impedisce la selezione
     }
     @FXML
     public void initialize() {

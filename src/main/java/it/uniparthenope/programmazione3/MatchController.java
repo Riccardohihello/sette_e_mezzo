@@ -147,7 +147,7 @@ public class MatchController  implements Observer{
                 lista.setItems(args);
             } else {
                 lista.setItems(args);
-                lista.setCellFactory(param -> new it.uniparthenope.programmazione3.Controller.Cell());
+                lista.setCellFactory(param -> new it.uniparthenope.programmazione3.MatchController.Cell());
                 lista.setMouseTransparent(true); // Impedisce la selezione
             }
         }
