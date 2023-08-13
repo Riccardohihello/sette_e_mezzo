@@ -1,9 +1,16 @@
 package it.uniparthenope.programmazione3;
 
+import it.uniparthenope.programmazione3.classes.Carta;
+import it.uniparthenope.programmazione3.classes.Mano;
+
 public abstract class GiocatoreAbstract {
     protected String nome;
     protected Mano mano = new Mano();
     protected int gettoni;
+    public  boolean turno;
+    {
+        turno = false;
+    }
 
     public String getNome() {
         return nome;

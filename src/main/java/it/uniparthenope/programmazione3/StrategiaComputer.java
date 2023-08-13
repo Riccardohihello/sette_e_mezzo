@@ -1,6 +1,9 @@
 package it.uniparthenope.programmazione3;
 
-public class StrategiaComputer implements Strategia{
+import it.uniparthenope.programmazione3.classes.Mano;
+import it.uniparthenope.programmazione3.interfaces.Strategia;
+
+public class StrategiaComputer implements Strategia {
 
     @Override
     public boolean strategiaDiGioco(Mano m) {

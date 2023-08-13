@@ -1,13 +1,19 @@
 package it.uniparthenope.programmazione3;
 
+import it.uniparthenope.programmazione3.classes.*;
+import it.uniparthenope.programmazione3.interfaces.Observer;
+import it.uniparthenope.programmazione3.interfaces.StatoTurno;
+import it.uniparthenope.programmazione3.states.StatoRaccoltaQuote;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
 
-class Turno {
+import static java.lang.Thread.sleep;
+
+public class Turno {
     private StatoTurno statoTurno;
     private final Observer osservatore;
     private final GestoreGiocatori gestoreGiocatori;
@@ -17,6 +23,7 @@ class Turno {
     public int piatto;
     public int numeroPuntate = 0;
     public Random random = new Random();
+    private CompletableFuture<Integer> quotaCompletableFuture;
     public int quotaDaVersare = random.nextInt(1,11);
 
     public Turno(Observer osservatore, ObservableList<String> nomiGiocatori) {
@@ -27,7 +34,6 @@ class Turno {
         gestoreMazzo.mischiaMazzo();
         registroVincite = RegistroVincite.getInstance();
         setStatoTurno(new StatoRaccoltaQuote());
-
         eseguiTurno();
     }
 
@@ -64,7 +70,7 @@ class Turno {
         registroVincite.registraVincitori(g);
     }
 
-    private void notificaOsservatore(String label, String args,Mano mano) {
+    private void notificaOsservatore(String label, String args, Mano mano) {
         if (osservatore != null) {
             osservatore.update(label, args,mano);
         }
@@ -95,6 +101,14 @@ class Turno {
     }
 
     public void setQuota(int i) {
+    }
+
+    public void notificaQuota(ArrayList<Giocatore> giocatori) {
+        //String args = giocatore.getNome() + "deve versare: ";
+        osservatore.raccoltaQuote(giocatori);
+    }
+    public CompletableFuture<Integer> getQuotaCompletableFuture() {
+        return quotaCompletableFuture;
     }
 
     //Ricava dai campi di carta il path dell'immagine relativa a quella carta
