@@ -15,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
-
 import java.io.IOException;
 import java.util.Objects;
 
@@ -53,12 +52,9 @@ public class Controller {
             img.setFitWidth(140);  // Imposta la larghezza desiderata dell'immagine
             img.setFitHeight(80); // Imposta l'altezza desiderata dell'immagine
             img.setPreserveRatio(true);
-            nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px;");
-            saldoLabel.setStyle("-fx-font-size: 18px;");
             hbox.setAlignment(Pos.CENTER);
             hbox.getChildren().addAll(img, nameLabel, saldoLabel);
             setGraphic(hbox);
-            setStyle("-fx-background-color: transparent;");
         }
 
         public void updateItem(String name, boolean empty) {
@@ -106,7 +102,7 @@ public class Controller {
         } else if (nomiGiocatori.size() < index) {
             nomiGiocatori.add(formPlayer.getText());
             formPlayer.clear();
-            riempiLista(prePartita, (ObservableList<String>) nomiGiocatori);
+            riempiLista(prePartita, nomiGiocatori);
             if (nomiGiocatori.size() == index) {
                 mainLabel.setText("Giocatori inseriti!");
                 formPlayer.setVisible(false);
@@ -123,8 +119,6 @@ public class Controller {
     }
     @FXML
     public void initialize() {
-        //Metodi inutili, vanno messi nel css
-        prePartita.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
        //Inizializzo variabili scena
         mainLabel.setText("Benvenuto, quanti giocatori siete?");
         avviaPartita.setVisible(false);

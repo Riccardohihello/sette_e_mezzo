@@ -1,29 +1,24 @@
 package it.uniparthenope.programmazione3.controllers;
 
-import it.uniparthenope.programmazione3.classes.Giocatore;
-import it.uniparthenope.programmazione3.classes.Mano;
-import it.uniparthenope.programmazione3.Turno;
-import it.uniparthenope.programmazione3.ViewControll;
-import it.uniparthenope.programmazione3.interfaces.Observer;
+import it.uniparthenope.programmazione3.partita.Giocatore;
+import it.uniparthenope.programmazione3.partita.Mano;
+import it.uniparthenope.programmazione3.partita.Turno;
+import it.uniparthenope.programmazione3.observerPattern.Observer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MatchController  implements Observer {
@@ -50,7 +45,6 @@ public class MatchController  implements Observer {
         @Override
         //Metodo definito in observer, gestisce le notifiche da parte di turno
         public void update(String label, String args, Mano mano) {
-
             if (label.equals("risultati")) {
                 if (textArea != null) {
                     addTextToArea(args);
@@ -77,35 +71,26 @@ public class MatchController  implements Observer {
         if (giocatoreIndex.get() < giocatori.size()) {
             Giocatore giocatore = giocatori.get(giocatoreIndex.getAndIncrement());
             System.out.println("Turno di " + giocatore.getNome());
-            Platform.runLater(() -> {
-                mainLabel.setText(giocatore.getNome() + " quanto ti vuoi giocare? Credito = " + giocatore.getGettoni());
-            });
+
+            Platform.runLater(() -> mainLabel.setText(giocatore.getNome() + " quanto ti vuoi giocare? Credito = " + giocatore.getGettoni()));
             gettoni = giocatore.getGettoni();
 
             CompletableFuture<Integer> completableFuture = new CompletableFuture<>();
             quota.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
                     String inputText = quota.getText();
-                    if (inputText.isEmpty()) {
-                        Platform.runLater(() -> {
-                            mainLabel.setText("Scrivi qualcosa coglione!");
-                        });
-                    } else {
+                    if (!inputText.isEmpty()) {
                         int quotaInserita = Integer.parseInt(inputText);
-                        if (quotaInserita < 0) {
-                            Platform.runLater(() -> {
-                                mainLabel.setText("Devi inserire un valore positivo");
-                            });
-                        } else if (quotaInserita > gettoni) {
-                            Platform.runLater(() -> {
-                                mainLabel.setText("Sei troppo povero!");
-                            });
-                        } else {
+                        if (quotaInserita >= 0 && quotaInserita <= gettoni) {
                             System.out.println("Quota inserita: " + quotaInserita);
-                            addTextToArea("Il giocatore "+giocatore.getNome()+" ha puntato "+quotaInserita);
+                            addTextToArea("Il giocatore " + giocatore.getNome() + " ha puntato " + quotaInserita);
                             turno.setQuota(quotaInserita);
                             completableFuture.complete(quotaInserita);
+                        } else {
+                            Platform.runLater(() -> mainLabel.setText(quotaInserita < 0 ? "Devi inserire un valore positivo" : "Sei troppo povero!"));
                         }
+                    } else {
+                        Platform.runLater(() -> mainLabel.setText("Scrivi qualcosa!"));
                     }
                     quota.clear();
                 }
@@ -117,14 +102,13 @@ public class MatchController  implements Observer {
             });
         } else {
             quota.setVisible(false);
-            Platform.runLater(() -> {
-                        mainLabel.setText("Tutti hanno inserito la propria puntata!");
-                    });
-                result.complete(null);
+            Platform.runLater(() -> mainLabel.setText("Tutti hanno inserito la propria puntata!"));
+            result.complete(null);
         }
 
         return result;
     }
+
         @Override
         //Metodo definito in observer, riceve gli aggiornamenti che riguardano i giocatori (stato,punteggio)
         public void partecipanti(Giocatore giocatori, int size) {
@@ -224,22 +208,9 @@ public class MatchController  implements Observer {
         }
         @FXML
         public void initialize() {
-            //Metodi inutili, vanno messi nel css
-            giocatoriSx.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
-            giocatoriDx.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
-            carteListView.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
             //Inizializzo variabili scena
             textArea.clear();
             mainLabel.setText("Partita iniziata");
-        }
-        @FXML
-        private void exitButton() {
-            System.exit(0);
-        }
-        // Metodo per cambiare scena
-        @FXML
-        public void gameSceneButton(ActionEvent event) throws Exception {
-            ViewControll.cambiaScena("game.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
         }
     /*       @FXML
           public void sto() {
