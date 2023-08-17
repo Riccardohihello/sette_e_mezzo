@@ -1,8 +1,7 @@
-package it.uniparthenope.programmazione3.states;
+package it.uniparthenope.programmazione3.statePattern;
 
-import it.uniparthenope.programmazione3.Turno;
-import it.uniparthenope.programmazione3.classes.Giocatore;
-import it.uniparthenope.programmazione3.interfaces.StatoTurno;
+import it.uniparthenope.programmazione3.partita.Turno;
+import it.uniparthenope.programmazione3.partita.Giocatore;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

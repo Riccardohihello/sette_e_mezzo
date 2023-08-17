@@ -1,10 +1,9 @@
 package it.uniparthenope.programmazione3.controllers;
 
-import com.sun.javafx.menu.MenuItemBase;
-import it.uniparthenope.programmazione3.classes.Giocatore;
-import it.uniparthenope.programmazione3.classes.Mano;
-import it.uniparthenope.programmazione3.Turno;
-import it.uniparthenope.programmazione3.interfaces.Observer;
+import it.uniparthenope.programmazione3.partita.Giocatore;
+import it.uniparthenope.programmazione3.partita.Mano;
+import it.uniparthenope.programmazione3.partita.Turno;
+import it.uniparthenope.programmazione3.observerPattern.Observer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

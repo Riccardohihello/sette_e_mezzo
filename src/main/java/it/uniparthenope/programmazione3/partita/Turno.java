@@ -1,9 +1,8 @@
-package it.uniparthenope.programmazione3;
+package it.uniparthenope.programmazione3.partita;
 
-import it.uniparthenope.programmazione3.classes.*;
-import it.uniparthenope.programmazione3.interfaces.Observer;
-import it.uniparthenope.programmazione3.interfaces.StatoTurno;
-import it.uniparthenope.programmazione3.states.StatoRaccoltaQuote;
+import it.uniparthenope.programmazione3.observerPattern.Observer;
+import it.uniparthenope.programmazione3.statePattern.StatoTurno;
+import it.uniparthenope.programmazione3.statePattern.StatoRaccoltaQuote;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
