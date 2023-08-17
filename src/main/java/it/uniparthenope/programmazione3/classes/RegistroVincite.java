@@ -34,7 +34,6 @@ public class RegistroVincite {
         }
         public void reset() {
             vincitori.clear();
-            instance = null;
         }
 
     public int numeroVincitori() {

@@ -7,8 +7,10 @@ import it.uniparthenope.programmazione3.interfaces.StatoTurno;
 public class StatoAssegnaVincite implements StatoTurno {
     @Override
     public void eseguiAzione(Turno turno) {
+        turno.setRegistroVincite();
         assegnaVincite(turno);
         stampaRisultati(turno);
+        System.out.println("Finito");
     }
 
     private void assegnaVincite(Turno turno) {

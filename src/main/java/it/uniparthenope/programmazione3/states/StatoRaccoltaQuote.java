@@ -19,10 +19,24 @@ public class StatoRaccoltaQuote implements StatoTurno {
     }
 
     private void raccoltaQuote(Turno turno) {
-        ArrayList<Giocatore> giocatoriShuffled = mescolaGiocatori(turno.getGiocatori());
+        //ArrayList<Giocatore> giocatoriShuffled = mescolaGiocatori(turno.getGiocatori());
         //giocatoriShuffled.add(turno.getComputer());
         //giocatoriShuffled = mescolaGiocatori(turno.getGiocatori());
-        turno.notificaQuota(giocatoriShuffled);
+        int index = 0;
+        for (Giocatore giocatore : turno.getGiocatori()) {
+            if(index == 0) {
+                giocatore.setStato("Deve versare");
+            } else if (index == 1) {
+                giocatore.setStato("Prossimo a versare");
+            } else {
+                giocatore.setStato("In attesa");
+            }
+            index++;
+        }
+        turno.notificaQuota(turno.getGiocatori());
+        turno.inviaPartecipanti(turno.getGiocatori(),turno.getGiocatori().size());
+        System.out.println("Richiesta quote avviata attendo che tutti inseriscano quota");
+        turno.setStatoTurno(new StatoMischiaMazzo());
         /*
         for (Giocatore giocatore : giocatoriShuffled) {
             System.out.println("Turno di "+giocatore.getNome());

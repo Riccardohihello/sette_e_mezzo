@@ -5,6 +5,7 @@ import it.uniparthenope.programmazione3.classes.Mano;
 
 public abstract class GiocatoreAbstract {
     protected String nome;
+    protected String stato;
     protected Mano mano = new Mano();
     protected int gettoni;
     public  boolean turno;
@@ -19,6 +20,7 @@ public abstract class GiocatoreAbstract {
     public Mano getMano() {
         return mano;
     }
+    public String getStato() {return stato;}
 
     public void addCarta(Carta c) {
         this.mano.addCarta(c);
@@ -27,6 +29,7 @@ public abstract class GiocatoreAbstract {
     public void setGettoni(int gettoni) {
         this.gettoni = gettoni;
     }
+    public void setStato(String stato) {this.stato = stato;}
 
     public int getGettoni() {
         return gettoni;
