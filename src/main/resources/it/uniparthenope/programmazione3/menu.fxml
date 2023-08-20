@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.controllers.MenuController">
-    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="150.0">
+    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="80.0">
       <HBox alignment="TOP_CENTER" prefHeight="58.0" prefWidth="1280.0">
          <children>
             <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Sette e mezzo Demo">
@@ -21,7 +21,7 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-             <Spinner fx:id="playerSpinner" />
+             <Spinner fx:id="spinnerGiocatori" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -30,16 +30,22 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-             <Spinner fx:id="roundSpinner" />
+             <Spinner fx:id="spinnerTurni" />
          </children>
       </HBox>
-        <Label fx:id="resultLabel" text="Label">
+        <Label fx:id="labelRisultato" text="Label">
          <font>
             <Font size="24.0" />
          </font></Label>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" text="Start" />
-            <Button onAction="#exitButton" text="Exit" />
+        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" text="Start">
+            <font>
+               <Font size="18.0" />
+            </font></Button>
+            <Button onAction="#exitButton" text="Exit">
+            <font>
+               <Font size="18.0" />
+            </font></Button>
         </HBox>
     </VBox>
             </StackPane>

@@ -1,6 +1,6 @@
 package it.uniparthenope.programmazione3.controllers;
 
-import it.uniparthenope.programmazione3.ViewControll;
+import it.uniparthenope.programmazione3.model.ImpostazioniPartita;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,7 +31,6 @@ public class Controller {
     private Button avviaPartita;
     @FXML
     private TextField formPlayer;
-    private int index = 0;
     @FXML
     private Label secondLabel;
 
@@ -91,19 +90,15 @@ public class Controller {
     @FXML
     //Metodo per l'inserimento dei giocatori. Necessario per inserire dinamicamente i players
     public void riempiPlayers() {
-        //Primo input servirà per inserire il numero di giocatori
-        if (index == 0 ) {
-            index = Integer.parseInt(formPlayer.getText());
             formPlayer.setMaxWidth(300);
             mainLabel.setText("Inserisci nome: \n(Inserisci Paolo se vuoi pescare)");
-            secondLabel.setText("Numero giocatori: "+index);
-            formPlayer.clear();
-            //Secondo input inserisce index nomi nella lista
-        } else if (nomiGiocatori.size() < index) {
+            secondLabel.setText("Numero giocatori: "+ ImpostazioniPartita.getInstance().getGiocatoriSelezionati());
+
+        if (nomiGiocatori.size() < ImpostazioniPartita.getInstance().getGiocatoriSelezionati()) {
             nomiGiocatori.add(formPlayer.getText());
             formPlayer.clear();
             riempiLista(prePartita, nomiGiocatori);
-            if (nomiGiocatori.size() == index) {
+            if (nomiGiocatori.size() == ImpostazioniPartita.getInstance().getGiocatoriSelezionati()) {
                 mainLabel.setText("Giocatori inseriti!");
                 formPlayer.setVisible(false);
                 avviaPartita.setVisible(true);
@@ -120,17 +115,7 @@ public class Controller {
     @FXML
     public void initialize() {
        //Inizializzo variabili scena
-        mainLabel.setText("Benvenuto, quanti giocatori siete?");
         avviaPartita.setVisible(false);
-    }
-    @FXML
-    private void exitButton() {
-        System.exit(0);
-    }
-    // Metodo per cambiare scena
-    @FXML
-    public void gameSceneButton(ActionEvent event) throws Exception {
-        ViewControll.cambiaScena("game.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
 

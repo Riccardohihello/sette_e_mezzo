@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.statePattern;
 
-import it.uniparthenope.programmazione3.partita.Giocatore;
-import it.uniparthenope.programmazione3.partita.Turno;
+import it.uniparthenope.programmazione3.model.Giocatore;
+import it.uniparthenope.programmazione3.model.Turno;
 
 import java.util.ArrayList;
 import java.util.Collections;

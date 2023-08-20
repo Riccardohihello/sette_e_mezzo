@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.observerPattern;
 
-import it.uniparthenope.programmazione3.partita.Giocatore;
-import it.uniparthenope.programmazione3.partita.Mano;
+import it.uniparthenope.programmazione3.model.Giocatore;
+import it.uniparthenope.programmazione3.model.Mano;
 
 import java.util.ArrayList;
 import java.util.List;

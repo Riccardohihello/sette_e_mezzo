@@ -1,4 +1,4 @@
-package it.uniparthenope.programmazione3.partita;
+package it.uniparthenope.programmazione3.model;
 
 import java.util.ArrayList;
 
@@ -35,10 +35,6 @@ public class RegistroVincite {
         public void reset() {
             vincitori.clear();
         }
-
-    public int numeroVincitori() {
-            return vincitori.size();
-    }
 
     public ArrayList<Giocatore> getVincitori() {
             return vincitori;

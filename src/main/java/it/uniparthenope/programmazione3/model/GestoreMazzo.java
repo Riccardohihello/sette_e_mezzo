@@ -1,4 +1,4 @@
-package it.uniparthenope.programmazione3.partita;
+package it.uniparthenope.programmazione3.model;
 
 public class GestoreMazzo {
     public final Mazzo mazzo;

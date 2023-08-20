@@ -1,6 +1,6 @@
 package it.uniparthenope.programmazione3.statePattern;
 
-import it.uniparthenope.programmazione3.partita.Turno;
+import it.uniparthenope.programmazione3.model.Turno;
 
 public class StatoMischiaMazzo implements StatoTurno {
 @Override

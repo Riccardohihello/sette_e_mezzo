@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.statePattern;
 
-import it.uniparthenope.programmazione3.partita.Giocatore;
-import it.uniparthenope.programmazione3.partita.Turno;
+import it.uniparthenope.programmazione3.model.Giocatore;
+import it.uniparthenope.programmazione3.model.Turno;
 
 public class StatoAssegnaVincite implements StatoTurno {
     @Override
@@ -14,12 +14,12 @@ public class StatoAssegnaVincite implements StatoTurno {
 
     private void assegnaVincite(Turno turno) {
         for (Giocatore vincitore : turno.getVincitori()) {
-            int vincita = calcolaVincita(turno, vincitore);
+            int vincita = calcolaVincita(turno);
             vincitore.aumentaGettoni(vincita);
         }
     }
 
-    private int calcolaVincita(Turno turno, Giocatore vincitore) {
+    private int calcolaVincita(Turno turno) {
         return turno.piatto / turno.getNumeroVincitori();
     }
 

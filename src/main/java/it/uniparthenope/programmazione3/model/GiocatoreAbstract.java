@@ -1,4 +1,4 @@
-package it.uniparthenope.programmazione3.partita;
+package it.uniparthenope.programmazione3.model;
 
 public abstract class GiocatoreAbstract {
     protected String nome;
@@ -30,12 +30,6 @@ public abstract class GiocatoreAbstract {
 
     public int getGettoni() {
         return gettoni;
-    }
-
-    public int versaQuota(int quotaDaVersare){
-        this.gettoni -= quotaDaVersare;
-        System.out.println(this.nome + " ha versato " + quotaDaVersare + " gettoni");
-        return quotaDaVersare;
     }
 
     public void riscuoti(int importo) {

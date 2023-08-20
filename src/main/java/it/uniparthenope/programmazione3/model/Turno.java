@@ -1,4 +1,4 @@
-package it.uniparthenope.programmazione3.partita;
+package it.uniparthenope.programmazione3.model;
 
 import it.uniparthenope.programmazione3.observerPattern.Observer;
 import it.uniparthenope.programmazione3.statePattern.StatoRaccoltaQuote;
@@ -81,16 +81,6 @@ public class Turno {
         statoTurno.eseguiAzione(this);
     }
 
-    private void stampaRisultati() {
-        statoTurno.eseguiAzione(this);
-        inviaPartecipanti(gestoreGiocatori.getGiocatori(), gestoreGiocatori.getGiocatori().size());
-        for (Giocatore giocatore : gestoreGiocatori.getGiocatori()) {
-            System.out.println(giocatore.getNome() + " ha ora " + giocatore.gettoni + " gettoni.");
-            String args = giocatore.getNome() + " ha ora " + giocatore.gettoni + " gettoni";
-            notificaOsservatore("risultati", args, null);
-
-        }
-    }
     public void inviaPartecipanti(ArrayList<Giocatore> giocatori, int size) {
         if (osservatore != null) {
             osservatore.partecipanti(giocatori, size);
@@ -122,13 +112,12 @@ public class Turno {
         return getClass().getResource(imagePath).toExternalForm();
     }
 
-    public String pesca (Giocatore giocatore) {
+    public void pesca (Giocatore giocatore) {
                 if(gestoreMazzo.mazzo.hasNext()) {
                     Carta c = gestoreMazzo.mazzo.next();
                     giocatore.addCarta(c);
                     notificaOsservatore("carta",getCartaImagePath(c),giocatore.getMano());
                 }
-                return "Paolo ha pescato";
     }
 
     public void stai (Giocatore giocatore) {
