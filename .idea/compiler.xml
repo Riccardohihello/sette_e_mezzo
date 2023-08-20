@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Programmazione-3" options="--add-exports javafx.graphics/com.sun.javafx.menu=it.uniparthenope.programmazione3" />
+      <module name="Programmazione-3" options="" />
     </option>
   </component>
 </project>

@@ -32,7 +32,6 @@ public class MatchController  implements Observer {
         TextField quota;
         @FXML
         private TextArea textArea;
-        //ObservableList<String> listView = FXCollections.observableArrayList();
         private final ObservableList<String> carteList = FXCollections.observableArrayList();
         @FXML
         private Label mainLabel;
@@ -44,9 +43,6 @@ public class MatchController  implements Observer {
         private Button pesca;
         @FXML
         private Button stai;
-        boolean terminaTurno = false;
-        boolean pescato = false;
-
     @FXML
         private void addTextToArea(String text) {
             textArea.appendText(text + "\n");
@@ -55,29 +51,32 @@ public class MatchController  implements Observer {
         //Metodo definito in observer, gestisce le notifiche da parte di turno
         public void update(String label, String args, Mano mano) {
 
-            if (label.equals("risultati")) {
-                if (textArea != null) {
-                    addTextToArea(args);
-                } else {
-                    System.out.println("textArea is null");
+            switch (label) {
+                case "risultati" -> {
+                    if (textArea != null) {
+                        addTextToArea(args);
+                    } else {
+                        System.out.println("textArea is null");
+                    }
                 }
-            } else if (label.equals("carta")) {
-                carteList.add(args);
-                String valoreMano = String.valueOf(mano.getValore());
-                addTextToArea(valoreMano);
-                riempiCarte(carteListView, carteList);
-            } else if (label.equals("valore")) {
-                mainLabel.setText(args);
-            } else if (label.equals("shuffle")) {
-                Platform.runLater(() -> mainLabel.setText(args));
-                show.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/uniparthenope/programmazione3/images/shuffle.gif"))));
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                case "carta" -> {
+                    carteList.add(args);
+                    String valoreMano = String.valueOf(mano.getValore());
+                    addTextToArea(valoreMano);
+                    riempiCarte(carteListView, carteList);
                 }
-                show.setVisible(false);
-                turno.eseguiAzione();
+                case "valore" -> mainLabel.setText(args);
+                case "shuffle" -> {
+                    Platform.runLater(() -> mainLabel.setText(args));
+                    show.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/uniparthenope/programmazione3/images/shuffle.gif"))));
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    show.setVisible(false);
+                    turno.eseguiAzione();
+                }
             }
         }
         @Override
@@ -99,7 +98,6 @@ public class MatchController  implements Observer {
                 turno.inviaPartecipanti(turno.getGiocatori(),turno.getGiocatori().size());
             }
 
-            System.out.println("Turno di " + giocatore.getNome());
             Platform.runLater(() -> mainLabel.setText(giocatore.getNome() + " quanto ti vuoi giocare? Credito = " + giocatore.getGettoni()));
             CompletableFuture<Integer> completableFuture = new CompletableFuture<>();
             quota.setOnKeyPressed(event -> {
@@ -114,7 +112,6 @@ public class MatchController  implements Observer {
                         } else if (quotaInserita > giocatore.getGettoni()) {
                             Platform.runLater(() -> mainLabel.setText("Sei troppo povero!"));
                         } else {
-                            System.out.println("Quota inserita: " + quotaInserita);
                             addTextToArea("Il giocatore "+giocatore.getNome()+" ha puntato "+quotaInserita);
                             giocatore.setStato("Ha versato");
                             giocatore.setGettoni(giocatore.getGettoni()-quotaInserita);
@@ -140,66 +137,85 @@ public class MatchController  implements Observer {
 
         return result;
     }
-        @Override
-        public void eseguiMatch(ArrayList<Giocatore> giocatori) {
-            AtomicInteger giocatoreIndex = new AtomicInteger(0);
-            giocatoriTurno(giocatori, giocatoreIndex);
-        }
-        private CompletableFuture<Void> giocatoriTurno(ArrayList<Giocatore> giocatori, AtomicInteger giocatoreIndex) {
-        CompletableFuture<Void> result = new CompletableFuture<>();
+    public void eseguiMatch(ArrayList<Giocatore> giocatori) {
+        AtomicInteger giocatoreIndex = new AtomicInteger(0);
+        giocatoriTurno(giocatori, giocatoreIndex);
+    }
 
+    private void giocatoriTurno(ArrayList<Giocatore> giocatori, AtomicInteger giocatoreIndex) {
         if (giocatoreIndex.get() < giocatori.size()) {
             Giocatore giocatore = giocatori.get(giocatoreIndex.get());
-            System.out.println("Turno di " + giocatore.getNome());
-            giocatore.setStato("E' il tuo turno");
-            if (giocatoreIndex.get()+1 < giocatori.size()) {
-                Giocatore prossimo = giocatori.get(giocatoreIndex.get()+1);
-                prossimo.setStato("Prossimo a giocare");
-            }
-            if (giocatoreIndex.get()>1) {
-                turno.inviaPartecipanti(turno.getGiocatori(),turno.getGiocatori().size());
-            }
-            Platform.runLater(() -> mainLabel.setText(giocatore.getNome() + " peschi o stai? Valore Mano = " + giocatore.getMano().getValore()));
-            CompletableFuture<Integer> completableFuture = new CompletableFuture<>();
-
-            pesca.setOnAction(event -> {
-                turno.pesca(giocatore);
-                if (giocatore.getMano().getValore() > 7.5) {
-                    System.out.println("Il coglione "+giocatore.getNome()+" ha sballato");
-                    giocatore.setStato("Sballato");
-                    carteList.clear();
-                    carteListView.setItems(carteList);
-                    turno.stai(giocatore);
-                    giocatoreIndex.incrementAndGet();
-                    completableFuture.complete(0);
-                } else {
-                    Platform.runLater(() -> mainLabel.setText(giocatore.getNome() + " peschi o stai? Valore Mano = " + giocatore.getMano().getValore()));
-                }
-            });
-            stai.setOnAction(event -> {
-                System.out.println("Il coglione "+giocatore.getNome()+" si è stato");
-                giocatore.setStato("Ha finito, mano: "+giocatore.getMano().getValore());
-                carteList.clear();
-                carteListView.setItems(carteList);
-                turno.stai(giocatore);
-                giocatoreIndex.incrementAndGet();
-                completableFuture.complete(0);
-            });
-            turno.inviaPartecipanti(turno.getGiocatori(),turno.getGiocatori().size());
-            completableFuture.thenAcceptAsync(turnoGiocatoreFinito -> {
-                giocatoriTurno(giocatori, giocatoreIndex).thenAccept(result::complete);
-            });
+            preparaTurno(giocatore, giocatori, giocatoreIndex);
+            gestisciAzioni(giocatore, giocatori, giocatoreIndex);
         } else {
-            Platform.runLater(() -> mainLabel.setText("Tutti hanno completato il turno, vediamo i risultati!"));
-            pesca.setVisible(false);
-            stai.setVisible(false);
-            turno.inviaPartecipanti(turno.getGiocatori(),turno.getGiocatori().size());
-            result.complete(null);
-            turno.eseguiAzione();
+            completamentoTurno();
         }
-
-        return result;
     }
+
+    private void preparaTurno(Giocatore giocatore, ArrayList<Giocatore> giocatori, AtomicInteger giocatoreIndex) {
+        giocatore.setStato("E' il tuo turno");
+        if (giocatoreIndex.get() + 1 < giocatori.size()) {
+            Giocatore prossimo = giocatori.get(giocatoreIndex.get() + 1);
+            prossimo.setStato("Prossimo a giocare");
+        }
+        if (giocatoreIndex.get() > 1) {
+            turno.inviaPartecipanti(turno.getGiocatori(), turno.getGiocatori().size());
+        }
+        Platform.runLater(() -> mainLabel.setText(giocatore.getNome() + " peschi o stai? Valore Mano = " + giocatore.getMano().getValore()));
+    }
+
+    private void gestisciAzioni(Giocatore giocatore, ArrayList<Giocatore> giocatori, AtomicInteger giocatoreIndex) {
+        CompletableFuture<Void> result = new CompletableFuture<>();
+        CompletableFuture<Integer> completableFuture = new CompletableFuture<>();
+
+        pesca.setOnAction(event -> {
+            turno.pesca(giocatore);
+            if (giocatore.getMano().getValore() > 7.5) {
+                giocatore.setStato("Sballato");
+                resettaCarte();
+                turno.stai(giocatore);
+                incrementaGiocatoreIndex(giocatoreIndex, completableFuture);
+            } else {
+                Platform.runLater(() -> mainLabel.setText(giocatore.getNome() + " peschi o stai? Valore Mano = " + giocatore.getMano().getValore()));
+            }
+        });
+
+        stai.setOnAction(event -> {
+            giocatore.setStato("Ha finito, mano: " + giocatore.getMano().getValore());
+            resettaCarte();
+            turno.stai(giocatore);
+            incrementaGiocatoreIndex(giocatoreIndex, completableFuture);
+        });
+
+        turno.inviaPartecipanti(turno.getGiocatori(), turno.getGiocatori().size());
+
+        completableFuture.thenAcceptAsync(turnoGiocatoreFinito -> {
+            giocatoriTurno(giocatori, giocatoreIndex);
+        });
+    }
+
+    private void completamentoTurno() {
+        Platform.runLater(() -> mainLabel.setText("Tutti hanno completato il turno, vediamo i risultati!"));
+        nascondiPulsanti();
+        turno.inviaPartecipanti(turno.getGiocatori(), turno.getGiocatori().size());
+        turno.eseguiAzione();
+    }
+
+    private void resettaCarte() {
+        carteList.clear();
+        carteListView.setItems(carteList);
+    }
+
+    private void incrementaGiocatoreIndex(AtomicInteger giocatoreIndex, CompletableFuture<Integer> completableFuture) {
+        giocatoreIndex.incrementAndGet();
+        completableFuture.complete(0);
+    }
+
+    private void nascondiPulsanti() {
+        pesca.setVisible(false);
+        stai.setVisible(false);
+    }
+
 
         @Override
         //Metodo definito in observer, riceve gli aggiornamenti che riguardano i giocatori (stato,punteggio)
@@ -211,10 +227,9 @@ public class MatchController  implements Observer {
                     riempiLista(giocatoriSx, FXCollections.observableArrayList(nomiSx));
                     riempiLista(giocatoriDx, FXCollections.observableArrayList(nomiDx));
                 });
-
         }
 
-        //REIMPLEMENTAZIONE DELLE CLASSI CELL DI LIST VIEW DA SISTEMARE!
+        //REIMPLEMENTAZIONE DELLE CLASS CELL DI LIST VIEW DA SISTEMARE!
         static class Cell extends ListCell<Giocatore> {
             VBox vbox = new VBox();
             Label nameLabel = new Label("");
@@ -230,7 +245,6 @@ public class MatchController  implements Observer {
                 vbox.setAlignment(Pos.CENTER);
                 vbox.getChildren().addAll(img, nameLabel, saldoLabel,statoLabel);
                 setGraphic(vbox);
-                setStyle("-fx-background-color: transparent;");
             }
 
             public void updateItem(Giocatore giocatore, boolean empty) {
@@ -257,7 +271,6 @@ public class MatchController  implements Observer {
         //Avvia il turno e crea l'istanza, per comunicare
         public void avviaTurno(ObservableList<String> nomiGiocatori) {
             turno = new Turno(this,nomiGiocatori);
-            System.out.println(turno.getComputer());
         }
         //Metodo generico per riempire una listView, controllo interno per vedere se è carta o lista giocatori
         public void riempiLista(ListView<Giocatore> lista, ObservableList<Giocatore> args) {
@@ -266,62 +279,25 @@ public class MatchController  implements Observer {
                 lista.setMouseTransparent(true); // Impedisce la selezione
         }
         public void riempiCarte(ListView<String> lista,ObservableList<String> args) {
-            System.out.println("Url: "+ args);
             lista.setCellFactory(param -> new MatchController.CartaCell());
             lista.setItems(args);
         }
         @FXML
         public void initialize() {
             //Metodi inutili, vanno messi nel css
-            giocatoriSx.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
-            giocatoriDx.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
-            carteListView.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;");
+            String transparent = "-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0; -fx-border-color: transparent;";
+            giocatoriSx.setStyle(transparent);
+            giocatoriDx.setStyle(transparent);
+            carteListView.setStyle(transparent);
             //Inizializzo variabili scena
             textArea.clear();
             mainLabel.setText("Partita iniziata");
 
         }
-        // Metodo per cambiare scena
-    /*       @FXML
-          public void sto() {
-              mischia();
-          }
-          @FXML
-          //Simula lo svolgimento del turno, quando un giocatore pesca una carta la si aggiunge alla view
-         public void successiva() {
-              Carta c;
-              boolean sballato = false;
-              //Sballato deve arrivare da turno
-              if(!sballato) {
-                  if (!premuto) {
-                      c = this.mazzo.primaPosizione();
-                      premuto = true;
-                  } else {
-                      c = this.mazzo.next();
-                  }
-                  String imagePath = getCartaImagePath(c);
-                  carteList.add(imagePath);
-                  riempiLista(carteListView, carteList);
-                  String text = "Hai pescato un " + c.getNome() + " di " + c.getSeme();
-                  addTextToArea(text);
-                  System.out.println("Valore: " + c.getValore() + " Seme: " + c.getSeme() + " Iteratore: " + this.mazzo.getIteratorPosition());
-              }
 
-          }
-          //Resetta il mazzo e pulisce la scena
-          public void mischia() {
-              this.mazzo.mischia();
-              textArea.clear();
-              carteList.clear();
-              riempiLista(carteListView,carteList);
-              premuto = false;
-          }
-
-       */
         //REIMPLEMENTAZIONE DELLE CLASSI CELL DI LIST VIEW DA SISTEMARE!
         public static class CartaCell extends ListCell<String> {
             private final ImageView img = new ImageView();
-
 
             public CartaCell() {
                 super();
@@ -329,14 +305,12 @@ public class MatchController  implements Observer {
                 img.setFitHeight(150); // Imposta l'altezza desiderata dell'immagine
                 img.setPreserveRatio(true);
                 setGraphic(img);
-                setStyle("-fx-background-color: transparent;");
 
             }
 
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-
 
                 if (empty) {
                     img.setImage(null);

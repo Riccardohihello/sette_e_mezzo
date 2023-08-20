@@ -1,16 +1,13 @@
 package it.uniparthenope.programmazione3.partita;
 
 import it.uniparthenope.programmazione3.observerPattern.Observer;
-import it.uniparthenope.programmazione3.statePattern.StatoTurno;
 import it.uniparthenope.programmazione3.statePattern.StatoRaccoltaQuote;
+import it.uniparthenope.programmazione3.statePattern.StatoTurno;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.CompletableFuture;
-
-import static java.lang.Thread.sleep;
 
 public class Turno {
     private StatoTurno statoTurno;
@@ -22,8 +19,6 @@ public class Turno {
     public int piatto;
     public int numeroPuntate = 0;
     public Random random = new Random();
-    private CompletableFuture<Integer> quotaCompletableFuture;
-    private CompletableFuture<Integer> turnoCompletableFuture;
     public int quotaDaVersare = random.nextInt(1,11);
 
     public Turno(Observer osservatore, ObservableList<String> nomiGiocatori) {
@@ -75,9 +70,6 @@ public class Turno {
     public int getNumeroVincitori() {
         return registroVincite.getVincitori().size();
     }
-    public void registraVincitori(Giocatore g) {
-        registroVincite.registraVincitori(g);
-    }
 
     public void notificaOsservatore(String label, String args, Mano mano) {
         if (osservatore != null) {
@@ -120,17 +112,13 @@ public class Turno {
     public void eseguiMatch(ArrayList<Giocatore> giocatori) {
         osservatore.eseguiMatch(giocatori);
     }
-    public CompletableFuture<Integer> getQuotaCompletableFuture() {
-        return quotaCompletableFuture;
-    }
-    public CompletableFuture<Integer> getTurnoCompletableFuture() { return turnoCompletableFuture; }
+
     //Ricava dai campi di carta il path dell'immagine relativa a quella carta
     private String getCartaImagePath(Carta carta) {
         String seme = carta.getSeme();
         String valore = String.valueOf((int) carta.getValore());
-        char inizialeSeme = Character.toUpperCase(seme.charAt(0));
-        String nomeCartella = Character.toUpperCase(inizialeSeme) + seme.substring(1);
-        String imagePath = "/it/uniparthenope/programmazione3/images/Carte/" + nomeCartella + "/" + valore + inizialeSeme + ".png";
+        String nomeCartella = seme.substring(0, 1).toUpperCase() + seme.substring(1);
+        String imagePath = String.format("/it/uniparthenope/programmazione3/images/Carte/%s/%s%s.png", nomeCartella, valore, seme.charAt(0));
         return getClass().getResource(imagePath).toExternalForm();
     }
 
