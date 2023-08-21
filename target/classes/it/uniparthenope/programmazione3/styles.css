@@ -1,5 +1,4 @@
-/*.root {
-    !*This applies styling for the root node*!
+.root {
     -fxbackground-position: center center ;
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
@@ -12,7 +11,7 @@
     -fx-background-radius: 30px;
     -fx-text-fill: white;
     -fx-font-size: 18px;
-}*/
+}
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
@@ -26,4 +25,3 @@
     -fx-font-weight: bold;
     -fx-font-size: 18px;
 }
-.text-field

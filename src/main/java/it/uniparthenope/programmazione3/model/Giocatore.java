@@ -9,12 +9,13 @@ public class Giocatore extends GiocatoreAbstract {
         this.gettoni = Costanti.m;
         this.mano = new Mano();
     }
-
-
-    public void aumentaGettoni(int vincita) {
+    public int puntataDaVersare(int puntataDaVersare) {
+        this.gettoni = this.gettoni - puntataDaVersare;
+        if (this.gettoni - puntataDaVersare < 0) {
+            throw new IllegalArgumentException("La puntata da versare è troppo alta per il saldo attuale.");
+        } else {
+            return puntataDaVersare;
+        }
     }
 
-    public int quotaComputer(int piatto, int numeroPuntate, int quotaDaVersare) {
-        return 0;
-    }
 }

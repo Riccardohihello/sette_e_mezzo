@@ -36,7 +36,28 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>              </dependencies>
+    </dependency>
+      <dependency>
+          <groupId>org.webjars.npm</groupId>
+          <artifactId>prismarine-auth</artifactId>
+          <version>1.4.1</version>
+      </dependency>
+      <dependency>
+          <groupId>org.webjars.npm</groupId>
+          <artifactId>prismarine-auth</artifactId>
+          <version>1.4.1</version>
+      </dependency>
+      <dependency>
+          <groupId>org.webjars.npm</groupId>
+          <artifactId>prismarine-auth</artifactId>
+          <version>1.4.1</version>
+      </dependency>
+      <dependency>
+          <groupId>org.webjars.npm</groupId>
+          <artifactId>prismarine-auth</artifactId>
+          <version>1.4.1</version>
+      </dependency>
+  </dependencies>
 
   <build>
         <plugins>

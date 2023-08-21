@@ -6,18 +6,9 @@ import it.uniparthenope.programmazione3.model.Turno;
 public class StatoAssegnaVincite implements StatoTurno {
     @Override
     public void eseguiAzione(Turno turno) {
-        turno.setRegistroVincite();
-        assegnaVincite(turno);
-        stampaRisultati(turno);
         System.out.println("Finito");
     }
 
-    private void assegnaVincite(Turno turno) {
-        for (Giocatore vincitore : turno.getVincitori()) {
-            int vincita = calcolaVincita(turno);
-            vincitore.aumentaGettoni(vincita);
-        }
-    }
 
     private int calcolaVincita(Turno turno) {
         return turno.piatto / turno.getNumeroVincitori();

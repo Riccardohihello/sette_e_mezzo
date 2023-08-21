@@ -56,7 +56,7 @@ public class MenuController {
 
     @FXML
     public void gameSceneButton(ActionEvent event) throws Exception {
-        ViewControll.cambiaScena("game.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
+        ViewControll.cambiaScena("prepartita.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
     @FXML

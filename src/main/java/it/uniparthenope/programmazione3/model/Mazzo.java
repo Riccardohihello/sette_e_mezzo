@@ -20,13 +20,13 @@ public class Mazzo implements Iterator<Carta> {
         }
     }
 
-    private static Mazzo instanzaMazzo;
-    public static Mazzo creaMazzo()
+    private static Mazzo instance;
+    public static Mazzo getInstance()
     {
-        if(instanzaMazzo == null) {
-            instanzaMazzo = new Mazzo();
+        if(instance == null) {
+            instance = new Mazzo();
         }
-        return instanzaMazzo;
+        return instance;
     }
 
     public void mischia() {
@@ -38,17 +38,10 @@ public class Mazzo implements Iterator<Carta> {
         return iteratorPosition;
     }
 
-    public Carta primaPosizione(){
-        return carte.get(0);
-    }
-
     @Override
     public boolean hasNext() {
         int carteTotali = 40;
-        if(iteratorPosition < carteTotali)
-            return true;
-        else
-            return false;
+        return iteratorPosition < carteTotali;
     }
     @Override
     public Carta next() {

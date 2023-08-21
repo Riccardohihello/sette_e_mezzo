@@ -1,6 +1,7 @@
 package it.uniparthenope.programmazione3.statePattern;
 
 import it.uniparthenope.programmazione3.model.Giocatore;
+import it.uniparthenope.programmazione3.model.ImpostazioniPartita;
 import it.uniparthenope.programmazione3.model.Turno;
 
 import java.util.ArrayList;
@@ -61,16 +62,8 @@ public class StatoRaccoltaQuote implements StatoTurno {
     }
 
     private boolean deveVersareQuota(Giocatore giocatore, Turno turno) {
-        return !Objects.equals(giocatore.getNome(), turno.getMazziere().getNome()) &&
+        return !Objects.equals(giocatore.getNome(), ImpostazioniPartita.getInstance().getMazziere().getNome()) &&
                 !Objects.equals(giocatore.getNome(), "COMPUTER");
     }
 
-    private void gestisciCalcoloQuotaComputer(Giocatore giocatore, Turno turno) {
-        if (deveCalcolareQuotaComputer(giocatore)) {
-            turno.setQuota(turno.getComputer().quotaComputer(turno.piatto, turno.numeroPuntate, turno.quotaDaVersare));
-        }
-    }
-
-    private boolean deveCalcolareQuotaComputer(Giocatore giocatore) {
-        return Objects.equals(giocatore.getNome(), "COMPUTER");
-    }}
+}

@@ -10,20 +10,22 @@ public class Computer extends Giocatore{
         super("COMPUTER");
     }
 
-    private static Computer instanza = null;
-    public static Computer getInstanza()
+    private static Computer instance;
+    public static Computer getInstance()
     {
-        if(instanza == null) {
-            instanza = new Computer();
+        if(instance == null) {
+            instance = new Computer();
         }
-        return instanza;
+        return instance;
     }
 
-    public int quotaComputer(int piatto,int numPuntate, int quotaDaVersare){
+    public int QuotaDaVersare(int piatto,int numPuntate){
+        int quotaDaVersare;
         if (numPuntate==0)
-            return quotaDaVersare;
+            quotaDaVersare = 5;
         else
-            return piatto/numPuntate;
+            quotaDaVersare = piatto/numPuntate;
+        return quotaDaVersare;
     }
 
 

@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class Controller {
+public class PrepartitaController {
 
 
     @FXML
@@ -33,11 +33,6 @@ public class Controller {
     private TextField formPlayer;
     @FXML
     private Label secondLabel;
-
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     //REIMPLEMENTAZIONE DELLE CLASSI CELL DI LIST VIEW DA SISTEMARE!
     static class Cell extends ListCell<String> {
@@ -78,12 +73,12 @@ public class Controller {
         avviaPartita.setVisible(false);
         mainLabel.setText("Partita Iniziata!");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/uniparthenope/programmazione3/test2.fxml"));
-        root = loader.load();
-        MatchController matchController = loader.getController();
-        matchController.avviaTurno(nomiGiocatori);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/uniparthenope/programmazione3/partita.fxml"));
+        Parent root = loader.load();
+        PartitaController partitaController = loader.getController();
+        partitaController.avviaTurno(nomiGiocatori);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
@@ -92,13 +87,13 @@ public class Controller {
     public void riempiPlayers() {
             formPlayer.setMaxWidth(300);
             mainLabel.setText("Inserisci nome: \n(Inserisci Paolo se vuoi pescare)");
-            secondLabel.setText("Numero giocatori: "+ ImpostazioniPartita.getInstance().getGiocatoriSelezionati());
+            secondLabel.setText("Numero giocatori: "+ ImpostazioniPartita.getInstance().getNumeroGiocatori());
 
-        if (nomiGiocatori.size() < ImpostazioniPartita.getInstance().getGiocatoriSelezionati()) {
+        if (nomiGiocatori.size() < ImpostazioniPartita.getInstance().getNumeroGiocatori()) {
             nomiGiocatori.add(formPlayer.getText());
             formPlayer.clear();
             riempiLista(prePartita, nomiGiocatori);
-            if (nomiGiocatori.size() == ImpostazioniPartita.getInstance().getGiocatoriSelezionati()) {
+            if (nomiGiocatori.size() == ImpostazioniPartita.getInstance().getNumeroGiocatori()) {
                 mainLabel.setText("Giocatori inseriti!");
                 formPlayer.setVisible(false);
                 avviaPartita.setVisible(true);

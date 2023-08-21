@@ -6,15 +6,13 @@
 
 <StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.controllers.MenuController">
     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="80.0">
-      <HBox alignment="TOP_CENTER" prefHeight="58.0" prefWidth="1280.0">
-         <children>
+        <HBox alignment="TOP_CENTER" prefHeight="58.0" prefWidth="1280.0">
             <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Sette e mezzo Demo">
-               <font>
-                  <Font name="Comic Sans MS" size="36.0" />
-               </font>
+                <font>
+                    <Font name="Comic Sans MS" size="36.0"/>
+                </font>
             </Label>
-         </children>
-      </HBox>
+        </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label alignment="CENTER" contentDisplay="TOP" text="Numero di giocatori: ">
@@ -24,15 +22,14 @@
              <Spinner fx:id="spinnerGiocatori" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-         <children>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <Label text="Numero di round: ">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-             <Spinner fx:id="spinnerTurni" />
-         </children>
-      </HBox>
+                <font>
+                    <Font size="20.0"/>
+                </font>
+            </Label>
+            <Spinner fx:id="spinnerTurni"/>
+        </HBox>
         <Label fx:id="labelRisultato" text="Label">
          <font>
             <Font size="24.0" />

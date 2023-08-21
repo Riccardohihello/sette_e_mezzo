@@ -9,13 +9,10 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +20,7 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MatchController  implements Observer {
+public class PartitaController implements Observer {
         private Turno turno;
         @FXML
         ListView<Giocatore> giocatoriSx;
@@ -44,7 +41,8 @@ public class MatchController  implements Observer {
         private Button pesca;
         @FXML
         private Button stai;
-    @FXML
+
+        @FXML
         private void addTextToArea(String text) {
             textArea.appendText(text + "\n");
         }
@@ -117,7 +115,6 @@ public class MatchController  implements Observer {
                             giocatore.setStato("Ha versato");
                             giocatore.setGettoni(giocatore.getGettoni()-quotaInserita);
                             turno.inviaPartecipanti(turno.getGiocatori(),turno.getGiocatori().size());
-                            turno.setQuota(quotaInserita);
                             completableFuture.complete(quotaInserita);
                         }
                     }
@@ -126,7 +123,6 @@ public class MatchController  implements Observer {
             });
 
             completableFuture.thenAcceptAsync(quotaInserita -> {
-                turno.numeroPuntate++;
                 avviaVersamentoQuota(giocatori, giocatoreIndex).thenAccept(result::complete);
             });
         } else {
@@ -242,7 +238,7 @@ public class MatchController  implements Observer {
                 lista.setMouseTransparent(true); // Impedisce la selezione
         }
         public void riempiCarte(ListView<String> lista,ObservableList<String> args) {
-            lista.setCellFactory(param -> new MatchController.CartaCell());
+            lista.setCellFactory(param -> new PartitaController.CartaCell());
             lista.setItems(args);
         }
         @FXML

@@ -6,28 +6,19 @@ import it.uniparthenope.programmazione3.statePattern.StatoTurno;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.Objects;
 
 public class Turno {
     private StatoTurno statoTurno;
     private final Observer osservatore;
-    private final GestoreGiocatori gestoreGiocatori;
-    private final GestoreMazzo gestoreMazzo;
-    private final RegistroVincite registroVincite;
-    private final Scanner sc = new Scanner(System.in);
     public int piatto;
-    public int numeroPuntate = 0;
-    public Random random = new Random();
-    public int quotaDaVersare = random.nextInt(1,11);
 
     public Turno(Observer osservatore, ObservableList<String> nomiGiocatori) {
+        ImpostazioniPartita.getInstance().aggiungiGiocatori(nomiGiocatori);
+        ImpostazioniPartita.getInstance().sceltaMazziere();
         this.osservatore = osservatore;
-        gestoreGiocatori = new GestoreGiocatori(nomiGiocatori);
         notificaMazziere();
-        gestoreMazzo = new GestoreMazzo();
-        gestoreMazzo.mischiaMazzo();
-        registroVincite = RegistroVincite.getInstance();
+        Mazzo.getInstance().mischia();
         setStatoTurno(new StatoRaccoltaQuote());
         eseguiTurno();
     }
@@ -36,39 +27,13 @@ public class Turno {
         eseguiAzione();
     }
 
-    public void setRegistroVincite() {
-        double valoreMax = 0.0;
-        for(Giocatore giocatore : getGiocatori()) {
-            if (giocatore.getMano().getValore() > valoreMax && giocatore.getMano().getValore()<= 7.5) {
-                registroVincite.reset();
-                registroVincite.registraVincitori(giocatore);
-            } else if (giocatore.getMano().getValore() == valoreMax) {
-                registroVincite.registraVincitori(giocatore);
-            }
-        }
-    }
-    public void mischia() {
-        gestoreMazzo.mischiaMazzo();
-    }
-
-    public Mazziere getMazziere() {
-        return gestoreGiocatori.getMazziere();
-    }
     public void notificaMazziere() {
-        String args = "Il mazziere è " + gestoreGiocatori.getMazziere().getNome();
+        String args = "Il mazziere è " + ImpostazioniPartita.getInstance().getMazziere().getNome();
         notificaOsservatore("mazziere", args,null);
     }
-    public Computer getComputer() {
-        return gestoreGiocatori.getComputer();
-    }
+
     public ArrayList<Giocatore> getGiocatori() {
-        return gestoreGiocatori.getGiocatori();
-    }
-    public ArrayList<Giocatore> getVincitori() {
-        return registroVincite.getVincitori();
-    }
-    public int getNumeroVincitori() {
-        return registroVincite.getVincitori().size();
+        return ImpostazioniPartita.getInstance().getGiocatori();
     }
 
     public void notificaOsservatore(String label, String args, Mano mano) {
@@ -92,9 +57,6 @@ public class Turno {
         this.statoTurno = stato;
     }
 
-    public void setQuota(int i) {
-    }
-
     public void notificaQuota(ArrayList<Giocatore> giocatori) {
         //String args = giocatore.getNome() + "deve versare: ";
         osservatore.raccoltaQuote(giocatori);
@@ -109,12 +71,12 @@ public class Turno {
         String valore = String.valueOf((int) carta.getValore());
         String nomeCartella = seme.substring(0, 1).toUpperCase() + seme.substring(1);
         String imagePath = String.format("/it/uniparthenope/programmazione3/images/Carte/%s/%s%s.png", nomeCartella, valore, seme.charAt(0));
-        return getClass().getResource(imagePath).toExternalForm();
+        return Objects.requireNonNull(getClass().getResource(imagePath)).toExternalForm();
     }
 
     public void pesca (Giocatore giocatore) {
-                if(gestoreMazzo.mazzo.hasNext()) {
-                    Carta c = gestoreMazzo.mazzo.next();
+                if(Mazzo.getInstance().hasNext()) {
+                    Carta c = Mazzo.getInstance().next();
                     giocatore.addCarta(c);
                     notificaOsservatore("carta",getCartaImagePath(c),giocatore.getMano());
                 }
@@ -123,13 +85,27 @@ public class Turno {
     public void stai (Giocatore giocatore) {
                 Mano  m = giocatore.getMano();
                 if(m.getValore() > 7.5) {
-                    notificaOsservatore("valore","il bro ha sballato",null);
+                    notificaOsservatore("valore","sballato",null);
                 } else if (m.getValore() < 7.5) {
-                    notificaOsservatore("valore","il bro ha "+String.valueOf(m.getValore()),null);
+                    notificaOsservatore("valore","stai con un valore di "+ m.getValore(),null);
                 } else if (m.getValore() == 7.5) {
-                    notificaOsservatore("valore", "il bro c'ha le palle",null);
+                    notificaOsservatore("valore", "hai il massimo",null);
                 }
             }
+
+    public int getNumeroVincitori() {
+        return this.getVincitori().size();
+    }
+
+    public ArrayList<Giocatore> getVincitori() {
+        ArrayList<Giocatore> vincitori = new ArrayList<>();
+        for (Giocatore giocatore : ImpostazioniPartita.getInstance().getGiocatori()) {
+            if (giocatore.getMano().getValore() > ImpostazioniPartita.getInstance().getMazziere().getMano().getValore()) {
+                vincitori.add(giocatore);
+            }
+        }
+        return vincitori;
+    }
 }
 
 
