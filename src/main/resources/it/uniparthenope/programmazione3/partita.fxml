@@ -20,9 +20,9 @@
       <RowConstraints maxHeight="246.4000244140625" minHeight="166.4000244140625" percentHeight="20.0" prefHeight="246.4000244140625" />
    </rowConstraints>
 
-   <VBox alignment="BOTTOM_CENTER" maxHeight="407.0" prefHeight="300.0" prefWidth="640.0" GridPane.columnIndex="1">
+   <VBox alignment="BOTTOM_CENTER" maxHeight="407.0" prefHeight="300.0" prefWidth="640.0" spacing="10.0" GridPane.columnIndex="1">
       <!-- Contenuto area in basso -->
-      <Label fx:id="mainLabel" text="Inserisci nomi player">
+      <Label fx:id="quotaLabel" text="Inserisci la quota">
          <font>
             <Font size="20.0" />
          </font>
@@ -30,10 +30,8 @@
             <Insets top="50.0" />
          </VBox.margin>
       </Label>
-      <TextField fx:id="quota" alignment="CENTER" maxWidth="100.0" prefWidth="100.0">
-         <font>
-            <Font name="System Italic" size="16.0" />
-         </font></TextField>
+      <Spinner fx:id="quotaSpinner" />
+      <Button fx:id="quotaButton" mnemonicParsing="false" text="Versa" onAction="#versaQuotaHandler" />
    </VBox>
    <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <TextArea fx:id="textArea" minHeight="80.0" prefHeight="90.0" />
@@ -54,6 +52,6 @@
    <ListView fx:id="giocatoriDx" layoutX="10.0" layoutY="170.0" prefHeight="315.0" prefWidth="320.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="3" />
    <ListView fx:id="carteListView" maxHeight="180.0" minHeight="180.0" orientation="HORIZONTAL" prefHeight="180.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-      <ImageView fx:id="show" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true"/>
+      <ImageView fx:id="show" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
    </VBox>
 </GridPane>

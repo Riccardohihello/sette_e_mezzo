@@ -32,19 +32,16 @@
          </font></TextField>
         <Button fx:id="avviaPartita" onAction="#avviaPartita" text="Avvia Partita" textAlignment="CENTER" />
     </VBox>
-   <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" GridPane.valignment="CENTER">
-      <children>
-          <ListView fx:id="prePartita" editable="true" orientation="HORIZONTAL" prefHeight="192.0" prefWidth="442.0" />
-      </children>
-   </VBox>
-   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-      <children>
-          <Label fx:id="secondLabel" alignment="CENTER" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="20.0" />
-            </font>
-         </Label>
-      </children>
-   </VBox>
+    <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+          GridPane.rowSpan="2" GridPane.valignment="CENTER">
+        <ListView fx:id="prePartita" editable="true" orientation="HORIZONTAL" prefHeight="192.0" prefWidth="442.0"/>
+    </VBox>
+    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <Label fx:id="secondLabel" alignment="CENTER" textAlignment="CENTER">
+          <font>
+              <Font name="System Bold" size="20.0"/>
+          </font>
+        </Label>
+    </VBox>
 
             </GridPane>

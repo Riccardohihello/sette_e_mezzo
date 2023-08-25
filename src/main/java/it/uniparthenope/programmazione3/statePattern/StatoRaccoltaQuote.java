@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.statePattern;
 
 import it.uniparthenope.programmazione3.model.Giocatore;
-import it.uniparthenope.programmazione3.model.ImpostazioniPartita;
+import it.uniparthenope.programmazione3.model.StatistichePartita;
 import it.uniparthenope.programmazione3.model.Turno;
 
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class StatoRaccoltaQuote implements StatoTurno {
     }
 
     private boolean deveVersareQuota(Giocatore giocatore, Turno turno) {
-        return !Objects.equals(giocatore.getNome(), ImpostazioniPartita.getInstance().getMazziere().getNome()) &&
+        return !Objects.equals(giocatore.getNome(), StatistichePartita.getInstance().getMazziere().getNome()) &&
                 !Objects.equals(giocatore.getNome(), "COMPUTER");
     }
 

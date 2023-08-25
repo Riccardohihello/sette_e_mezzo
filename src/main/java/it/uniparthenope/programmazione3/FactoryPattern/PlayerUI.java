@@ -1,4 +1,4 @@
-package it.uniparthenope.programmazione3;
+package it.uniparthenope.programmazione3.FactoryPattern;
 
 import it.uniparthenope.programmazione3.model.Giocatore;
 import javafx.geometry.Pos;

@@ -11,11 +11,9 @@ import java.util.Objects;
 public class Turno {
     private StatoTurno statoTurno;
     private final Observer osservatore;
-    public int piatto;
 
-    public Turno(Observer osservatore, ObservableList<String> nomiGiocatori) {
-        ImpostazioniPartita.getInstance().aggiungiGiocatori(nomiGiocatori);
-        ImpostazioniPartita.getInstance().sceltaMazziere();
+    public Turno(Observer osservatore) {
+        StatistichePartita.getInstance().sceltaMazziere();
         this.osservatore = osservatore;
         notificaMazziere();
         Mazzo.getInstance().mischia();
@@ -28,12 +26,12 @@ public class Turno {
     }
 
     public void notificaMazziere() {
-        String args = "Il mazziere è " + ImpostazioniPartita.getInstance().getMazziere().getNome();
+        String args = "Il mazziere è " + StatistichePartita.getInstance().getMazziere().getNome();
         notificaOsservatore("mazziere", args,null);
     }
 
     public ArrayList<Giocatore> getGiocatori() {
-        return ImpostazioniPartita.getInstance().getGiocatori();
+        return StatistichePartita.getInstance().getGiocatori();
     }
 
     public void notificaOsservatore(String label, String args, Mano mano) {
@@ -99,8 +97,8 @@ public class Turno {
 
     public ArrayList<Giocatore> getVincitori() {
         ArrayList<Giocatore> vincitori = new ArrayList<>();
-        for (Giocatore giocatore : ImpostazioniPartita.getInstance().getGiocatori()) {
-            if (giocatore.getMano().getValore() > ImpostazioniPartita.getInstance().getMazziere().getMano().getValore()) {
+        for (Giocatore giocatore : StatistichePartita.getInstance().getGiocatori()) {
+            if (giocatore.getMano().getValore() > StatistichePartita.getInstance().getMazziere().getMano().getValore()) {
                 vincitori.add(giocatore);
             }
         }

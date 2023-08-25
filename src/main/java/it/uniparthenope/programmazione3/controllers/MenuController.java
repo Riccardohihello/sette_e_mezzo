@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.controllers;
 
 import it.uniparthenope.programmazione3.ViewControll;
-import it.uniparthenope.programmazione3.model.ImpostazioniPartita;
+import it.uniparthenope.programmazione3.model.StatistichePartita;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -25,7 +25,8 @@ public class MenuController {
     private void initialize() {
         inizializzaSpinner();
         inizializzaLabelRisultato();
-        collegaSpinnerARisultato();
+        collegaSpinnerARisultato(spinnerGiocatori);
+        collegaSpinnerARisultato(spinnerTurni);
     }
 
     private void inizializzaSpinner() {
@@ -33,21 +34,19 @@ public class MenuController {
         inizializzaSpinner(spinnerTurni, 1, 10, 1);
     }
 
-    private void inizializzaSpinner(Spinner<Integer> spinner, int min, int max, int valoreIniziale) {
+    public void inizializzaSpinner(Spinner<Integer> spinner, int min, int max, int valoreIniziale) {
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, valoreIniziale);
         spinner.setValueFactory(valueFactory);
     }
 
-    private void collegaSpinnerARisultato() {
-        spinnerGiocatori.valueProperty().addListener((observable, valorePrecedente, nuovoValore) ->
-                aggiornaLabelRisultato());
-        spinnerTurni.valueProperty().addListener((observable, valorePrecedente, nuovoValore) ->
+    private void collegaSpinnerARisultato(Spinner<Integer> spinner) {
+        spinner.valueProperty().addListener((observable , valorePrecedente, nuovoValore) ->
                 aggiornaLabelRisultato());
     }
 
     private void aggiornaLabelRisultato() {
             inizializzaLabelRisultato();
-            ImpostazioniPartita.getInstance().aggiornaImpostazioni(spinnerGiocatori.getValue(), spinnerTurni.getValue());
+            StatistichePartita.getInstance().aggiornaImpostazioni(spinnerGiocatori.getValue(), spinnerTurni.getValue());
     }
     private void inizializzaLabelRisultato() {
         labelRisultato.setText("Numero di giocatori selezionati: " + spinnerGiocatori.getValue() +

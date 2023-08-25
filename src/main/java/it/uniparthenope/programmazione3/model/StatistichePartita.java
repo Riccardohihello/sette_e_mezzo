@@ -1,41 +1,37 @@
 package it.uniparthenope.programmazione3.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-public class ImpostazioniPartita {
+import java.util.ArrayList;
+
+public class StatistichePartita {
     private int numeroGiocatori = 2;
     private int numeroTurni = 1;
-    private final ArrayList<String> nomiGiocatori = new ArrayList<>();
-    private static ImpostazioniPartita instance;
+    private int indiceScorrimento = 0;
+
     private final ArrayList<Giocatore> giocatori = new ArrayList<>();
     private Mazziere mazziere;
     private int indiceMazziere = 0;
+    public int piatto;
+
 
 
     // Costruttore privato per impedire istanze multiple
-    private ImpostazioniPartita() {
-        aggiungiGiocatori(nomiGiocatori);
+    private StatistichePartita() {
         sceltaMazziere();
         // Inizializza eventuali valori predefiniti
     }
 
-    public static ImpostazioniPartita getInstance() {
+    private static StatistichePartita instance;
+
+    public static StatistichePartita getInstance() {
         if (instance == null) {
-            synchronized (ImpostazioniPartita.class) {
-                if (instance == null) {
-                    instance = new ImpostazioniPartita();
-                }
-            }
+            instance = new StatistichePartita();
         }
         return instance;
     }
-    public void aggiungiGiocatori(List<String> nomi) {
-        for (String nome : nomi) {
-            giocatori.add(new Giocatore(nome));
-            System.out.println("Ho aggiunto "+nome);
-        }
-    }
+
     public ArrayList<Giocatore> getGiocatori() {
         return giocatori;
     }
@@ -60,10 +56,33 @@ public class ImpostazioniPartita {
         return numeroTurni;
     }
 
-    public void setNumeroGiocatori(String nomeGiocatore) {
-        this.nomiGiocatori.add(nomeGiocatore);
-    }
     public Mazziere getMazziere() {
         return mazziere;
+    }
+
+    public void addGiocatore(String nomeGiocatore) {
+        giocatori.add(new Giocatore(nomeGiocatore));
+    }
+
+    public void addComputer(){
+        this.giocatori.add(Computer.getInstance());
+    }
+
+    public ObservableList<String> getNomiGiocatori() {
+        ObservableList<String> nomi = FXCollections.observableArrayList();
+        for (Giocatore g : giocatori) {
+            nomi.add(g.getNome());
+        }
+        return nomi;
+    }
+
+    public void inserisciQuota (int quota) {
+        this.piatto += quota;
+    }
+
+    public Giocatore scorriGiocatori(){
+        int temp = indiceScorrimento % giocatori.size();
+        indiceScorrimento += 1;
+        return giocatori.get(temp);
     }
 }
