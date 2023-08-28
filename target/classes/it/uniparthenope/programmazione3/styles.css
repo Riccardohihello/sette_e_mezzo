@@ -2,14 +2,18 @@
     -fxbackground-position: center center ;
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
-    -fx-background-image: url("images/bg.jpg");
+    -fx-background-image: url("images/background.jpg");
     -fx-font-family: "Comic Sans MS";
+    -fx-text-fill: white;
+}
+
+.label, .button{
+    -fx-text-fill: white;
 }
 
 .button{
     -fx-background-color: linear-gradient(#ff5400, #be1d00);
     -fx-background-radius: 30px;
-    -fx-text-fill: white;
     -fx-font-size: 18px;
 }
 .list-view {
