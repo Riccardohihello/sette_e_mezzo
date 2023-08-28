@@ -35,6 +35,7 @@ public class MenuController {
     }
 
     public void inizializzaSpinner(Spinner<Integer> spinner, int min, int max, int valoreIniziale) {
+        spinner.getStyleClass().add("split-arrows-horizontal");
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, valoreIniziale);
         spinner.setValueFactory(valueFactory);
     }

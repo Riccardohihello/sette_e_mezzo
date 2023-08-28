@@ -58,6 +58,7 @@ public class PartitaController  {
         }
 
         public void inizializzaSpinnerQuota(){
+                quotaSpinner.getStyleClass().add("split-arrows-horizontal");
                 label.setText(giocatoreSelezionato.getNome() + " inserisci la quota");
 
                 int GettoniGiocatore = giocatoreSelezionato.getGettoni(); // Ottieni il numero di gettoni del giocatore
@@ -114,7 +115,7 @@ public class PartitaController  {
                 textArea.appendText(giocatoreSelezionato.getNome() + " ha pescato " + carta.getSeme() + " " + carta.getValore() +"\n");
                 if (giocatoreSelezionato.getMano().getValore() >= 7.5)
                 {
-                        textArea.setText(giocatoreSelezionato.getNome() + " hai sballato\n");
+                        textArea.appendText(giocatoreSelezionato.getNome() + " hai sballato\n");
                         pesca.setVisible(false);
                 }
         }

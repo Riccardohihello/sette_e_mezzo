@@ -35,11 +35,11 @@
             <Font size="24.0" />
          </font></Label>
         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" text="Start">
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" text="Inizia">
             <font>
                <Font size="18.0" />
             </font></Button>
-            <Button onAction="#exitButton" text="Exit">
+            <Button onAction="#exitButton" text="esci">
             <font>
                <Font size="18.0" />
             </font></Button>
