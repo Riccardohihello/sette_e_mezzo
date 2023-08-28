@@ -17,4 +17,8 @@ public class Carta implements CartaInterface {
         return seme;
     }
 
+    public String getImagePath() {
+        return "/it/uniparthenope/programmazione3/images/Carte/" + seme +"/"+ valore +seme.charAt(0) + ".png";
+    }
+
 }

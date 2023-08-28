@@ -7,18 +7,14 @@ public class Mazziere extends GiocatoreAbstract {
         this.nome = g.getNome();
         this.mano = new Mano();
         this.gettoni = g.getGettoni();
-
-        System.out.println("\nMazziere " + this.nome + " creato");
     }
 
     public void pagaVincite(int importo, Giocatore g)
     {
         this.gettoni -= importo;
-        g.riscuoti(importo);
+        g.riscuoti(importo * 2);
     }
-/*    public void daiCarte(Mazzo mazzo, ArrayList<Giocatore> giocatori) {
-        for (Giocatore g : giocatori) {
-            g.;
-        }
-    }*/
+    public Carta daiCarte() {
+        return Mazzo.getInstance().next();
+    }
 }

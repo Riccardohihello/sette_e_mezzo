@@ -16,6 +16,6 @@ module it.uniparthenope.programmazione3 {
     exports it.uniparthenope.programmazione3.strategyPattern;
     opens it.uniparthenope.programmazione3.strategyPattern to javafx.fxml;
     exports it.uniparthenope.programmazione3;
-    exports it.uniparthenope.programmazione3.FactoryPattern;
-    opens it.uniparthenope.programmazione3.FactoryPattern to javafx.fxml;
+    exports it.uniparthenope.programmazione3.UI;
+    opens it.uniparthenope.programmazione3.UI to javafx.fxml;
 }

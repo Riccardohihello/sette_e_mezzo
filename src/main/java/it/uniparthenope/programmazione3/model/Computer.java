@@ -19,12 +19,12 @@ public class Computer extends Giocatore{
         return instance;
     }
 
-    public int QuotaDaVersare(int piatto,int numPuntate){
+    public int QuotaDaVersare(int piatto,int puntatePrecedenti){
         int quotaDaVersare;
-        if (numPuntate==0)
-            quotaDaVersare = 5;
+        if (piatto==0)
+            quotaDaVersare = 10;
         else
-            quotaDaVersare = piatto/numPuntate;
+            quotaDaVersare = piatto / puntatePrecedenti;
         return quotaDaVersare;
     }
 

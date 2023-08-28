@@ -12,7 +12,7 @@ public class Mazzo implements Iterator<Carta> {
     private Mazzo() {
         this.carte = new ArrayList<>();
 
-        String[] semi = {"coppe", "denari", "spade", "bastoni"};
+        String[] semi = {"Coppe", "Denari", "Spade", "Bastoni"};
         for (String seme : semi) {
             for (int i = 0; i < 10; i++) {
                 this.carte.add(new Carta(i+1, seme));
@@ -45,13 +45,13 @@ public class Mazzo implements Iterator<Carta> {
     }
     @Override
     public Carta next() {
+        int temp = iteratorPosition;
         if (iteratorPosition < carte.size() - 1) {
             iteratorPosition++;
         } else {
             iteratorPosition = 0;
         }
-
-        return carte.get(iteratorPosition);
+        return carte.get(temp);
     }
 
     public Carta previous() {

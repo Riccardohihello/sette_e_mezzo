@@ -11,6 +11,7 @@ public class ViewControll {
     public static void cambiaScena(String fxml, Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(View.class.getResource(fxml)));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(ViewControll.class.getResource("styles.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

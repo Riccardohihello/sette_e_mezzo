@@ -1,8 +1,10 @@
 package it.uniparthenope.programmazione3.controllers;
 
-import it.uniparthenope.programmazione3.FactoryPattern.Cell;
+import it.uniparthenope.programmazione3.UI.Cell;
 import it.uniparthenope.programmazione3.ViewControll;
+import it.uniparthenope.programmazione3.model.Computer;
 import it.uniparthenope.programmazione3.model.StatistichePartita;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +14,6 @@ import javafx.stage.Stage;
 
 
 public class PrepartitaController {
-
 
     @FXML
     ListView<String> prePartita;
@@ -24,14 +25,18 @@ public class PrepartitaController {
     private TextField formPlayer;
     @FXML
     private Label secondLabel;
+    ObservableList<String> giocatori = FXCollections.observableArrayList();
+
+    @FXML
+    public void initialize() {
+        riempiLista(this.giocatori);
+        //Inizializzo variabili scena
+        avviaPartita.setVisible(false);
+    }
 
     @FXML
     //Handler del pulsante avvia partita
     public void avviaPartita(ActionEvent event) throws Exception {
-        //Nasconde il pulsante appena cliccato, cambia la mainLabel e avvia il Turno
-        avviaPartita.setVisible(false);
-        mainLabel.setText("Partita Iniziata!");
-
         ViewControll.cambiaScena("partita.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow() );
     }
     @FXML
@@ -52,14 +57,14 @@ public class PrepartitaController {
 
     private void aggiungiGiocatore(String nomeGiocatore) {
         StatistichePartita.getInstance().addGiocatore(nomeGiocatore);
+        giocatori.add(nomeGiocatore);
         formPlayer.clear();
-        riempiLista(prePartita, StatistichePartita.getInstance().getNomiGiocatori());
     }
 
     private void aggiornaInterfacciaUtente(boolean tuttiGiocatoriAggiunti, int numeroMassimoGiocatori) {
         if (tuttiGiocatoriAggiunti) {
+            giocatori.add("COMPUTER");
             StatistichePartita.getInstance().addComputer();
-            riempiLista(prePartita, StatistichePartita.getInstance().getNomiGiocatori());
             mainLabel.setText("Giocatori inseriti!");
             formPlayer.setVisible(false);
             avviaPartita.setVisible(true);
@@ -72,17 +77,10 @@ public class PrepartitaController {
 
 
     //Metodo generico per riempire una listView, controllo interno per vedere se è carta o lista giocatori
-    public void riempiLista(ListView<String> lista, ObservableList<String> args) {
-            lista.setItems(args);
-            lista.setCellFactory(param -> new Cell());
-            lista.setMouseTransparent(true); // Impedisce la selezione
+    public void riempiLista(ObservableList<String> args) {
+            prePartita.setItems(args);
+            prePartita.setCellFactory(param -> new Cell());
+            prePartita.setMouseTransparent(true); // Impedisce la selezione
     }
-    @FXML
-    public void initialize() {
-       //Inizializzo variabili scena
-        avviaPartita.setVisible(false);
-    }
-
-
 }
 

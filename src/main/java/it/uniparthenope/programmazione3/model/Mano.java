@@ -1,13 +1,15 @@
 package it.uniparthenope.programmazione3.model;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 
 public class Mano implements CartaInterface {
-    private final ArrayList<Carta> ManoDicarte;
+    private final ObservableList<Carta> ManoDicarte;
     private double valore;
 
     public Mano() {
-        this.ManoDicarte = new ArrayList<>();
+        this.ManoDicarte = FXCollections.observableArrayList();
     }
 
     public void addCarta(Carta c) {
@@ -20,6 +22,10 @@ public class Mano implements CartaInterface {
         } else {
             aggiornaValoreCartaNormale(c);
         }
+    }
+
+    public ObservableList<Carta> getCarte(){
+        return this.ManoDicarte;
     }
 
     private boolean isCartaSpeciale(Carta c) {

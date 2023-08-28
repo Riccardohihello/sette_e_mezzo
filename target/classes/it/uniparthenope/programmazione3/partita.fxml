@@ -22,7 +22,7 @@
 
    <VBox alignment="BOTTOM_CENTER" maxHeight="407.0" prefHeight="300.0" prefWidth="640.0" spacing="10.0" GridPane.columnIndex="1">
       <!-- Contenuto area in basso -->
-      <Label fx:id="quotaLabel" text="Inserisci la quota">
+      <Label fx:id="label" text="Inserisci la quota">
          <font>
             <Font size="20.0" />
          </font>
@@ -31,18 +31,18 @@
          </VBox.margin>
       </Label>
       <Spinner fx:id="quotaSpinner" />
-      <Button fx:id="quotaButton" mnemonicParsing="false" text="Versa" onAction="#versaQuotaHandler" />
+      <Button fx:id="button" mnemonicParsing="false" text="Scegli il mazziere!" onAction="#sceltaMazziereHandler" />
    </VBox>
    <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <TextArea fx:id="textArea" minHeight="80.0" prefHeight="90.0" />
    </VBox>
    <HBox alignment="CENTER" spacing="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-      <Button fx:id="pesca" mnemonicParsing="false" text="Pesca">
+      <Button fx:id="pesca" mnemonicParsing="false" text="pesca" onAction="#pesca">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="stai" mnemonicParsing="false" text="Stai">
+      <Button fx:id="stai" mnemonicParsing="false" text="stai" onAction="#stai">
          <font>
             <Font size="18.0" />
          </font>
