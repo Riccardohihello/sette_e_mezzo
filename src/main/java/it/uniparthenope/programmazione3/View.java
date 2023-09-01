@@ -23,6 +23,14 @@ public class View extends Application {
         }
     }
 
+    public static void cambiaScena(String fxml, Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(View.class.getResource(fxml)));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(View.class.getResource("styles.css")).toExternalForm());
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public static void main(String[] args) {
         launch();
     }

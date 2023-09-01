@@ -1,8 +1,7 @@
 package it.uniparthenope.programmazione3.controllers;
 
 import it.uniparthenope.programmazione3.UI.Cell;
-import it.uniparthenope.programmazione3.ViewControll;
-import it.uniparthenope.programmazione3.model.Computer;
+import it.uniparthenope.programmazione3.View;
 import it.uniparthenope.programmazione3.model.StatistichePartita;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 
-public class PrepartitaController {
+public class PreGameViewController {
 
     @FXML
     ListView<String> prePartita;
@@ -37,7 +36,7 @@ public class PrepartitaController {
     @FXML
     //Handler del pulsante avvia partita
     public void avviaPartita(ActionEvent event) throws Exception {
-        ViewControll.cambiaScena("partita.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow() );
+        View.cambiaScena("game.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow() );
     }
     @FXML
     //Metodo per l'inserimento dei giocatori. Necessario per inserire dinamicamente i players
@@ -64,7 +63,6 @@ public class PrepartitaController {
     private void aggiornaInterfacciaUtente(boolean tuttiGiocatoriAggiunti, int numeroMassimoGiocatori) {
         if (tuttiGiocatoriAggiunti) {
             giocatori.add("COMPUTER");
-            StatistichePartita.getInstance().addComputer();
             mainLabel.setText("Giocatori inseriti!");
             formPlayer.setVisible(false);
             avviaPartita.setVisible(true);

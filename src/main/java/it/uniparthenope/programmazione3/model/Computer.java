@@ -1,13 +1,12 @@
 package it.uniparthenope.programmazione3.model;
-
 import it.uniparthenope.programmazione3.strategyPattern.StrategiaComputer;
-import it.uniparthenope.programmazione3.strategyPattern.Strategia;
 
-public class Computer extends Giocatore{
-    private final Strategia strat = new StrategiaComputer();
+public class Computer extends GiocatoreAbstract {
 
     Computer() {
-        super("COMPUTER");
+        this.strat = new StrategiaComputer();
+        this.nome = "COMPUTER";
+        this.mano = new Mano();
     }
 
     private static Computer instance;

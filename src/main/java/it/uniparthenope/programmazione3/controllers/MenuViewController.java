@@ -1,6 +1,6 @@
 package it.uniparthenope.programmazione3.controllers;
 
-import it.uniparthenope.programmazione3.ViewControll;
+import it.uniparthenope.programmazione3.View;
 import it.uniparthenope.programmazione3.model.StatistichePartita;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +11,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 
 
-public class MenuController {
+public class MenuViewController {
     @FXML
     private Spinner<Integer> spinnerGiocatori;
 
@@ -56,7 +56,7 @@ public class MenuController {
 
     @FXML
     public void gameSceneButton(ActionEvent event) throws Exception {
-        ViewControll.cambiaScena("prepartita.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
+        View.cambiaScena("preGame.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
     @FXML

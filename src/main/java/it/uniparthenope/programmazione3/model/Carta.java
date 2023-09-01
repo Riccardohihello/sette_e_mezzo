@@ -10,7 +10,15 @@ public class Carta implements CartaInterface {
 
     @Override
     public double getValore() {
-        return valore;
+     if (valore <= 7.0) {
+         return valore;
+     }
+     else
+         return 0.5;
+    }
+
+    public boolean matta() {
+        return valore == 10.0 && seme.equals("Denari");
     }
 
     public String getSeme() {

@@ -1,10 +1,11 @@
 package it.uniparthenope.programmazione3.model;
 
-import it.uniparthenope.programmazione3.Costanti;
+import it.uniparthenope.programmazione3.strategyPattern.StrategiaGiocatore;
 
 public class Giocatore extends GiocatoreAbstract {
 
     public Giocatore(String nome) {
+        this.strat = new StrategiaGiocatore();
         this.nome = nome;
         this.gettoni = Costanti.m;
         this.mano = new Mano();

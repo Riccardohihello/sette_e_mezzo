@@ -3,7 +3,6 @@ package it.uniparthenope.programmazione3.model;
 import it.uniparthenope.programmazione3.observerPattern.Observer;
 import it.uniparthenope.programmazione3.statePattern.StatoRaccoltaQuote;
 import it.uniparthenope.programmazione3.statePattern.StatoTurno;
-import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -75,7 +74,7 @@ public class Turno {
     public void pesca (Giocatore giocatore) {
                 if(Mazzo.getInstance().hasNext()) {
                     Carta c = Mazzo.getInstance().next();
-                    giocatore.addCarta(c);
+                    giocatore.aggiungiCarta(c);
                     notificaOsservatore("carta",getCartaImagePath(c),giocatore.getMano());
                 }
     }

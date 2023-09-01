@@ -8,9 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.util.ArrayList;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
-
-public class PartitaController  {
+public class GameViewController {
 
         public Button button;
         public Label label;
@@ -36,7 +38,6 @@ public class PartitaController  {
 
         public void initialize() {
                 riempiCarte(carteList);
-                Mazzo.getInstance().mischia();
                 inizializzaSpinnerQuota();
                 pesca.setVisible(false);
                 stai.setVisible(false);
@@ -51,8 +52,14 @@ public class PartitaController  {
                 puntate.add(quotaVersata);
                 giocatoreSelezionato.puntataDaVersare(quotaVersata);
                 textArea.appendText(giocatoreSelezionato.getNome() + " ha puntato: " + quotaVersata + " gettoni\n" );
-                scorriGiocatore();
 
+                if (getTurno().getIndiceScorrimento() == getTurno().getNumeroGiocatori()) {
+                        quotaSpinner.setVisible(false);
+                        quotaComputer();
+                        inizioSfida();
+                }
+
+                scorriGiocatore();
                 inizializzaSpinnerQuota();
 
         }
@@ -66,10 +73,6 @@ public class PartitaController  {
                 SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, GettoniGiocatore, 5,5);
                 quotaSpinner.setValueFactory(valueFactory);
 
-                if (giocatoreSelezionato.getNome().equals(Computer.getInstance().getNome())) {
-                        quotaSpinner.setVisible(false);
-                        quotaComputer();
-                }
         }
 
         private void quotaComputer(){
@@ -77,7 +80,7 @@ public class PartitaController  {
                 int quotaComputer = Computer.getInstance().QuotaDaVersare(getTurno().getPiatto(),puntate.size());
                 getTurno().riempiPiatto(quotaComputer);
                 textArea.appendText(Computer.getInstance().getNome() + " ha puntato: " + quotaComputer + " gettoni\n" );
-                inizioSfida();
+
                 scorriGiocatore();
         }
 
@@ -85,7 +88,7 @@ public class PartitaController  {
                 button.setVisible(false);
                 pesca.setVisible(true);
                 stai.setVisible(true);
-
+                label.setText(giocatoreSelezionato.getNome() + " tocca a te pescare");
         }
 
         private void modifyButton(){
@@ -110,21 +113,40 @@ public class PartitaController  {
         }
         public void pesca(ActionEvent event) {
                 Carta carta = getTurno().getMazziere().daiCarte();
-                giocatoreSelezionato.addCarta(carta);
+                giocatoreSelezionato.aggiungiCarta(carta);
                 carteList.add(carta.getImagePath());
                 textArea.appendText(giocatoreSelezionato.getNome() + " ha pescato " + carta.getSeme() + " " + carta.getValore() +"\n");
-                if (giocatoreSelezionato.getMano().getValore() >= 7.5)
+                if (giocatoreSelezionato.getStrategia())
                 {
                         textArea.appendText(giocatoreSelezionato.getNome() + " hai sballato\n");
                         pesca.setVisible(false);
                 }
         }
+
+        public void pescaMazziere(ActionEvent event) {
+                Carta carta = getTurno().getMazziere().daiCarte();
+                getmazziere().aggiungiCarta(carta);
+                carteList.add(carta.getImagePath());
+                textArea.appendText(giocatoreSelezionato.getNome() + " ha pescato " + carta.getSeme() + " " + carta.getValore() +"\n");
+                if (isMazziere())
+                {
+                textArea.appendText(giocatoreSelezionato.getNome() + " hai sballato\n");
+                pesca.setVisible(false);
+                }
+                else
+                {
+                        pesca.setVisible(true);
+                }
+        }
         public void stai(ActionEvent event) {
-                giocatoreSelezionato.setStato("Stai");
+                pescaComputer();
+                statoComputer();
+ /*               giocatoreSelezionato.setStato("Stai");
                 textArea.appendText(giocatoreSelezionato.getNome() + " termina con un valore di "+ giocatoreSelezionato.getMano().getValore() + "\n");
                 carteList.clear();
                 scorriGiocatore();
-                pesca.setVisible(true);
+                label.setText(giocatoreSelezionato.getNome() + " tocca a te pescare");
+                pesca.setVisible(true);*/
         }
 
         public void scorriGiocatore(){
@@ -134,6 +156,9 @@ public class PartitaController  {
         private StatistichePartita getTurno(){
                 return StatistichePartita.getInstance();
         }
+        private Mazziere getmazziere(){
+                return getTurno().getMazziere();
+        }
         private boolean isMazziere() {
                 return getTurno().getMazziere().getNome().equals(giocatoreSelezionato.getNome());
         }
@@ -142,5 +167,46 @@ public class PartitaController  {
                 carteListView.setItems(carteList);
                 carteListView.setCellFactory(param -> new CardUI());
         }
+
+        public void azioniComputer(){
+                if(StatistichePartita.getInstance().getIndiceScorrimento() == 1) {
+                        quotaComputer();
+                }
+                else{
+                        pescaComputer();
+                }
+
+        }
+
+        public void pescaComputer() {
+                Timeline timeline = new Timeline();
+                int delayBetweenCards = 1000;
+
+                while (Computer.getInstance().getStrategia()) {
+                        Carta carta = getmazziere().daiCarte();
+                        Computer.getInstance().aggiungiCarta(carta);
+
+                        KeyFrame keyFrame = new KeyFrame(Duration.millis(delayBetweenCards), event -> {
+                                carteList.add(carta.getImagePath());
+                                textArea.appendText(Computer.getInstance().getNome() + " ha pescato " + carta.getSeme() + " " + carta.getValore() + "\n");
+                                statoComputer();
+                        });
+                        timeline.getKeyFrames().add(keyFrame);
+
+                        delayBetweenCards += 1000;
+                }
+                // Avvia l'animazione
+                timeline.play();
+        }
+
+        public void statoComputer() {
+                if (Computer.getInstance().getMano().getValore() > 7.5) {
+                        textArea.appendText(Computer.getInstance().getNome() + " hai sballato\n");
+                } else {
+                        textArea.appendText(Computer.getInstance().getNome() + " sta\n");
+                }
+        }
+
+
 }
 

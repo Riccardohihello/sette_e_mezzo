@@ -12,6 +12,7 @@ public class StatistichePartita {
     private int indiceScorrimento = 0;
 
     private final ArrayList<Giocatore> giocatori = new ArrayList<>();
+    Mazzo mazzo = Mazzo.getInstance();
     private Mazziere mazziere;
     private final int indiceMazziere = 0;
     public int piatto;
@@ -21,6 +22,7 @@ public class StatistichePartita {
     // Costruttore privato per impedire istanze multiple
     private StatistichePartita() {
         sceltaMazziere();
+        mazzo.mischia();
         // Inizializza eventuali valori predefiniti
     }
 
@@ -37,7 +39,6 @@ public class StatistichePartita {
         return giocatori;
     }
 
-    // Metodi getter e setter per i valori
     public int getNumeroGiocatori() {
         return numeroGiocatori;
     }
@@ -70,10 +71,6 @@ public class StatistichePartita {
         giocatori.add(new Giocatore(nomeGiocatore));
     }
 
-    public void addComputer(){
-        this.giocatori.add(Computer.getInstance());
-    }
-
     public ObservableList<String> getNomiGiocatori() {
         ObservableList<String> nomi = FXCollections.observableArrayList();
         for (Giocatore g : giocatori) {
@@ -82,14 +79,14 @@ public class StatistichePartita {
         return nomi;
     }
 
-    public void inserisciQuota (int quota) {
-        this.piatto += quota;
-    }
-
     public Giocatore scorriGiocatori(){
         int temp = indiceScorrimento % giocatori.size();
         indiceScorrimento += 1;
         return giocatori.get(temp);
+    }
+
+    public int getIndiceScorrimento() {
+        return indiceScorrimento;
     }
 
     public int getPiatto() {

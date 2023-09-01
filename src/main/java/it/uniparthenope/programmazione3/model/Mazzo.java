@@ -11,7 +11,7 @@ public class Mazzo implements Iterator<Carta> {
 
     private Mazzo() {
         this.carte = new ArrayList<>();
-
+        this.carte.add(new Carta(10, "Denari"));
         String[] semi = {"Coppe", "Denari", "Spade", "Bastoni"};
         for (String seme : semi) {
             for (int i = 0; i < 10; i++) {

@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 public class Mano implements CartaInterface {
     private final ObservableList<Carta> ManoDicarte;
-    private double valore;
+    private double valore = 0;
 
     public Mano() {
         this.ManoDicarte = FXCollections.observableArrayList();
@@ -15,10 +15,9 @@ public class Mano implements CartaInterface {
     public void addCarta(Carta c) {
         this.ManoDicarte.add(c);
 
-        if (Matta(c)) {
-            gestisciMatta(c);
-        } else if (isCartaSpeciale(c)) {
-            aggiornaValoreCartaSpeciale();
+        if (c.matta()) {
+            System.out.println("Matta");
+            gestisciMatta();
         } else {
             aggiornaValoreCartaNormale(c);
         }
@@ -28,17 +27,7 @@ public class Mano implements CartaInterface {
         return this.ManoDicarte;
     }
 
-    private boolean isCartaSpeciale(Carta c) {
-        return c.getValore() > 7;
-    }
-
-    private boolean Matta(Carta c) {
-        return c.getValore() == 10 && "denari".equals(c.getSeme());
-    }
-
-    private void gestisciMatta(Carta c) {
-        System.out.println("Matta");
-
+    private void gestisciMatta() {
         if (this.valore % 1.0 == 0.5) {
             this.valore = 7.5;
         } else {
@@ -46,16 +35,15 @@ public class Mano implements CartaInterface {
         }
     }
 
-    private void aggiornaValoreCartaSpeciale() {
-        this.valore += 0.5;
-    }
-
     private void aggiornaValoreCartaNormale(Carta c) {
-        this.valore += c.getValore();
+            this.valore += c.getValore();
     }
 
-    public Carta cartaPescata(){
-        return this.ManoDicarte.get(this.ManoDicarte.size()-1);
+    public double cartaPescata(){
+        if(!this.ManoDicarte.isEmpty())
+            return this.ManoDicarte.get(this.ManoDicarte.size()-1).getValore();
+        else
+            return 0;
     }
 
     @Override

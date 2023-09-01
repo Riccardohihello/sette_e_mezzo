@@ -1,8 +1,11 @@
 package it.uniparthenope.programmazione3.model;
 
+import it.uniparthenope.programmazione3.strategyPattern.Strategia;
+
 public abstract class GiocatoreAbstract {
     protected String nome;
     protected String stato;
+    protected Strategia strat;
     protected Mano mano = new Mano();
     protected int gettoni;
     public  boolean turno;
@@ -19,8 +22,12 @@ public abstract class GiocatoreAbstract {
     }
     public String getStato() {return stato;}
 
-    public void addCarta(Carta c) {
+    public void aggiungiCarta(Carta c) {
         this.mano.addCarta(c);
+    }
+
+    public Boolean getStrategia() {
+        return strat.strategiaDiGioco(this.mano);
     }
 
     public void setGettoni(int gettoni) {

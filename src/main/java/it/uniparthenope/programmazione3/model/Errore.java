@@ -1,4 +1,4 @@
-package it.uniparthenope.programmazione3;
+package it.uniparthenope.programmazione3.model;
 
 public class Errore extends Exception {
 
