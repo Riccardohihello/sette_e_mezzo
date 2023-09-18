@@ -4,22 +4,11 @@
     <checkstyleVersion>10.10.0</checkstyleVersion>
     <scanScope>JavaOnly</scanScope>
     <option name="thirdPartyClasspath" />
-    <option name="activeLocationIds">
-      <option value="0f076ae6-a9c7-44fb-8582-d758c896d163" />
-    </option>
+    <option name="activeLocationIds" />
     <option name="locations">
       <list>
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
-        <ConfigurationLocation id="0f076ae6-a9c7-44fb-8582-d758c896d163" type="LOCAL_FILE" scope="All" description="Oracle">
-          $PROJECT_DIR$/oracle.xml
-          <option name="properties">
-            <map>
-              <entry key="org.checkstyle.sun.suppressionfilter.config" value="" />
-              <entry key="org.checkstyle.sun.suppressionxpathfilter.config" value="" />
-            </map>
-          </option>
-        </ConfigurationLocation>
       </list>
     </option>
   </component>

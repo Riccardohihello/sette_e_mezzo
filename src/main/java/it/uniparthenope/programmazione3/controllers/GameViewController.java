@@ -2,17 +2,20 @@ package it.uniparthenope.programmazione3.controllers;
 import it.uniparthenope.programmazione3.UI.CardUI;
 import it.uniparthenope.programmazione3.UI.PlayerUI;
 import it.uniparthenope.programmazione3.model.*;
+import it.uniparthenope.programmazione3.observerPattern.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-public class GameViewController {
+public class GameViewController implements Observer {
 
         public Button button;
         public Label label;
@@ -21,7 +24,6 @@ public class GameViewController {
         private Giocatore giocatoreSelezionato = getTurno().scorriGiocatori();
         private final ArrayList<Integer> puntate = new ArrayList<>();
 
-        private Turno turno;
         @FXML
         ListView<Giocatore> giocatoriSx;
         @FXML
@@ -38,6 +40,7 @@ public class GameViewController {
 
         public void initialize() {
                 riempiCarte(carteList);
+                StatistichePartita.getInstance().setOsservatore(this);
                 inizializzaSpinnerQuota();
                 pesca.setVisible(false);
                 stai.setVisible(false);
@@ -106,10 +109,11 @@ public class GameViewController {
                 modifyButton();
         }
 
-        public void riempiLista(ObservableList<Giocatore> args) {
-                giocatoriSx.setItems(args);
-                giocatoriSx.setCellFactory(param -> new PlayerUI());
-                giocatoriSx.setMouseTransparent(true); // Impedisce la selezione
+
+        public void riempiLista(ListView<Giocatore> lista, List<Giocatore> giocatori) {
+                lista.setItems(FXCollections.observableArrayList(giocatori));
+                lista.setCellFactory(param -> new PlayerUI());
+                lista.setMouseTransparent(true); // Impedisce la selezione
         }
         public void pesca(ActionEvent event) {
                 Carta carta = getTurno().getMazziere().daiCarte();
@@ -139,14 +143,12 @@ public class GameViewController {
                 }
         }
         public void stai(ActionEvent event) {
-                pescaComputer();
-                statoComputer();
- /*               giocatoreSelezionato.setStato("Stai");
+                giocatoreSelezionato.setStato("Stai");
                 textArea.appendText(giocatoreSelezionato.getNome() + " termina con un valore di "+ giocatoreSelezionato.getMano().getValore() + "\n");
                 carteList.clear();
                 scorriGiocatore();
                 label.setText(giocatoreSelezionato.getNome() + " tocca a te pescare");
-                pesca.setVisible(true);*/
+                pesca.setVisible(true);
         }
 
         public void scorriGiocatore(){
@@ -171,6 +173,7 @@ public class GameViewController {
         public void azioniComputer(){
                 if(StatistichePartita.getInstance().getIndiceScorrimento() == 1) {
                         quotaComputer();
+
                 }
                 else{
                         pescaComputer();
@@ -208,5 +211,17 @@ public class GameViewController {
         }
 
 
+        @Override
+        public void update(StatistichePartita o, String label) {
+                if (label.equals("lista")) {
+                        int halfSize = o.getGiocatori().size() / 2;
+                        List<Giocatore> nomiSx = new ArrayList<>(o.getGiocatori().subList(0, halfSize));
+                        List<Giocatore> nomiDx = new ArrayList<>(o.getGiocatori().subList(halfSize, o.getGiocatori().size()));
+                        riempiLista(giocatoriDx,nomiDx);
+                        riempiLista(giocatoriSx,nomiSx);
+                } else if (label.equals("addGiocatore")) {
+                        System.out.println("Lota!");
+                }
+        }
 }
 

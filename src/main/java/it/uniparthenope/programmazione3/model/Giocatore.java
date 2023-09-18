@@ -9,6 +9,7 @@ public class Giocatore extends GiocatoreAbstract {
         this.nome = nome;
         this.gettoni = Costanti.m;
         this.mano = new Mano();
+        this.stato = "In Attesa..";
     }
     public void puntataDaVersare(int puntataDaVersare) {
         if (this.gettoni - puntataDaVersare < 0) {

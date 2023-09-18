@@ -2,7 +2,9 @@ package it.uniparthenope.programmazione3.controllers;
 
 import it.uniparthenope.programmazione3.UI.Cell;
 import it.uniparthenope.programmazione3.View;
+import it.uniparthenope.programmazione3.model.Giocatore;
 import it.uniparthenope.programmazione3.model.StatistichePartita;
+import it.uniparthenope.programmazione3.observerPattern.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,8 +13,11 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class PreGameViewController {
+
+public class PreGameViewController implements Observer {
 
     @FXML
     ListView<String> prePartita;
@@ -29,6 +34,8 @@ public class PreGameViewController {
     @FXML
     public void initialize() {
         riempiLista(this.giocatori);
+        System.out.println("Setto osservatore PreGame");
+        StatistichePartita.getInstance().setOsservatore(this);
         //Inizializzo variabili scena
         avviaPartita.setVisible(false);
     }
@@ -79,6 +86,12 @@ public class PreGameViewController {
             prePartita.setItems(args);
             prePartita.setCellFactory(param -> new Cell());
             prePartita.setMouseTransparent(true); // Impedisce la selezione
+    }
+    @Override
+    public void update(StatistichePartita o, String label) {
+         if (label.equals("addGiocatore")) {
+            System.out.println("Lota!");
+        }
     }
 }
 

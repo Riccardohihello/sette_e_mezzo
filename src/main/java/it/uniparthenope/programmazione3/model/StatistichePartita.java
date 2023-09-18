@@ -1,5 +1,6 @@
 package it.uniparthenope.programmazione3.model;
 
+import it.uniparthenope.programmazione3.observerPattern.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -8,6 +9,7 @@ import java.util.Random;
 
 public class StatistichePartita {
     private int numeroGiocatori = 2;
+    private Observer osservatore;
     private int numeroTurni = 1;
     private int indiceScorrimento = 0;
 
@@ -17,6 +19,12 @@ public class StatistichePartita {
     private final int indiceMazziere = 0;
     public int piatto;
 
+    public void notificaOsservatore(StatistichePartita o, String label) {
+        if (osservatore != null) {
+            System.out.println("Mando notifica!");
+            osservatore.update(this,label);
+        }
+    }
 
 
     // Costruttore privato per impedire istanze multiple
@@ -24,6 +32,7 @@ public class StatistichePartita {
         sceltaMazziere();
         mazzo.mischia();
         // Inizializza eventuali valori predefiniti
+        osservatore = null;
     }
 
     private static StatistichePartita instance;
@@ -35,6 +44,9 @@ public class StatistichePartita {
         return instance;
     }
 
+    public void setOsservatore(Observer osservatore) {
+        this.osservatore = osservatore;
+    }
     public ArrayList<Giocatore> getGiocatori() {
         return giocatori;
     }
@@ -69,6 +81,7 @@ public class StatistichePartita {
 
     public void addGiocatore(String nomeGiocatore) {
         giocatori.add(new Giocatore(nomeGiocatore));
+        notificaOsservatore(this, "addGiocatore");
     }
 
     public ObservableList<String> getNomiGiocatori() {
