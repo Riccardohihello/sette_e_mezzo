@@ -1,11 +1,19 @@
 package it.uniparthenope.programmazione3.strategyPattern;
-
-import it.uniparthenope.programmazione3.model.Mano;
+import it.uniparthenope.programmazione3.game.Giocatore;
+import it.uniparthenope.programmazione3.game.Mano;
 
 public class StrategiaGiocatore implements Strategia{
+    public Mano getMano() {
+        return mano;
+    }
 
     @Override
-    public boolean strategiaDiGioco(Mano m) {
-        return m.getValore() > 7.5; //il metodo controlla se il giocatore ha sballato
+    public boolean chiediCarta(Giocatore giocatore) {
+        return mano.getValore()>7.5;
+    }
+
+    @Override
+    public void daiGettoni(Giocatore giocatore,int puntataDaVersare) {
+        giocatore.daiGettoni(puntataDaVersare);
     }
 }

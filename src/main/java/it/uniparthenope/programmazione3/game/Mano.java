@@ -1,10 +1,10 @@
-package it.uniparthenope.programmazione3.model;
+package it.uniparthenope.programmazione3.game;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class Mano implements CartaInterface {
+public class Mano {
     private final ObservableList<Carta> ManoDicarte;
     private double valore = 0;
 
@@ -40,13 +40,12 @@ public class Mano implements CartaInterface {
     }
 
     public double cartaPescata(){
-        if(!this.ManoDicarte.isEmpty())
-            return this.ManoDicarte.get(this.ManoDicarte.size()-1).getValore();
-        else
+        if(this.ManoDicarte.isEmpty())
             return 0;
+        else
+            return this.ManoDicarte.get(0).getValore();
     }
 
-    @Override
     public double getValore(){
         return this.valore;
     }

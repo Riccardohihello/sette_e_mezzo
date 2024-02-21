@@ -1,47 +1,46 @@
-package it.uniparthenope.programmazione3.model;
-
+package it.uniparthenope.programmazione3.game;
 import it.uniparthenope.programmazione3.strategyPattern.Strategia;
 
-public abstract class GiocatoreAbstract {
+public class Giocatore {
+    public Giocatore(String nome){
+        this.nome=nome;
+        this.gettoni=Costanti.m;
+
+    }
     protected String nome;
     protected String stato;
-    protected Strategia strat;
-    protected Mano mano = new Mano();
+    protected Strategia strategia;
     protected int gettoni;
-    public  boolean turno;
-    {
-        turno = false;
-    }
 
     public String getNome() {
         return nome;
     }
 
-    public Mano getMano() {
-        return mano;
-    }
     public String getStato() {return stato;}
 
     public void aggiungiCarta(Carta c) {
-        this.mano.addCarta(c);
+        strategia.aggiungiCarta(c);
+    }
+    public Mano getMano(){
+        return strategia.getMano();
     }
 
-    public Boolean getStrategia() {
-        return strat.strategiaDiGioco(this.mano);
-    }
-
-    public void setGettoni(int gettoni) {
-        this.gettoni = gettoni;
-    }
     public void setStato(String stato) {this.stato = stato;}
 
     public int getGettoni() {
         return gettoni;
     }
 
+    public void daiGettoni(int puntata){
+        this.gettoni-=puntata;
+    }
+
     public void riscuoti(int importo) {
         gettoni += importo;
     }
 
+    public void puntataDaVersare(int quotaVersata) {
+        
+    }
 }
 

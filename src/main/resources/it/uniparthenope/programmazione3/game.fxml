@@ -31,13 +31,13 @@
          </VBox.margin>
       </Label>
       <Spinner fx:id="quotaSpinner"/>
-      <Button fx:id="button" mnemonicParsing="false" onAction="#sceltaMazziereHandler" text="Scegli il mazziere!" />
+      <Button fx:id="button" mnemonicParsing="false" text="Scegli il mazziere!" />
    </VBox>
    <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <TextArea fx:id="textArea" minHeight="80.0" prefHeight="90.0" />
+      <TextArea fx:id="textArea" minHeight="80.0" prefHeight="90.0" />
    </VBox>
    <HBox alignment="CENTER" spacing="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-      <Button fx:id="pesca" mnemonicParsing="false" onAction="#pesca" text="pesca">
+      <Button fx:id="pesca" mnemonicParsing="false" text="pesca">
          <font>
             <Font size="18.0" />
          </font>

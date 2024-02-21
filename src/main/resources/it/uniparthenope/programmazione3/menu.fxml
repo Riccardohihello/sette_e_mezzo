@@ -13,15 +13,14 @@
                 </font>
             </Label>
         </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-         <children>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <Label alignment="CENTER" contentDisplay="TOP" text="Numero di giocatori: ">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-             <Spinner fx:id="spinnerGiocatori" />
-         </children>
-      </HBox>
+                <font>
+                    <Font size="20.0"/>
+                </font>
+            </Label>
+            <Spinner fx:id="spinnerGiocatori"/>
+        </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <Label text="Numero di round: ">
                 <font>

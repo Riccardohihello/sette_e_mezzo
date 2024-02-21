@@ -1,4 +1,4 @@
-package it.uniparthenope.programmazione3.model;
+package it.uniparthenope.programmazione3.game;
 
 public final class Costanti {
     public static final int n = 4;

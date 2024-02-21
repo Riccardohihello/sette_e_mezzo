@@ -1,15 +1,15 @@
-package it.uniparthenope.programmazione3.model;
+package it.uniparthenope.programmazione3.game;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class Mazzo implements Iterator<Carta> {
+public class MazzoIterator implements Iterator<Carta> {
 
     private int iteratorPosition = 0;
     private final ArrayList<Carta> carte;
 
-    private Mazzo() {
+    private MazzoIterator() {
         this.carte = new ArrayList<>();
         this.carte.add(new Carta(10, "Denari"));
         String[] semi = {"Coppe", "Denari", "Spade", "Bastoni"};
@@ -20,11 +20,11 @@ public class Mazzo implements Iterator<Carta> {
         }
     }
 
-    private static Mazzo instance;
-    public static Mazzo getInstance()
+    private static MazzoIterator instance;
+    public static MazzoIterator getInstance()
     {
         if(instance == null) {
-            instance = new Mazzo();
+            instance = new MazzoIterator();
         }
         return instance;
     }

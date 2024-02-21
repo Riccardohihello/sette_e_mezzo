@@ -1,6 +1,6 @@
-package it.uniparthenope.programmazione3.model;
+package it.uniparthenope.programmazione3.game;
 
-public class Carta implements CartaInterface {
+public class Carta {
     private final int valore;
     private final String seme;
     public Carta(int valore, String seme) {
@@ -8,7 +8,6 @@ public class Carta implements CartaInterface {
         this.seme = seme;
     }
 
-    @Override
     public double getValore() {
      if (valore <= 7.0) {
          return valore;

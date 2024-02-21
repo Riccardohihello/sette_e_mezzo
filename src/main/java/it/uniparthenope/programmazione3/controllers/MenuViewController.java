@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.controllers;
 
 import it.uniparthenope.programmazione3.View;
-import it.uniparthenope.programmazione3.model.StatistichePartita;
+import it.uniparthenope.programmazione3.game.SettingsSingleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -16,22 +16,17 @@ public class MenuViewController {
     private Spinner<Integer> spinnerGiocatori;
 
     @FXML
-    private Spinner<Integer> spinnerTurni;
-
-    @FXML
     private Label labelRisultato;
 
     @FXML
     private void initialize() {
         inizializzaSpinner();
-        inizializzaLabelRisultato();
+        aggiornaLabelRisultato();
         collegaSpinnerARisultato(spinnerGiocatori);
-        collegaSpinnerARisultato(spinnerTurni);
     }
 
     private void inizializzaSpinner() {
         inizializzaSpinner(spinnerGiocatori, 2, 4, 2);
-        inizializzaSpinner(spinnerTurni, 1, 10, 1);
     }
 
     public void inizializzaSpinner(Spinner<Integer> spinner, int min, int max, int valoreIniziale) {
@@ -46,12 +41,8 @@ public class MenuViewController {
     }
 
     private void aggiornaLabelRisultato() {
-            inizializzaLabelRisultato();
-            StatistichePartita.getInstance().aggiornaImpostazioni(spinnerGiocatori.getValue(), spinnerTurni.getValue());
-    }
-    private void inizializzaLabelRisultato() {
-        labelRisultato.setText("Numero di giocatori selezionati: " + spinnerGiocatori.getValue() +
-                " e numero di turni selezionati: " + spinnerTurni.getValue());
+        SettingsSingleton.getInstance().setNumeroGiocatori(spinnerGiocatori.getValue());
+        labelRisultato.setText("Numero di giocatori selezionati: " + spinnerGiocatori.getValue());
     }
 
     @FXML

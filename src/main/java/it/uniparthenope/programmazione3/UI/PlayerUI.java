@@ -1,6 +1,6 @@
 package it.uniparthenope.programmazione3.UI;
 
-import it.uniparthenope.programmazione3.model.Giocatore;
+import it.uniparthenope.programmazione3.game.Giocatore;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -31,14 +31,13 @@ public class PlayerUI extends ListCell<Giocatore> {
         super.updateItem(giocatore, empty);
         setText(null);
 
-        if (giocatore != null && !empty) {
+        if (giocatore!= null && !empty) {
             nameLabel.setText(giocatore.getNome());
-            saldoLabel.setText("Gettoni: "+(giocatore.getGettoni()));
-            statoLabel.setText(giocatore.getStato());
             if ("Deve versare".equals(giocatore.getStato())) {
                 statoLabel.setStyle("-fx-text-fill: #00ff55;-fx-font-weight: bold");
             } else {
                 statoLabel.setStyle(""); // Rimuove eventuali stili precedenti
+                saldoLabel.setStyle("");
             }
             img.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/uniparthenope/programmazione3/images/avatar.png"))));
             setGraphic(vbox);
