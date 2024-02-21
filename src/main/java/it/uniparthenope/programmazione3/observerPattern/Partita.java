@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Partita  {
-    private ArrayList<gameObserver> osservatori;
+    private final ArrayList<gameObserver> osservatori = new ArrayList<>();
     private int indiceScorrimento = 0;
 
-    private ArrayList<Giocatore> giocatori = new ArrayList<>();
+    private final ArrayList<Giocatore> giocatori = new ArrayList<>();
     MazzoIterator mazzoIterator = MazzoIterator.getInstance();
     public int piatto;
 
@@ -30,9 +30,14 @@ public class Partita  {
 
     // Costruttore privato per impedire istanze multiple
     public Partita() {
+        addGiocatori();
+        
         mazzoIterator.mischia();
         // Inizializza eventuali valori predefiniti
-        osservatori = null;
+    }
+    
+    public void addGiocatori(){
+        giocatori.addAll(SettingsSingleton.getInstance().getListaGiocatori());
     }
 
     public void addOsservatore(gameObserver osservatore) {
@@ -51,11 +56,6 @@ public class Partita  {
         return giocatori.get(indiceScorrimento).getMano().getCarte();
     }
 
-
-    public void addGiocatore(String nome) {
-        giocatori = (ArrayList<Giocatore>) SettingsSingleton.getInstance().getListaGiocatori();
-        notificaOsservatore("addGiocatore");
-    }
 
     public Giocatore scorriGiocatori(){
         int temp = indiceScorrimento % giocatori.size();
