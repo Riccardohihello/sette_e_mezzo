@@ -7,8 +7,6 @@ module it.uniparthenope.programmazione3 {
     opens it.uniparthenope.programmazione3 to javafx.fxml;
     exports it.uniparthenope.programmazione3.observerPattern;
     opens it.uniparthenope.programmazione3.observerPattern to javafx.fxml;
-    exports it.uniparthenope.programmazione3.controllers;
-    opens it.uniparthenope.programmazione3.controllers to javafx.fxml;
     exports it.uniparthenope.programmazione3.game;
     opens it.uniparthenope.programmazione3.game to javafx.fxml;
     exports it.uniparthenope.programmazione3.strategyPattern;

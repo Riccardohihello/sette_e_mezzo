@@ -1,6 +1,5 @@
-package it.uniparthenope.programmazione3.controllers;
+package it.uniparthenope.programmazione3;
 
-import it.uniparthenope.programmazione3.View;
 import it.uniparthenope.programmazione3.game.SettingsSingleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +10,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 
 
-public class MenuViewController {
+public class Menu {
     @FXML
     private Spinner<Integer> spinnerGiocatori;
 
@@ -35,7 +34,7 @@ public class MenuViewController {
         spinner.setValueFactory(valueFactory);
     }
 
-    private void collegaSpinnerARisultato(Spinner<Integer> spinner) {
+    public void collegaSpinnerARisultato(Spinner<Integer> spinner) {
         spinner.valueProperty().addListener((observable , valorePrecedente, nuovoValore) ->
                 aggiornaLabelRisultato());
     }
@@ -47,7 +46,7 @@ public class MenuViewController {
 
     @FXML
     public void gameSceneButton(ActionEvent event) throws Exception {
-        View.cambiaScena("preGame.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
+        Main.cambiaScena("preGame.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
     @FXML

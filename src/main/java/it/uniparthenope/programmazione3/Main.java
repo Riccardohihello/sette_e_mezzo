@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.Objects;
 
-public class View extends Application {
+public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
@@ -24,9 +24,9 @@ public class View extends Application {
     }
 
     public static void cambiaScena(String fxml, Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(View.class.getResource(fxml)));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource(fxml)));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(View.class.getResource("styles.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("styles.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

@@ -7,7 +7,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-
 import java.util.Objects;
 
 public class PlayerUI extends ListCell<Giocatore> {

@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.controllers.MenuViewController">
+<StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.Menu">
     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="80.0">
         <HBox alignment="TOP_CENTER" prefHeight="58.0" prefWidth="1280.0">
             <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Sette e mezzo Demo">
                 <font>
-                    <Font name="Comic Sans MS" size="36.0"/>
+                    <Font name="Comic Sans MS" size="36.0" />
                 </font>
             </Label>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <Label alignment="CENTER" contentDisplay="TOP" text="Numero di giocatori: ">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </Label>
-            <Spinner fx:id="spinnerGiocatori"/>
+            <Spinner fx:id="spinnerGiocatori" />
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <Label text="Numero di round: ">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </Label>
-            <Spinner fx:id="spinnerTurni"/>
+            <Spinner fx:id="spinnerTurni" />
         </HBox>
         <Label fx:id="labelRisultato" text="Label">
-         <font>
-            <Font size="24.0" />
-         </font></Label>
+            <font>
+                <Font size="24.0" />
+            </font></Label>
         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" text="Inizia">
-            <font>
-               <Font size="18.0" />
-            </font></Button>
-            <Button onAction="#exitButton" text="esci">
-            <font>
-               <Font size="18.0" />
-            </font></Button>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Inizia" onAction="#gameSceneButton">
+                <font>
+                    <Font size="18.0" />
+                </font></Button>
+            <Button text="esci" onAction="#exitButton" >
+                <font>
+                    <Font size="18.0" />
+                </font></Button>
         </HBox>
     </VBox>
-            </StackPane>
+</StackPane>

@@ -23,6 +23,7 @@
 }
 .text-field{
     -fx-border-color: linear-gradient(#ff5400, #be1d00);
+    
 }
 
 .spinner .increment-arrow-button, .increment-arrow, .decrement-arrow-button, .decrement-arrow {

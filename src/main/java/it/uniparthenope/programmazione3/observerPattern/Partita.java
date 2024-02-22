@@ -4,9 +4,13 @@ import it.uniparthenope.programmazione3.game.Carta;
 import it.uniparthenope.programmazione3.game.Giocatore;
 import it.uniparthenope.programmazione3.game.MazzoIterator;
 import it.uniparthenope.programmazione3.game.SettingsSingleton;
+import it.uniparthenope.programmazione3.strategyPattern.StrategiaComputer;
+import it.uniparthenope.programmazione3.strategyPattern.StrategiaGiocatore;
+import it.uniparthenope.programmazione3.strategyPattern.StrategiaMazziere;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Partita  {
@@ -17,54 +21,85 @@ public class Partita  {
     MazzoIterator mazzoIterator = MazzoIterator.getInstance();
     public int piatto;
 
-    public void notificaOsservatore( String label) {
-        if (osservatori != null) {
-            System.out.println("Mando notifica!");
-            osservatori.get(indiceScorrimento).update(label);
-        }
-    }
 
-    public int getNumeroGiocatori(){
-        return giocatori.size();
-    }
 
     // Costruttore privato per impedire istanze multiple
     public Partita() {
-        addGiocatori();
-        
-        mazzoIterator.mischia();
-        // Inizializza eventuali valori predefiniti
-    }
-    
-    public void addGiocatori(){
         giocatori.addAll(SettingsSingleton.getInstance().getListaGiocatori());
+        mazzoIterator.mischia();
+        aggiungiGiocatori();
+        Collections.shuffle(giocatori);
+    }
+    public void notificaOsservatore(Action action) {
+        if (!osservatori.isEmpty()) {
+            for (gameObserver observer : this.osservatori) {
+                observer.update(action);
+            }
+        }
     }
 
     public void addOsservatore(gameObserver osservatore) {
         this.osservatori.add(osservatore);
     }
 
-    public void sceltaMazziere() {
-        if (giocatori.size() > 2) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(giocatori.size()-1);
+    private void aggiungiGiocatori() {
+        Random random = new Random();
+        int rand = random.nextInt(giocatori.size()-1);
 
+        for (Giocatore g : giocatori) {
+            if(g.getNome().equals("Computer"))
+                g.setStrategia(new StrategiaComputer());
+            else if(g.getNome().equals(giocatori.get(rand).getNome()))
+                g.setStrategia(new StrategiaMazziere());
+            else
+                g.setStrategia(new StrategiaGiocatore());
         }
+    }
+
+    public void pesca(){
+        Giocatore giocatore = giocatori.get(indiceScorrimento);
+        giocatore.getMano().addCarta(mazzoIterator.next());
+        if (giocatore.getMano().getValore()>=7.5) {
+            giocatore.setStato("Finita");
+            scorriGiocatori();
+            giocatore.getMano().cartaPescata();
+            notificaOsservatore(Action.next);
+            System.out.println("ciao");
+        }
+        else
+            giocatore.setStato("In corso");
     }
 
     public ObservableList<Carta> getManoGiocatore(){
         return giocatori.get(indiceScorrimento).getMano().getCarte();
     }
 
+    public String getNomeGiocatore(){
+        return giocatori.get(indiceScorrimento).getNome();
+    }
 
-    public Giocatore scorriGiocatori(){
-        int temp = indiceScorrimento % giocatori.size();
+    public void scorriGiocatori(){
         indiceScorrimento += 1;
-        return giocatori.get(temp);
+        indiceScorrimento %= giocatori.size();
+    }
+
+    public int gettoni_giocatore(){
+        return giocatori.get(indiceScorrimento).getGettoni();
     }
 
 
     public void riempiPiatto(int quota){
         this.piatto += quota;
+    }
+
+    public void setQuota(int quotaVersata) {
+        giocatori.get(indiceScorrimento).puntataDaVersare(quotaVersata);
+        scorriGiocatori();
+        notificaOsservatore(Action.next);
+        System.out.println(indiceScorrimento);
+        if(indiceScorrimento>=giocatori.size()-1) {
+            notificaOsservatore(Action.match);
+
+        }
     }
 }

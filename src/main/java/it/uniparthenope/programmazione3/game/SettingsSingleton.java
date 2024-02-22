@@ -19,9 +19,6 @@ public class SettingsSingleton {
         return listaGiocatori;
     }
 
-
-
-
     public static SettingsSingleton getInstance() {
         if (instance == null) {
             instance = new SettingsSingleton();

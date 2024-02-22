@@ -4,7 +4,7 @@ import it.uniparthenope.programmazione3.strategyPattern.Strategia;
 public class Giocatore {
     public Giocatore(String nome){
         this.nome=nome;
-        this.gettoni=Costanti.m;
+        this.gettoni=100;
 
     }
     protected String nome;
@@ -17,6 +17,10 @@ public class Giocatore {
     }
 
     public String getStato() {return stato;}
+
+    public void setStrategia(Strategia s) {
+        this.strategia = s;
+    }
 
     public void aggiungiCarta(Carta c) {
         strategia.aggiungiCarta(c);
@@ -41,6 +45,10 @@ public class Giocatore {
 
     public void puntataDaVersare(int quotaVersata) {
         
+    }
+
+    public String getStrategia() {
+        return strategia.toString();
     }
 }
 

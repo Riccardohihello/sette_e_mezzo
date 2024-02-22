@@ -1,9 +1,9 @@
-package it.uniparthenope.programmazione3.controllers;
+package it.uniparthenope.programmazione3;
 
 import it.uniparthenope.programmazione3.UI.PlayerUI;
-import it.uniparthenope.programmazione3.View;
 import it.uniparthenope.programmazione3.game.Giocatore;
 import it.uniparthenope.programmazione3.game.SettingsSingleton;
+import it.uniparthenope.programmazione3.observerPattern.Action;
 import it.uniparthenope.programmazione3.observerPattern.gameObserver;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 
-public class gameLoadingController implements gameObserver {
+public class LoadingScene implements gameObserver {
 
     @FXML
     ListView<Giocatore> prePartita;
@@ -35,7 +35,7 @@ public class gameLoadingController implements gameObserver {
     @FXML
     //Handler del pulsante avvia partita
     public void avviaPartita(ActionEvent event) throws Exception {
-        View.cambiaScena("game.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow() );
+        Main.cambiaScena("game.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow() );
     }
     @FXML
     //Metodo per l'inserimento dei giocatori. Necessario per inserire dinamicamente i players
@@ -73,8 +73,8 @@ public class gameLoadingController implements gameObserver {
         }
 
     @Override
-    public void update(String label) {
-        System.out.println("Update PreGame");
+    public void update(Action action) {
+
     }
 }
 
