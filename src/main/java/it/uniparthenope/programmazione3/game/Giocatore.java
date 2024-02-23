@@ -50,8 +50,8 @@ public class Giocatore {
         
     }
 
-    public String getStrategia() {
-        return strategia.toString();
+    public Strategia getStrategia() {
+        return strategia;
     }
 }
 

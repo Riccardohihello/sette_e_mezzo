@@ -14,4 +14,8 @@ public class StrategiaMazziere implements Strategia {
         giocatore.riscuoti(puntataGiocatore*2);
     }
 
+    @Override
+    public String nomeStrategia() {
+        return "mazziere";
+    }
 }

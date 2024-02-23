@@ -73,6 +73,7 @@ public class GameUI implements gameObserver {
 
         public void stai() {
                 partita.stai();
+                carteList.clear();
         }
         public void pesca() {
                 partita.pesca();
@@ -90,6 +91,8 @@ public class GameUI implements gameObserver {
                         quotaLabel.setVisible(false);
                         quotaButton.setVisible(false);
                 }
+                 else if (action.equals(Action.busted))
+                         System.out.println("boostato");
         }
 }
 

@@ -23,6 +23,8 @@ public class Partita  {
         mazzoIterator.mischia();
         aggiungiGiocatori();
         Collections.shuffle(giocatori);
+        if (giocatori.get(indiceScorrimento).getStrategia().nomeStrategia().equals("mazziere"))
+            scorriGiocatori();
     }
     public void notificaOsservatore(Action action) {
         if (!osservatori.isEmpty()) {
@@ -45,14 +47,15 @@ public class Partita  {
         int rand = random.nextInt(giocatori.size()-1);
 
         for (Giocatore g : giocatori) {
-            if(g.getNome().equals("Computer"))
+            if (g.getNome().equals("Computer"))
                 g.setStrategia(new StrategiaComputer());
-            else if(g.getNome().equals(giocatori.get(rand).getNome()))
+            else if (g.getNome().equals(giocatori.get(rand).getNome())){
                 g.setStrategia(new StrategiaMazziere());
+                System.out.println(g.getNome() + " è mazziere");
+            }
             else
                 g.setStrategia(new StrategiaGiocatore());
         }
-        giocatori.get(indiceScorrimento).setStato(Action.bid);
     }
 
     public void pesca(){
@@ -60,13 +63,17 @@ public class Partita  {
         giocatore.getMano().addCarta(mazzoIterator.next());
 
         if (giocatore.getMano().getValore()>=7.5) {
-            scorriGiocatori();
-            giocatore.getMano().cartaPescata();
-            notificaOsservatore(Action.next);
-        }
-        else if (giocatore.getMano().cartaPescata().matta())
+            stai();
+            System.out.println("valore: " + indiceScorrimento);
+            giocatore.setStato(Action.busted);
+            notificaOsservatore(Action.busted);
+        } else if (giocatore.getMano().cartaPescata().matta())
             MazzoIterator.getInstance().mischia();
-            giocatore.setStato(Action.bid);
+    }
+
+    public void stai() {
+        scorriGiocatori();
+        giocatori.get(indiceScorrimento).setStato(Action.turno);
     }
 
     public void scorriGiocatori(){
@@ -84,20 +91,21 @@ public class Partita  {
     }
 
     public void setQuota(int quotaVersata) {
-        giocatori.get(indiceScorrimento).puntataDaVersare(quotaVersata);
+            giocatori.get(indiceScorrimento).puntataDaVersare(quotaVersata);
+            giocatori.get(indiceScorrimento).setStato(Action.bidded);
 
-        giocatori.get(indiceScorrimento).setStato(Action.bidded);
+            riempiPiatto(quotaVersata);
 
-        riempiPiatto(quotaVersata);
-        scorriGiocatori();
-        notificaOsservatore(Action.next);
+            if (!giocatori.get(indiceScorrimento).getStrategia().nomeStrategia().equals("mazziere"))
+                giocatori.get(indiceScorrimento).setStato(Action.bid);
+
+            scorriGiocatori();
+            if (giocatori.get(indiceScorrimento).getStrategia().nomeStrategia().equals("mazziere"))
+                scorriGiocatori();
         if(indiceScorrimento>=giocatori.size()-1) {
             notificaOsservatore(Action.match);
-
         }
-        giocatori.get(indiceScorrimento).setStato(Action.bid);
     }
 
-    public void stai() {
-    }
+
 }

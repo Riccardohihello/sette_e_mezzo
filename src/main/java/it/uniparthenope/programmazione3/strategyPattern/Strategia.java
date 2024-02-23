@@ -16,4 +16,5 @@ public interface Strategia {
 
     boolean chiediCarta();
     void daiGettoni(Giocatore giocatore,int quotaDaVersare);
+    String nomeStrategia();
 }

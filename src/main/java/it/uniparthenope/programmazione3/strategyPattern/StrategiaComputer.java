@@ -3,7 +3,6 @@ import it.uniparthenope.programmazione3.game.Giocatore;
 
 public class StrategiaComputer implements Strategia {
 
-
     @Override
     public boolean chiediCarta() {
         return (mano.cartaPescata().getValore() < 4 && mano.getValore() < 5);
@@ -17,5 +16,10 @@ public class StrategiaComputer implements Strategia {
         else{
             giocatore.daiGettoni(mediaPuntate);
         }
+    }
+
+    @Override
+    public String nomeStrategia() {
+        return "computer";
     }
 }

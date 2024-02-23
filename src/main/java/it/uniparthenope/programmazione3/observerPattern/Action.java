@@ -8,4 +8,7 @@ public enum Action {
     bidded,
     next,
     match,
+    busted,
+    won,
+    turno
 }

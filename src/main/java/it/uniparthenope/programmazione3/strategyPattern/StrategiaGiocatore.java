@@ -12,4 +12,9 @@ public class StrategiaGiocatore implements Strategia{
     public void daiGettoni(Giocatore giocatore,int puntataDaVersare) {
         giocatore.daiGettoni(puntataDaVersare);
     }
+
+    @Override
+    public String nomeStrategia() {
+        return "giocatore";
+    }
 }

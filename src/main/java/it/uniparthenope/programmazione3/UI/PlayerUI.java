@@ -25,6 +25,7 @@ public class PlayerUI extends ListCell<Giocatore> {
         vbox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(img, nameLabel, saldoLabel,statoLabel);
         setGraphic(vbox);
+        nameLabel.setStyle("-fx-text-fill: #00ff55;-fx-font-weight: bold");
     }
 
     public void updateItem(Giocatore giocatore, boolean empty) {
@@ -33,12 +34,14 @@ public class PlayerUI extends ListCell<Giocatore> {
 
         if (giocatore!= null && !empty) {
             nameLabel.setText(giocatore.getNome());
-            nameLabel.setStyle("-fx-fill: lightseagreen;");
-            nameLabel.setStyle("-fx-text-fill: #00ff55;-fx-font-weight: bold");
             if (Action.bid.equals(giocatore.getStato())) {
                 saldoLabel.setText("offri");
             } else if(Action.bidded.equals(giocatore.getStato())){
                 saldoLabel.setText("wait");
+            } else if(Action.turno.equals(giocatore.getStato())){
+                saldoLabel.setText("turno");
+            } else if(Action.busted.equals(giocatore.getStato())){
+                saldoLabel.setText("bustatooo");
             } else {
                 statoLabel.setStyle(""); // Rimuove eventuali stili precedenti
                 saldoLabel.setStyle("");
