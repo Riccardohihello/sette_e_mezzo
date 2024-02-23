@@ -1,6 +1,7 @@
 package it.uniparthenope.programmazione3.UI;
 
 import it.uniparthenope.programmazione3.game.Giocatore;
+import it.uniparthenope.programmazione3.observerPattern.Action;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -32,8 +33,12 @@ public class PlayerUI extends ListCell<Giocatore> {
 
         if (giocatore!= null && !empty) {
             nameLabel.setText(giocatore.getNome());
-            if ("Deve versare".equals(giocatore.getStato())) {
-                statoLabel.setStyle("-fx-text-fill: #00ff55;-fx-font-weight: bold");
+            nameLabel.setStyle("-fx-fill: lightseagreen;");
+            nameLabel.setStyle("-fx-text-fill: #00ff55;-fx-font-weight: bold");
+            if (Action.bid.equals(giocatore.getStato())) {
+                saldoLabel.setText("offri");
+            } else if(Action.bidded.equals(giocatore.getStato())){
+                saldoLabel.setText("wait");
             } else {
                 statoLabel.setStyle(""); // Rimuove eventuali stili precedenti
                 saldoLabel.setStyle("");

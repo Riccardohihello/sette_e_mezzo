@@ -4,7 +4,6 @@ import it.uniparthenope.programmazione3.UI.CardUI;
 import it.uniparthenope.programmazione3.UI.PlayerUI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
@@ -14,7 +13,7 @@ import java.util.List;
 
 import static it.uniparthenope.programmazione3.UI.Spinner.inizializzaSpinner;
 
-public class Game implements gameObserver {
+public class GameUI implements gameObserver {
 
         public Spinner<Integer> quotaSpinner;
         private final Partita partita = new Partita();
@@ -39,13 +38,15 @@ public class Game implements gameObserver {
                 stai.setVisible(false);
                 carteListView.setItems(carteList);
                 carteListView.setCellFactory(param -> new CardUI());
-                inizializzaSpinner(quotaSpinner, 5, partita.gettoni_giocatore(), 5,5);
+                inizializzaSpinner(quotaSpinner, 5, 100, 5,5);
+                riempi(partita.getGiocatori());
         }
 
         @FXML
         private void quotaButton() {
                 int quotaVersata = quotaSpinner.getValue(); // Ottieni il valore dallo Spinner
                 partita.setQuota(quotaVersata);
+                riempi(partita.getGiocatori());
         }
 
         public void riempi(List<Giocatore> giocatori) {
@@ -58,6 +59,7 @@ public class Game implements gameObserver {
                                 giocatoriDx.add(giocatori.get(i));
                 }
                 riempiLista(this.giocatoriDx,giocatoriDx);
+                riempiLista(this.giocatoriSx,giocatoriSx);
 
         }
 
@@ -69,17 +71,19 @@ public class Game implements gameObserver {
 
 
 
-        public void stai(ActionEvent event) {
+        public void stai() {
+                partita.stai();
         }
-        public void pesca(ActionEvent event) {
+        public void pesca() {
                 partita.pesca();
+                carteList.add(partita.getManoGiocatore());
         }
+
+
 
         @Override
         public void update(Action action) {
-                if (action.equals(Action.next))
-                        System.out.println("add");
-                else if (action.equals(Action.match)) {
+                if (action.equals(Action.match)) {
                         pesca.setVisible(true);
                         stai.setVisible(true);
                         quotaSpinner.setVisible(false);

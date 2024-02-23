@@ -1,5 +1,6 @@
-package it.uniparthenope.programmazione3;
+package it.uniparthenope.programmazione3.UI;
 
+import it.uniparthenope.programmazione3.Main;
 import it.uniparthenope.programmazione3.game.SettingsSingleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 
 
-public class Menu {
+public class MenuUI {
     @FXML
     private Spinner<Integer> spinnerGiocatori;
 

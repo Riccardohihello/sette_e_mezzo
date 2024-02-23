@@ -1,4 +1,5 @@
 package it.uniparthenope.programmazione3.game;
+import it.uniparthenope.programmazione3.observerPattern.Action;
 import it.uniparthenope.programmazione3.strategyPattern.Strategia;
 
 public class Giocatore {
@@ -8,7 +9,7 @@ public class Giocatore {
 
     }
     protected String nome;
-    protected String stato;
+    protected Action stato;
     protected Strategia strategia;
     protected int gettoni;
 
@@ -16,7 +17,7 @@ public class Giocatore {
         return nome;
     }
 
-    public String getStato() {return stato;}
+    public Action getStato() {return stato;}
 
     public void setStrategia(Strategia s) {
         this.strategia = s;
@@ -29,7 +30,9 @@ public class Giocatore {
         return strategia.getMano();
     }
 
-    public void setStato(String stato) {this.stato = stato;}
+    public void setStato(Action stato) {
+        this.stato = stato;
+    }
 
     public int getGettoni() {
         return gettoni;

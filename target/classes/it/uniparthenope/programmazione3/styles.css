@@ -23,6 +23,9 @@
 }
 .text-field{
     -fx-border-color: linear-gradient(#ff5400, #be1d00);
+    -fx-fill: lightseagreen;
+    -fx-stroke: firebrick;
+    -fx-stroke-width: 2px;
     
 }
 

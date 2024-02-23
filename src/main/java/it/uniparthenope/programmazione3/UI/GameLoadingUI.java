@@ -1,6 +1,6 @@
-package it.uniparthenope.programmazione3;
+package it.uniparthenope.programmazione3.UI;
 
-import it.uniparthenope.programmazione3.UI.PlayerUI;
+import it.uniparthenope.programmazione3.Main;
 import it.uniparthenope.programmazione3.game.Giocatore;
 import it.uniparthenope.programmazione3.game.SettingsSingleton;
 import it.uniparthenope.programmazione3.observerPattern.Action;
@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 
-public class LoadingScene implements gameObserver {
+public class GameLoadingUI implements gameObserver {
 
     @FXML
     ListView<Giocatore> prePartita;

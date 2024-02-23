@@ -39,11 +39,11 @@ public class Mano {
             this.valore += c.getValore();
     }
 
-    public double cartaPescata(){
+    public Carta cartaPescata(){
         if(this.ManoDicarte.isEmpty())
-            return 0;
+            return null;
         else
-            return this.ManoDicarte.get(0).getValore();
+            return this.ManoDicarte.get(ManoDicarte.size()-1);
     }
 
     public double getValore(){

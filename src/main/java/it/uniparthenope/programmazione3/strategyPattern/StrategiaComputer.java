@@ -5,8 +5,8 @@ public class StrategiaComputer implements Strategia {
 
 
     @Override
-    public boolean chiediCarta(Giocatore giocatore) {
-        return (mano.cartaPescata()) < 4 && mano.getValore() < 5;
+    public boolean chiediCarta() {
+        return (mano.cartaPescata().getValore() < 4 && mano.getValore() < 5);
     }
 
     @Override

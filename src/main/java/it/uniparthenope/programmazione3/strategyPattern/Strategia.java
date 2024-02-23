@@ -14,6 +14,6 @@ public interface Strategia {
         this.mano.addCarta(c);
     }
 
-    boolean chiediCarta(Giocatore giocatore);
+    boolean chiediCarta();
     void daiGettoni(Giocatore giocatore,int quotaDaVersare);
 }

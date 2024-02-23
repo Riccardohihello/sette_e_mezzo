@@ -4,7 +4,8 @@ public enum Action {
 
     add,
     remove,
-    update,
+    bid,
+    bidded,
     next,
     match,
 }

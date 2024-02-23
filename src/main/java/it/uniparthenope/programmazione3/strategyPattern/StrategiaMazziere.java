@@ -1,23 +1,10 @@
 package it.uniparthenope.programmazione3.strategyPattern;
-
 import it.uniparthenope.programmazione3.game.Giocatore;
-import it.uniparthenope.programmazione3.game.Carta;
-import it.uniparthenope.programmazione3.game.Mano;
-import it.uniparthenope.programmazione3.game.MazzoIterator;
 
 public class StrategiaMazziere implements Strategia {
-    private MazzoIterator mazzo;
-
-    public Mano getMano() {
-        return mano;
-    }
-
-    public void aggiungiCarta(Carta c) {
-        this.mano.addCarta(c);
-    }
 
     @Override
-    public boolean chiediCarta(Giocatore giocatore) {
+    public boolean chiediCarta() {
         return mano.getValore()<7.5;
     }
 
@@ -27,7 +14,4 @@ public class StrategiaMazziere implements Strategia {
         giocatore.riscuoti(puntataGiocatore*2);
     }
 
-    public Carta daiCarte() {
-        return MazzoIterator.getInstance().next();
-    }
 }

@@ -1,14 +1,10 @@
 package it.uniparthenope.programmazione3.strategyPattern;
 import it.uniparthenope.programmazione3.game.Giocatore;
-import it.uniparthenope.programmazione3.game.Mano;
 
 public class StrategiaGiocatore implements Strategia{
-    public Mano getMano() {
-        return mano;
-    }
 
     @Override
-    public boolean chiediCarta(Giocatore giocatore) {
+    public boolean chiediCarta() {
         return mano.getValore()>7.5;
     }
 
