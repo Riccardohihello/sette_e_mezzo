@@ -40,9 +40,11 @@ public class PlayerUI extends ListCell<Giocatore> {
                 saldoLabel.setText("wait");
             } else if(Action.turno.equals(giocatore.getStato())){
                 saldoLabel.setText("turno");
-            } else if(Action.busted.equals(giocatore.getStato())){
+            } else if(Action.busted.equals(giocatore.getStato())) {
                 saldoLabel.setText("bustatooo");
-            } else {
+            } else if (Action.mazziere.equals(giocatore.getStato())) {
+                saldoLabel.setText("mazziere");
+        } else {
                 statoLabel.setStyle(""); // Rimuove eventuali stili precedenti
                 saldoLabel.setStyle("");
             }

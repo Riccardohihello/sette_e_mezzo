@@ -60,49 +60,47 @@ public class Partita  {
 
     public void pesca(){
         Giocatore giocatore = giocatori.get(indiceScorrimento);
-        giocatore.getMano().addCarta(mazzoIterator.next());
-
-        if (giocatore.getMano().getValore()>=7.5) {
-            stai();
-            System.out.println("valore: " + indiceScorrimento);
-            giocatore.setStato(Action.busted);
+        giocatore.aggiungiCarta(mazzoIterator.next());
+        if(giocatore.getMano().getValore()>7.5) {
             notificaOsservatore(Action.busted);
-        } else if (giocatore.getMano().cartaPescata().matta())
-            MazzoIterator.getInstance().mischia();
+
+        }
     }
 
     public void stai() {
+        notificaOsservatore(Action.clear);
         scorriGiocatori();
         giocatori.get(indiceScorrimento).setStato(Action.turno);
     }
 
     public void scorriGiocatori(){
         indiceScorrimento += 1;
-        indiceScorrimento %= giocatori.size();
+        indiceScorrimento %= giocatori.size()+1;
     }
 
     public String getManoGiocatore(){
         return giocatori.get(indiceScorrimento).getMano().cartaPescata().getImagePath();
     }
 
-
     public void riempiPiatto(int quota){
         this.piatto += quota;
     }
 
     public void setQuota(int quotaVersata) {
-            giocatori.get(indiceScorrimento).puntataDaVersare(quotaVersata);
-            giocatori.get(indiceScorrimento).setStato(Action.bidded);
-
-            riempiPiatto(quotaVersata);
-
-            if (!giocatori.get(indiceScorrimento).getStrategia().nomeStrategia().equals("mazziere"))
-                giocatori.get(indiceScorrimento).setStato(Action.bid);
-
-            scorriGiocatori();
-            if (giocatori.get(indiceScorrimento).getStrategia().nomeStrategia().equals("mazziere"))
+        Giocatore attuale = giocatori.get(indiceScorrimento);
+            if (attuale.getStrategia().nomeStrategia().equals("mazziere")) {
+                attuale.setStato(Action.mazziere);
                 scorriGiocatori();
-        if(indiceScorrimento>=giocatori.size()-1) {
+            }else {
+                attuale.puntataDaVersare(quotaVersata);
+                attuale.setStato(Action.bidded);
+                riempiPiatto(quotaVersata);
+                System.out.println("puntata di "+ attuale.getNome() + " del valore di " + quotaVersata);
+                scorriGiocatori();
+            }
+        if(indiceScorrimento>=giocatori.size()) {
+            attuale.setStato(Action.bidded);
+            scorriGiocatori();
             notificaOsservatore(Action.match);
         }
     }

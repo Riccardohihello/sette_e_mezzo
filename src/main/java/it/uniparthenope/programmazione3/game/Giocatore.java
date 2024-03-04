@@ -12,8 +12,17 @@ public class Giocatore {
     protected Action stato;
     protected Strategia strategia;
     protected int gettoni;
+    Mano mano = new Mano();
 
-    public String getNome() {
+    public Mano getMano(){
+        return mano;
+    }
+
+    public void aggiungiCarta(Carta c) {
+        this.mano.addCarta(c);
+    }
+
+        public String getNome() {
         return nome;
     }
 
@@ -21,13 +30,6 @@ public class Giocatore {
 
     public void setStrategia(Strategia s) {
         this.strategia = s;
-    }
-
-    public void aggiungiCarta(Carta c) {
-        strategia.aggiungiCarta(c);
-    }
-    public Mano getMano(){
-        return strategia.getMano();
     }
 
     public void setStato(Action stato) {
@@ -47,7 +49,7 @@ public class Giocatore {
     }
 
     public void puntataDaVersare(int quotaVersata) {
-        
+        this.strategia.daiGettoni(this,quotaVersata);
     }
 
     public Strategia getStrategia() {

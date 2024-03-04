@@ -73,11 +73,11 @@ public class GameUI implements gameObserver {
 
         public void stai() {
                 partita.stai();
-                carteList.clear();
         }
         public void pesca() {
                 partita.pesca();
-                carteList.add(partita.getManoGiocatore());
+                if(partita.getManoGiocatore()!=null)
+                        carteList.add(partita.getManoGiocatore());
         }
 
 
@@ -91,8 +91,13 @@ public class GameUI implements gameObserver {
                         quotaLabel.setVisible(false);
                         quotaButton.setVisible(false);
                 }
-                 else if (action.equals(Action.busted))
+                 else if (action.equals(Action.busted)) {
+                         pesca.setVisible(false);
                          System.out.println("boostato");
+                } else if (action.equals(Action.clear)) {
+                        carteList.clear();
+                        pesca.setVisible(true);
+                }
         }
 }
 

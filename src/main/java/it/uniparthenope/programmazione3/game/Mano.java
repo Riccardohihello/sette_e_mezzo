@@ -3,17 +3,15 @@ package it.uniparthenope.programmazione3.game;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 
 public class Mano {
-    private final ObservableList<Carta> ManoDicarte;
+    private final ArrayList<Carta> manoDicarte = new ArrayList<>();
     private double valore = 0;
 
-    public Mano() {
-        this.ManoDicarte = FXCollections.observableArrayList();
-    }
-
     public void addCarta(Carta c) {
-        this.ManoDicarte.add(c);
+        this.manoDicarte.add(c);
 
         if (c.matta()) {
             System.out.println("Matta");
@@ -21,10 +19,6 @@ public class Mano {
         } else {
             aggiornaValoreCartaNormale(c);
         }
-    }
-
-    public ObservableList<Carta> getCarte(){
-        return this.ManoDicarte;
     }
 
     private void gestisciMatta() {
@@ -40,10 +34,10 @@ public class Mano {
     }
 
     public Carta cartaPescata(){
-        if(this.ManoDicarte.isEmpty())
+        if(this.manoDicarte.isEmpty())
             return null;
         else
-            return this.ManoDicarte.get(ManoDicarte.size()-1);
+            return this.manoDicarte.get(manoDicarte.size()-1);
     }
 
     public double getValore(){
