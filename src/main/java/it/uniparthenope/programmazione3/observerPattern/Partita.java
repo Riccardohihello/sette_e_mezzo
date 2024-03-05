@@ -1,6 +1,7 @@
 package it.uniparthenope.programmazione3.observerPattern;
 
 import it.uniparthenope.programmazione3.game.*;
+import it.uniparthenope.programmazione3.strategyPattern.Strategia;
 import it.uniparthenope.programmazione3.strategyPattern.StrategiaComputer;
 import it.uniparthenope.programmazione3.strategyPattern.StrategiaGiocatore;
 import it.uniparthenope.programmazione3.strategyPattern.StrategiaMazziere;
@@ -12,9 +13,8 @@ import java.util.Random;
 public class Partita  {
     private final ArrayList<gameObserver> osservatori = new ArrayList<>();
     private int indiceScorrimento = 0;
-
     private final ArrayList<Giocatore> giocatori = new ArrayList<>();
-    MazzoIterator mazzoIterator = MazzoIterator.getInstance();
+    MazzoIterator mazzoIterator = new MazzoIterator();
     public int piatto;
 
     // Costruttore privato per impedire istanze multiple
@@ -23,15 +23,14 @@ public class Partita  {
         mazzoIterator.mischia();
         aggiungiGiocatori();
         Collections.shuffle(giocatori);
-        if (giocatori.get(indiceScorrimento).getStrategia().nomeStrategia().equals("mazziere"))
+        if (giocatori.get(indiceScorrimento).getStrategia().getClass().equals(StrategiaMazziere.class))
             scorriGiocatori();
     }
+
     public void notificaOsservatore(Action action) {
-        if (!osservatori.isEmpty()) {
-            for (gameObserver observer : this.osservatori) {
+        if (!osservatori.isEmpty())
+            for (gameObserver observer : this.osservatori)
                 observer.update(action);
-            }
-        }
     }
 
     public void addOsservatore(gameObserver osservatore) {
@@ -49,10 +48,8 @@ public class Partita  {
         for (Giocatore g : giocatori) {
             if (g.getNome().equals("Computer"))
                 g.setStrategia(new StrategiaComputer());
-            else if (g.getNome().equals(giocatori.get(rand).getNome())){
+            else if (g.getNome().equals(giocatori.get(rand).getNome()))
                 g.setStrategia(new StrategiaMazziere());
-                System.out.println(g.getNome() + " è mazziere");
-            }
             else
                 g.setStrategia(new StrategiaGiocatore());
         }
@@ -68,9 +65,14 @@ public class Partita  {
     }
 
     public void stai() {
-        notificaOsservatore(Action.clear);
-        scorriGiocatori();
-        giocatori.get(indiceScorrimento).setStato(Action.turno);
+        if (indiceScorrimento >= giocatori.size()-1){
+                notificaOsservatore(Action.results);
+                for (Giocatore g : giocatori)
+                    g.setStato(Action.results);
+        }else{
+            notificaOsservatore(Action.clear);
+            scorriGiocatori();
+        }
     }
 
     public void scorriGiocatori(){
@@ -82,28 +84,32 @@ public class Partita  {
         return giocatori.get(indiceScorrimento).getMano().cartaPescata().getImagePath();
     }
 
+    private Strategia strategiaGiocatore(){
+        return giocatori.get(indiceScorrimento).getStrategia();
+    }
+
     public void riempiPiatto(int quota){
         this.piatto += quota;
+        this.giocatori.get(indiceScorrimento).puntataDaVersare(quota);
     }
 
     public void setQuota(int quotaVersata) {
         Giocatore attuale = giocatori.get(indiceScorrimento);
-            if (attuale.getStrategia().nomeStrategia().equals("mazziere")) {
-                attuale.setStato(Action.mazziere);
-                scorriGiocatori();
-            }else {
-                attuale.puntataDaVersare(quotaVersata);
-                attuale.setStato(Action.bidded);
-                riempiPiatto(quotaVersata);
-                System.out.println("puntata di "+ attuale.getNome() + " del valore di " + quotaVersata);
-                scorriGiocatori();
-            }
+        if (strategiaGiocatore().getClass().equals(StrategiaMazziere.class)) {
+            attuale.setStato(Action.mazziere);
+        } else if (strategiaGiocatore().getClass().equals(StrategiaComputer.class)) {
+            riempiPiatto( piatto / giocatori.size());
+            attuale.setStato(Action.computer);
+        }else{
+            attuale.setStato(Action.bidded);
+            riempiPiatto(quotaVersata);
+        }
+
+        scorriGiocatori();
         if(indiceScorrimento>=giocatori.size()) {
             attuale.setStato(Action.bidded);
             scorriGiocatori();
             notificaOsservatore(Action.match);
         }
     }
-
-
 }

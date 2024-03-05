@@ -9,7 +9,7 @@ public class MazzoIterator implements Iterator<Carta> {
     private int iteratorPosition = 0;
     private final ArrayList<Carta> carte;
 
-    private MazzoIterator() {
+    public MazzoIterator() {
         this.carte = new ArrayList<>();
         this.carte.add(new Carta(10, "Denari"));
         String[] semi = {"Coppe", "Denari", "Spade", "Bastoni"};
@@ -18,15 +18,6 @@ public class MazzoIterator implements Iterator<Carta> {
                 this.carte.add(new Carta(i+1, seme));
             }
         }
-    }
-
-    private static MazzoIterator instance;
-    public static MazzoIterator getInstance()
-    {
-        if(instance == null) {
-            instance = new MazzoIterator();
-        }
-        return instance;
     }
 
     public void mischia() {

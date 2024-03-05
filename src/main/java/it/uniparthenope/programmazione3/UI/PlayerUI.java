@@ -13,6 +13,7 @@ import java.util.Objects;
 public class PlayerUI extends ListCell<Giocatore> {
     VBox vbox = new VBox();
     Label nameLabel = new Label("");
+    Label ruolo = new Label("");
     Label saldoLabel = new Label("");
     Label statoLabel = new Label("");
     ImageView img = new ImageView();
@@ -37,13 +38,14 @@ public class PlayerUI extends ListCell<Giocatore> {
             if (Action.bid.equals(giocatore.getStato())) {
                 saldoLabel.setText("offri");
             } else if(Action.bidded.equals(giocatore.getStato())){
-                saldoLabel.setText("wait");
-            } else if(Action.turno.equals(giocatore.getStato())){
-                saldoLabel.setText("turno");
-            } else if(Action.busted.equals(giocatore.getStato())) {
-                saldoLabel.setText("bustatooo");
+                saldoLabel.setText("Giocatore: " + giocatore.getNome() + " gettoni: " + giocatore.getGettoni());
             } else if (Action.mazziere.equals(giocatore.getStato())) {
                 saldoLabel.setText("mazziere");
+            }else if (Action.results.equals(giocatore.getStato())) {
+                saldoLabel.setVisible(true);
+                statoLabel.setVisible(true);
+                statoLabel.setText("valore mano: " + giocatore.getMano().getValore());
+                saldoLabel.setText("saldo: " + giocatore.getGettoni() + " gettoni");
         } else {
                 statoLabel.setStyle(""); // Rimuove eventuali stili precedenti
                 saldoLabel.setStyle("");
@@ -53,6 +55,10 @@ public class PlayerUI extends ListCell<Giocatore> {
         } else {
             setGraphic(null);
         }
+    }
+
+    public void setRuolo(String ruolo) {
+        this.ruolo.setText(ruolo);
     }
 
 }

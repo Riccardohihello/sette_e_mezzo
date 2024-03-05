@@ -1,4 +1,5 @@
 package it.uniparthenope.programmazione3.observerPattern;
+
 import it.uniparthenope.programmazione3.game.Giocatore;
 import it.uniparthenope.programmazione3.UI.CardUI;
 import it.uniparthenope.programmazione3.UI.PlayerUI;
@@ -7,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,18 +69,15 @@ public class GameUI implements gameObserver {
                 lista.setMouseTransparent(true); // Impedisce la selezione
         }
 
-
-
         public void stai() {
                 partita.stai();
         }
+
         public void pesca() {
                 partita.pesca();
                 if(partita.getManoGiocatore()!=null)
                         carteList.add(partita.getManoGiocatore());
         }
-
-
 
         @Override
         public void update(Action action) {
@@ -90,13 +87,19 @@ public class GameUI implements gameObserver {
                         quotaSpinner.setVisible(false);
                         quotaLabel.setVisible(false);
                         quotaButton.setVisible(false);
-                }
-                 else if (action.equals(Action.busted)) {
+                } else if (action.equals(Action.busted)) {
                          pesca.setVisible(false);
-                         System.out.println("boostato");
                 } else if (action.equals(Action.clear)) {
-                        carteList.clear();
                         pesca.setVisible(true);
+                } else if (action.equals(Action.results)) {
+                         pesca.setVisible(false);
+                         stai.setVisible(false);
+                         quotaLabel.setVisible(true);
+                         quotaLabel.setText("Risultati");
+                        giocatoriDx.refresh();
+                        giocatoriSx.refresh();
+                } else if (action.equals(Action.computer)) {
+                         carteListView.refresh();
                 }
         }
 }

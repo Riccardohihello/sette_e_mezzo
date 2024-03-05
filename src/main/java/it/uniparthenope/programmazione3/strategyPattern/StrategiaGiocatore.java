@@ -14,8 +14,4 @@ public class StrategiaGiocatore implements Strategia{
         giocatore.daiGettoni(puntataDaVersare);
     }
 
-    @Override
-    public String nomeStrategia() {
-        return "giocatore";
-    }
 }

@@ -18,9 +18,4 @@ public class StrategiaComputer implements Strategia {
             giocatore.daiGettoni(mediaPuntate);
         }
     }
-
-    @Override
-    public String nomeStrategia() {
-        return "computer";
-    }
 }

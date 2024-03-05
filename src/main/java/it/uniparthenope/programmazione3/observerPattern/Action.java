@@ -6,7 +6,8 @@ public enum Action {
     bidded,
     match,
     busted,
-    turno,
     mazziere,
-    clear
+    clear,
+    results,
+    computer
 }

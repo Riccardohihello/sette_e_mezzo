@@ -49,9 +49,7 @@ public class GameLoadingUI implements gameObserver {
         boolean tuttiGiocatoriAggiunti = SettingsSingleton.getInstance().getListaGiocatori().size() >= numeroMassimoGiocatori;
 
         aggiornaInterfacciaUtente(tuttiGiocatoriAggiunti);
-
     }
-
 
     private void aggiornaInterfacciaUtente(boolean tuttiGiocatoriAggiunti) {
         if (tuttiGiocatoriAggiunti) {
@@ -63,7 +61,6 @@ public class GameLoadingUI implements gameObserver {
         }
         formPlayer.clear();
     }
-
 
     //Metodo generico per riempire una listView, controllo interno per vedere se è carta o lista giocatori
     public void riempiLista(ObservableList<Giocatore> args) {
