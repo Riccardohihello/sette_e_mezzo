@@ -97,6 +97,14 @@ public class GameUI implements gameObserver {
                 } else if (action.equals(Action.clear)) {
                         carteList.clear();
                         pesca.setVisible(true);
+                } else if (action.equals(Action.results)) {
+                         carteList.clear();
+                         pesca.setVisible(false);
+                         stai.setVisible(false);
+                         quotaLabel.setVisible(true);
+                         quotaLabel.setText("Risultati");
+                        giocatoriDx.refresh();
+                        giocatoriSx.refresh();
                 }
         }
 }

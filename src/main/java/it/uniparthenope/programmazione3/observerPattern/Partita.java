@@ -68,9 +68,17 @@ public class Partita  {
     }
 
     public void stai() {
-        notificaOsservatore(Action.clear);
-        scorriGiocatori();
-        giocatori.get(indiceScorrimento).setStato(Action.turno);
+        if (indiceScorrimento >= giocatori.size()-1){
+                notificaOsservatore(Action.results);
+                for (Giocatore g : giocatori)
+                    g.setStato(Action.results);
+            }
+        else{
+            System.out.println(giocatori.get(indiceScorrimento).getNome() +" ha pescato");
+            notificaOsservatore(Action.clear);
+            scorriGiocatori();
+            giocatori.get(indiceScorrimento).setStato(Action.turno);
+        }
     }
 
     public void scorriGiocatori(){

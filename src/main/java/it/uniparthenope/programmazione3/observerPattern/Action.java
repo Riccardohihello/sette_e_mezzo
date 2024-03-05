@@ -8,5 +8,6 @@ public enum Action {
     busted,
     turno,
     mazziere,
-    clear
+    clear,
+    results
 }

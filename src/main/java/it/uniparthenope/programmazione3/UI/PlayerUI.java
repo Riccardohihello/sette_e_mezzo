@@ -44,6 +44,11 @@ public class PlayerUI extends ListCell<Giocatore> {
                 saldoLabel.setText("bustatooo");
             } else if (Action.mazziere.equals(giocatore.getStato())) {
                 saldoLabel.setText("mazziere");
+            }else if (Action.results.equals(giocatore.getStato())) {
+                saldoLabel.setVisible(true);
+                statoLabel.setVisible(true);
+                statoLabel.setText("valore mano: " + giocatore.getMano().getValore());
+                saldoLabel.setText("saldo: " + giocatore.getGettoni() + " gettoni");
         } else {
                 statoLabel.setStyle(""); // Rimuove eventuali stili precedenti
                 saldoLabel.setStyle("");
