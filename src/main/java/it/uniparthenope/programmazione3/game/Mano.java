@@ -1,7 +1,5 @@
 package it.uniparthenope.programmazione3.game;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -9,6 +7,7 @@ import java.util.ArrayList;
 public class Mano {
     private final ArrayList<Carta> manoDicarte = new ArrayList<>();
     private double valore = 0;
+
 
     public void addCarta(Carta c) {
         this.manoDicarte.add(c);

@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 
+
 public class GameLoadingUI implements gameObserver {
 
     @FXML
@@ -70,7 +71,7 @@ public class GameLoadingUI implements gameObserver {
         }
 
     @Override
-    public void update(Action action) {
+    public void update(Action action, String... message) {
 
     }
 }

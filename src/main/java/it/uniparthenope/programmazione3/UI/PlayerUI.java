@@ -26,29 +26,49 @@ public class PlayerUI extends ListCell<Giocatore> {
         vbox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(img, nameLabel, saldoLabel,statoLabel);
         setGraphic(vbox);
-        nameLabel.setStyle("-fx-text-fill: #00ff55;-fx-font-weight: bold");
+
+        vbox.setStyle("-fx-background-color: #afaeae; -fx-border-radius: 10px;-fx-background-radius: 10px" );
+        nameLabel.setStyle("-fx-text-fill: #2a2828;-fx-font-weight: bold");
+        saldoLabel.setStyle("-fx-text-fill: #2a2828");
+        statoLabel.setStyle("-fx-text-fill: #2a2828");
     }
 
+    private void check_state_color(Action stato) {
+        if (stato.equals(Action.bid) || stato.equals(Action.match))
+            statoLabel.setStyle("-fx-text-fill: #17cb17;");
+        else
+            statoLabel.setStyle("-fx-text-fill: #2a2828");
+
+    }
     public void updateItem(Giocatore giocatore, boolean empty) {
         super.updateItem(giocatore, empty);
         setText(null);
-
         if (giocatore!= null && !empty) {
             nameLabel.setText(giocatore.getNome());
+            saldoLabel.setText("Gettoni: " + giocatore.getGettoni());
+            if (giocatore.getStato() != null)
+                check_state_color(giocatore.getStato());
             if (Action.bid.equals(giocatore.getStato())) {
-                saldoLabel.setText("offri");
-            } else if(Action.bidded.equals(giocatore.getStato())){
-                saldoLabel.setText("Giocatore: " + giocatore.getNome() + " gettoni: " + giocatore.getGettoni());
+                statoLabel.setText("Deve versare");
+            } else if (Action.match.equals(giocatore.getStato())){
+                statoLabel.setText("Gioca");
+                saldoLabel.setText("Valore mano: "+giocatore.getMano().getValore());
+            } else if (Action.bidded.equals(giocatore.getStato())) {
+                statoLabel.setText("Versato...");
             } else if (Action.mazziere.equals(giocatore.getStato())) {
-                saldoLabel.setText("mazziere");
-            }else if (Action.results.equals(giocatore.getStato())) {
+                statoLabel.setText("Mazziere");
+            } else if (Action.wait.equals(giocatore.getStato())) {
+                statoLabel.setText("In attesa..");
+            } else if (Action.busted.equals(giocatore.getStato())) {
+                statoLabel.setText("Sballato!");
+            } else if (Action.results.equals(giocatore.getStato())) {
                 saldoLabel.setVisible(true);
                 statoLabel.setVisible(true);
-                statoLabel.setText("valore mano: " + giocatore.getMano().getValore());
-                saldoLabel.setText("saldo: " + giocatore.getGettoni() + " gettoni");
+                statoLabel.setText("Valore mano: " + giocatore.getMano().getValore());
+                saldoLabel.setText("Saldo: " + giocatore.getGettoni() + " gettoni");
         } else {
-                statoLabel.setStyle(""); // Rimuove eventuali stili precedenti
-                saldoLabel.setStyle("");
+                saldoLabel.setStyle("-fx-text-fill: #2a2828");
+                statoLabel.setStyle("-fx-text-fill: #2a2828");
             }
             img.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/uniparthenope/programmazione3/images/avatar.png"))));
             setGraphic(vbox);

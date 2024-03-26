@@ -9,5 +9,7 @@ public enum Action {
     mazziere,
     clear,
     results,
-    computer
+    computer,
+    stampa,
+    wait,
 }

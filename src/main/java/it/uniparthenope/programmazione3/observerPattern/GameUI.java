@@ -33,13 +33,16 @@ public class GameUI implements gameObserver {
 
         public void initialize() {
                 partita.addOsservatore(this);
-
                 pesca.setVisible(false);
                 stai.setVisible(false);
                 carteListView.setItems(carteList);
                 carteListView.setCellFactory(param -> new CardUI());
                 inizializzaSpinner(quotaSpinner, 5, 100, 5,5);
+                partita.getAttuale().setStato(Action.bid);
                 riempi(partita.getGiocatori());
+                textArea.appendText("E' il turno di "+partita.getAttuale().getNome()+"\n");
+
+
         }
 
         @FXML
@@ -75,31 +78,52 @@ public class GameUI implements gameObserver {
 
         public void pesca() {
                 partita.pesca();
+                giocatoriDx.refresh();
+                giocatoriSx.refresh();
                 if(partita.getManoGiocatore()!=null)
                         carteList.add(partita.getManoGiocatore());
         }
 
         @Override
-        public void update(Action action) {
+        public void update(Action action,String... message) {
                 if (action.equals(Action.match)) {
+                        textArea.clear();
+                        textArea.appendText("Inizio partita\nE'il turno di "+partita.getAttuale().getNome()+"\n");
+                        partita.getAttuale().setStato(Action.match);
                         pesca.setVisible(true);
                         stai.setVisible(true);
                         quotaSpinner.setVisible(false);
                         quotaLabel.setVisible(false);
                         quotaButton.setVisible(false);
                 } else if (action.equals(Action.busted)) {
-                         pesca.setVisible(false);
+                        pesca.setVisible(false);
+                        textArea.appendText("Il giocatore "+partita.getAttuale().getNome()+" ha sballato!\n");
                 } else if (action.equals(Action.clear)) {
                         pesca.setVisible(true);
+                        carteList.clear();
+                        giocatoriDx.refresh();
+                        giocatoriSx.refresh();
                 } else if (action.equals(Action.results)) {
-                         pesca.setVisible(false);
-                         stai.setVisible(false);
-                         quotaLabel.setVisible(true);
-                         quotaLabel.setText("Risultati");
+                        pesca.setVisible(false);
+                        stai.setVisible(false);
+                        carteList.clear();
+                        quotaLabel.setVisible(true);
+                        quotaLabel.setText("Risultati");
                         giocatoriDx.refresh();
                         giocatoriSx.refresh();
                 } else if (action.equals(Action.computer)) {
-                         carteListView.refresh();
+                        carteListView.refresh();
+                } else if (action.equals(Action.stampa)) {
+                        textArea.appendText(String.join("", message) + "\n");
+                } else if (action.equals(Action.bid)) {
+                        pesca.setVisible(false);
+                        stai.setVisible(false);
+                        inizializzaSpinner(quotaSpinner, 5, 100, 5,5);
+                        quotaSpinner.setVisible(true);
+                        quotaLabel.setVisible(true);
+                        quotaButton.setVisible(true);
+                        partita.getAttuale().setStato(Action.bid);
+                        textArea.appendText("E' il turno di "+partita.getAttuale().getNome()+"\n");
                 }
         }
 }

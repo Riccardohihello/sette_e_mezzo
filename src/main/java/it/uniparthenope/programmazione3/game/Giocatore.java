@@ -18,11 +18,14 @@ public class Giocatore {
         return mano;
     }
 
+    public void resetMano() {
+        mano = new Mano();
+    }
     public void aggiungiCarta(Carta c) {
         this.mano.addCarta(c);
     }
 
-        public String getNome() {
+    public String getNome() {
         return nome;
     }
 
@@ -55,5 +58,6 @@ public class Giocatore {
     public Strategia getStrategia() {
         return strategia;
     }
+
 }
 
