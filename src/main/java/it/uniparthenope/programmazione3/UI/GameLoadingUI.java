@@ -26,6 +26,7 @@ public class GameLoadingUI implements gameObserver {
     private TextField formPlayer;
     @FXML
     private Label secondLabel;
+    private int priorità = 0;
 
     @FXML
     public void initialize() {

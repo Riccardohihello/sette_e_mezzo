@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.UI.MenuUI">
+<StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.UI.MenuUI">
     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="80.0">
         <HBox alignment="TOP_CENTER" prefHeight="58.0" prefWidth="1280.0">
             <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Sette e mezzo Demo">
@@ -18,7 +18,7 @@
             </Label>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <Label alignment="CENTER" contentDisplay="TOP" text="Numero di giocatori: ">
+            <Label alignment="CENTER" contentDisplay="TOP" text="Numero di giocatori: " textAlignment="CENTER">
                 <font>
                     <Font size="20.0" />
                 </font>
@@ -33,16 +33,16 @@
             </Label>
             <Spinner fx:id="spinnerTurni" />
         </HBox>
-        <Label fx:id="labelRisultato" text="Label">
+        <Label fx:id="labelRisultato" text="Label" textAlignment="CENTER">
             <font>
                 <Font size="24.0" />
             </font></Label>
         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-            <Button contentDisplay="CENTER" mnemonicParsing="false" text="Inizia" onAction="#gameSceneButton">
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" text="Inizia">
                 <font>
                     <Font size="18.0" />
                 </font></Button>
-            <Button text="esci" onAction="#exitButton" >
+            <Button onAction="#exitButton" text="esci">
                 <font>
                     <Font size="18.0" />
                 </font></Button>

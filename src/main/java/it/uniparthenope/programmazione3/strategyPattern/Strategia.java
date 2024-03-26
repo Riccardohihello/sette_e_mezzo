@@ -5,5 +5,5 @@ import it.uniparthenope.programmazione3.game.Mano;
 
 public interface Strategia {
     boolean chiediCarta(Mano mano);
-    void daiGettoni(Giocatore giocatore,int quotaDaVersare);
+    void daiGettoni(Giocatore giocatore, int quotaDaVersare);
 }

@@ -10,7 +10,7 @@ public class StrategiaGiocatore implements Strategia{
     }
 
     @Override
-    public void daiGettoni(Giocatore giocatore,int puntataDaVersare) {
+    public void daiGettoni(Giocatore giocatore, int puntataDaVersare) {
         giocatore.daiGettoni(puntataDaVersare);
     }
 
