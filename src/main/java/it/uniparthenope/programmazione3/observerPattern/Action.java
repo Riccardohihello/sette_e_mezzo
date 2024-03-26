@@ -12,4 +12,5 @@ public enum Action {
     computer,
     stampa,
     wait,
+    setteMezzo,
 }

@@ -64,6 +64,6 @@
 
    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <children>
-         <ImageView fx:id="flashText" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="flashText" preserveRatio="true" />
       </children></HBox>
 </GridPane>

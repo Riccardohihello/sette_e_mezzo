@@ -100,6 +100,8 @@ public class Partita  {
         Giocatore giocatore = giocatori.get(indiceScorrimento);
         if (giocatore.getStato()!=Action.busted)
             giocatore.setStato(Action.results);
+        if (giocatore.getMano().getValore() == 7.5)
+            notificaOsservatore(Action.setteMezzo);
         if (indiceScorrimento == giocatori.size()-1){
             notificaOsservatore(Action.results);
             //Decidi vincitore()

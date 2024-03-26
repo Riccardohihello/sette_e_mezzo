@@ -16,7 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
-
+import javafx.animation.PauseTransition;
 import static it.uniparthenope.programmazione3.UI.Spinner.inizializzaSpinner;
 
 public class GameUI implements gameObserver {
@@ -24,7 +24,7 @@ public class GameUI implements gameObserver {
         public Spinner<Integer> quotaSpinner;
         private final Partita partita = new Partita();
         public Button quotaButton;
-        public final ImageView flashText = new ImageView();
+        public  ImageView flashText = new ImageView();
         public Label quotaLabel;
         public TextArea textArea;
         @FXML
@@ -47,6 +47,7 @@ public class GameUI implements gameObserver {
                 inizializzaSpinner(quotaSpinner, 5, 100, 5,5);
                 partita.getAttuale().setStato(Action.bid);
                 riempi(partita.getGiocatori());
+                flashText.setVisible(true);
                 update(Action.bid);
 
 
@@ -92,32 +93,47 @@ public class GameUI implements gameObserver {
         }
 
         public void showFlashImage(String path) {
-                flashText.setFitWidth(120);  // Imposta la larghezza desiderata dell'immagine
-                flashText.setFitHeight(70); // Imposta l'altezza desiderata dell'immagine
+                Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(path)));
+                disableInteractiveElements(true);
+                flashText.setImage(image);
+                flashText.setFitWidth(500);
                 flashText.setPreserveRatio(true);
-                flashText.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
                 flashText.setVisible(true);
 
-                FadeTransition fadeIn = new FadeTransition(Duration.millis(1000),flashText);
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), flashText);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
-                fadeIn.play();
-        }
-        public void hideFlashImage() {
+
                 FadeTransition fadeOut = new FadeTransition(Duration.millis(1000), flashText);
                 fadeOut.setFromValue(1.0);
                 fadeOut.setToValue(0.0);
 
-                // Azione da eseguire quando l'animazione di fade-out termina
+                PauseTransition pause = new PauseTransition(Duration.millis(1000));
+
+                fadeIn.setOnFinished(event -> pause.play());
+                pause.setOnFinished(event -> {
+                        fadeOut.play();
+                        disableInteractiveElements(false);
+                });
+
+                fadeIn.play();
+
                 fadeOut.setOnFinished(event -> flashText.setVisible(false));
 
-                // Avvio dell'animazione di fade-out
-                fadeOut.play();
         }
+
+        private void disableInteractiveElements(boolean disable) {
+                pesca.setDisable(disable);
+                stai.setDisable(disable);
+                quotaButton.setDisable(disable);
+                quotaSpinner.setDisable(disable);
+        }
+
         @Override
         public void update(Action action,String... message) {
                 if (action.equals(Action.match)) {
                         textArea.clear();
+                        showFlashImage("/it/uniparthenope/programmazione3/images/money.gif");
                         textArea.appendText("Inizio partita\nE'il turno di "+partita.getAttuale().getNome()+"\n");
                         partita.getAttuale().setStato(Action.match);
                         pesca.setVisible(true);
@@ -138,13 +154,14 @@ public class GameUI implements gameObserver {
                 } else if (action.equals(Action.results)) {
                         pesca.setVisible(false);
                         stai.setVisible(false);
+                        carteListView.setVisible(false);
                         carteList.clear();
                         quotaLabel.setVisible(true);
                         quotaLabel.setText("Risultati");
                         giocatoriDx.refresh();
                         giocatoriSx.refresh();
-                } else if (action.equals(Action.computer)) {
-                        carteListView.refresh();
+                } else if (action.equals(Action.setteMezzo)) {
+                        showFlashImage("/it/uniparthenope/programmazione3/images/setteMezzo.png");
                 } else if (action.equals(Action.stampa)) {
                         textArea.appendText(String.join("", message) + "\n");
                 } else if (action.equals(Action.bid)) {
@@ -156,7 +173,7 @@ public class GameUI implements gameObserver {
                         quotaButton.setVisible(true);
                         partita.getAttuale().setStato(Action.bid);
                         textArea.appendText("E' il turno di "+partita.getAttuale().getNome()+"\n");
-                        if (partita.getAttuale().getNome()=="Computer")
+                        if (partita.getAttuale().getNome().equals("Computer"))
                                 partita.setQuota(0);
 
                 }
