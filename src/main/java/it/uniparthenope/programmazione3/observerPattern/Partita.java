@@ -166,10 +166,10 @@ public class Partita  {
             //Salta automaticamente il mazziere quando lo incontra
             notificaOsservatore(Action.stampa, "Il giocatore " + prossimo.getNome() + " è il mazziere");
             setQuota(0);
-        } else if (prossimo.getNome().equals("Computer")){
+        } else if (prossimo.getNome().equals("Computer") && azione.equals(Action.bid)) {
           notificaOsservatore(Action.bid);
         } else {
-            //Appena un giocatore versa la quota avvisa il prossimo giocatore che è il suo turno
+            //Avvisa il prossimo giocatore che è il suo turno
             notificaOsservatore(Action.stampa, "E' il turno di " + prossimo.getNome());
             prossimo.setStato(azione);
         }
@@ -195,6 +195,7 @@ public class Partita  {
             scorriGiocatori();
             indiceScorrimento = 0;
             notificaOsservatore(Action.match);
+
         } else {
             prossimoGiocatore(Action.bid);
         }
