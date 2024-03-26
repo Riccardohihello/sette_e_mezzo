@@ -79,6 +79,9 @@ public class Partita  {
             //Se è uguale a wait ricomincia una nuova partita e resetto anche le variabili
             if(stato == Action.wait) {
                 g.resetMano();
+                winners.clear();
+                winValue = -1;
+                piatto = 0;
             }
 
         }
@@ -100,10 +103,15 @@ public class Partita  {
                     winners.add(g);
                 }
             }
-            int quota = piatto / winners.size();
-            for (Giocatore g :winners) {
-                System.out.println("Vincitore: " + g.getNome() + "\n");
-                g.riscuoti(quota);
+            if (winners.isEmpty()) {
+                notificaOsservatore(Action.stampa,"Non ha vinto nessuno...");
+            } else {
+                int quota = piatto / winners.size();
+
+                for (Giocatore g : winners) {
+                    System.out.println("Vincitore: " + g.getNome() + "\n");
+                    g.riscuoti(quota);
+                }
             }
             //if (turniGiocati < turni)
             resetStato(Action.wait);
@@ -148,6 +156,8 @@ public class Partita  {
             //Salta automaticamente il mazziere quando lo incontra
             notificaOsservatore(Action.stampa, "Il giocatore " + prossimo.getNome() + " è il mazziere");
             setQuota(0);
+        } else if (prossimo.getNome().equals("Computer")){
+          notificaOsservatore(Action.bid);
         } else {
             //Appena un giocatore versa la quota avvisa il prossimo giocatore che è il suo turno
             notificaOsservatore(Action.stampa, "E' il turno di " + prossimo.getNome());
@@ -158,8 +168,10 @@ public class Partita  {
     public void setQuota(int quotaVersata) {
         Giocatore attuale = giocatori.get(indiceScorrimento);
         if (strategiaGiocatore().getClass().equals(StrategiaComputer.class)) {
-            riempiPiatto( piatto / giocatori.size());
-            notificaOsservatore(Action.stampa,"Il computer "+attuale.getNome()+" ha versato "+quotaVersata);
+            int quotaComputer = piatto/giocatori.size();
+            if (quotaComputer < 5) quotaComputer = 5;
+            riempiPiatto(quotaComputer);
+            notificaOsservatore(Action.stampa,"Il computer "+attuale.getNome()+" ha versato "+quotaComputer);
             attuale.setStato(Action.bidded);
         }else if (attuale.getStato()!=Action.mazziere){
             attuale.setStato(Action.bidded);

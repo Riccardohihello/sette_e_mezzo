@@ -40,7 +40,7 @@ public class GameUI implements gameObserver {
                 inizializzaSpinner(quotaSpinner, 5, 100, 5,5);
                 partita.getAttuale().setStato(Action.bid);
                 riempi(partita.getGiocatori());
-                textArea.appendText("E' il turno di "+partita.getAttuale().getNome()+"\n");
+                update(Action.bid);
 
 
         }
@@ -124,6 +124,9 @@ public class GameUI implements gameObserver {
                         quotaButton.setVisible(true);
                         partita.getAttuale().setStato(Action.bid);
                         textArea.appendText("E' il turno di "+partita.getAttuale().getNome()+"\n");
+                        if (partita.getAttuale().getNome()=="Computer")
+                                partita.setQuota(0);
+
                 }
         }
 }

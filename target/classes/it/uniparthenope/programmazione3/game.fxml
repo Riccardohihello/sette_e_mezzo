@@ -48,8 +48,8 @@
          </font>
       </Button>
    </HBox>
-   <ListView fx:id="giocatoriSx" prefHeight="315.0" prefWidth="320.0" GridPane.rowIndex="1" GridPane.rowSpan="3" />
-   <ListView fx:id="giocatoriDx" layoutX="10.0" layoutY="170.0" prefHeight="315.0" prefWidth="320.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="3" />
+   <ListView fx:id="giocatoriSx" prefHeight="315.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.rowSpan="3" />
+   <ListView fx:id="giocatoriDx" layoutX="10.0" layoutY="170.0" prefHeight="315.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="3" />
    <ListView fx:id="carteListView" maxHeight="180.0" minHeight="180.0" orientation="HORIZONTAL" prefHeight="180.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
