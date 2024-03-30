@@ -181,9 +181,7 @@ public class Partita  {
         Giocatore attuale = giocatori.get(indiceScorrimento);
         if (strategiaGiocatore().getClass().equals(StrategiaComputer.class)) {
             int quotaComputer = piatto/giocatori.size();
-            attuale.puntataDaVersare(quotaComputer);
-            if (quotaComputer < 5) quotaComputer = 5;
-            riempiPiatto(quotaComputer);
+            riempiPiatto(attuale.puntataDaVersare(quotaComputer));
             notificaOsservatore(Action.stampa,"Il computer "+attuale.getNome()+" ha versato "+quotaComputer);
             attuale.setStato(Action.bidded);
         }else if (attuale.getStato()!=Action.mazziere){

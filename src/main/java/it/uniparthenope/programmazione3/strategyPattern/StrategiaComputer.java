@@ -10,12 +10,14 @@ public class StrategiaComputer implements Strategia {
     }
 
     @Override
-    public void daiGettoni(Giocatore giocatore, int mediaPuntate) {
+    public int daiGettoni(Giocatore giocatore, int mediaPuntate) {
         int puntataFissa = 5;
-        if(mediaPuntate<5)
+        if(mediaPuntate<5) {
             giocatore.daiGettoni(puntataFissa);
-        else{
+            return puntataFissa;
+        } else{
             giocatore.daiGettoni(mediaPuntate);
+            return  mediaPuntate;
         }
     }
 }

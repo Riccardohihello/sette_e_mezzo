@@ -51,8 +51,9 @@ public class Giocatore {
         gettoni += importo;
     }
 
-    public void puntataDaVersare(int quotaVersata) {
-        this.strategia.daiGettoni(this,quotaVersata);
+    public int puntataDaVersare(int quotaVersata) {
+       return this.strategia.daiGettoni(this,quotaVersata);
+
     }
 
     public Strategia getStrategia() {
