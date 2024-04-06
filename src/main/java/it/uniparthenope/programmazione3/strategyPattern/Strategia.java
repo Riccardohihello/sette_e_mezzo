@@ -4,6 +4,6 @@ import it.uniparthenope.programmazione3.game.Giocatore;
 import it.uniparthenope.programmazione3.game.Mano;
 
 public interface Strategia {
-    boolean chiediCarta(Mano mano);
+    boolean scelta(Mano mano);
     int daiGettoni(Giocatore giocatore, int quotaDaVersare);
 }

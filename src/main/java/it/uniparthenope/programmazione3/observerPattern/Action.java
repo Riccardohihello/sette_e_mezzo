@@ -13,4 +13,6 @@ public enum Action {
     stampa,
     wait,
     setteMezzo,
+    pescato,
+    reset,
 }

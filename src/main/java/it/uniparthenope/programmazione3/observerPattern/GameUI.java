@@ -3,6 +3,7 @@ package it.uniparthenope.programmazione3.observerPattern;
 import it.uniparthenope.programmazione3.game.Giocatore;
 import it.uniparthenope.programmazione3.UI.CardUI;
 import it.uniparthenope.programmazione3.UI.PlayerUI;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextArea;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,7 +24,7 @@ import static it.uniparthenope.programmazione3.UI.Spinner.inizializzaSpinner;
 public class GameUI implements gameObserver {
 
         public Spinner<Integer> quotaSpinner;
-        private final Partita partita = new Partita();
+        private Partita partita;
         public Button quotaButton;
         public  ImageView flashText = new ImageView();
         public Label quotaLabel;
@@ -39,6 +41,8 @@ public class GameUI implements gameObserver {
         private Button stai;
 
         public void initialize() {
+                System.out.println("CIAOOOO");
+                partita = new Partita();
                 partita.addOsservatore(this);
                 pesca.setVisible(false);
                 stai.setVisible(false);
@@ -86,11 +90,8 @@ public class GameUI implements gameObserver {
 
         public void pesca() {
                 partita.pesca();
-                giocatoriDx.refresh();
-                giocatoriSx.refresh();
-                if(partita.getManoGiocatore()!=null)
-                        carteList.add(partita.getManoGiocatore());
         }
+
 
         public void showFlashImage(String path) {
                 Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(path)));
@@ -108,19 +109,28 @@ public class GameUI implements gameObserver {
                 fadeOut.setFromValue(1.0);
                 fadeOut.setToValue(0.0);
 
-                PauseTransition pause = new PauseTransition(Duration.millis(1000));
+                PauseTransition pauseBeforeAction = new PauseTransition(Duration.millis(2000)); // Ritardo di 2 secondi prima dell'inizio delle azioni
 
-                fadeIn.setOnFinished(event -> pause.play());
-                pause.setOnFinished(event -> {
+                fadeIn.setOnFinished(event -> {
+                        pauseBeforeAction.play();
+                        // Aggiungi qui le azioni da eseguire dopo l'inizio della visualizzazione dell'immagine
+                });
+
+                pauseBeforeAction.setOnFinished(event -> {
+                        // Aggiungi qui le azioni da eseguire dopo la pausa prima dell'inizio delle azioni
                         fadeOut.play();
                         disableInteractiveElements(false);
                 });
 
+                pauseBeforeAction.play();
                 fadeIn.play();
 
-                fadeOut.setOnFinished(event -> flashText.setVisible(false));
-
+                fadeOut.setOnFinished(event -> {
+                        flashText.setVisible(false);
+                        // Aggiungi qui le azioni da eseguire dopo la fine della visualizzazione dell'immagine
+                });
         }
+
 
         private void disableInteractiveElements(boolean disable) {
                 pesca.setDisable(disable);
@@ -131,16 +141,27 @@ public class GameUI implements gameObserver {
 
         @Override
         public void update(Action action,String... message) {
+                Platform.runLater( () -> {
                 if (action.equals(Action.match)) {
                         textArea.clear();
                         showFlashImage("/it/uniparthenope/programmazione3/images/money.gif");
                         textArea.appendText("Inizio partita\nE'il turno di "+partita.getAttuale().getNome()+"\n");
+                        Giocatore attuale = partita.getAttuale();
+                        try {
+                                // Aggiungi un ritardo di 1 secondo tra le pescate del computer
+                                Thread.sleep(1000); // Un secondo
+                        } catch (InterruptedException e) {
+                                e.printStackTrace();
+                        }
                         partita.getAttuale().setStato(Action.match);
+                        if (attuale.getNome().equals("Computer"))
+                                partita.sceltaComputer();
                         pesca.setVisible(true);
                         stai.setVisible(true);
                         quotaSpinner.setVisible(false);
                         quotaLabel.setVisible(false);
                         quotaButton.setVisible(false);
+
                 } else if (action.equals(Action.busted)) {
                         showFlashImage("/it/uniparthenope/programmazione3/images/sballato.png");
                         //hideFlashImage();
@@ -172,11 +193,22 @@ public class GameUI implements gameObserver {
                         quotaLabel.setVisible(true);
                         quotaButton.setVisible(true);
                         partita.getAttuale().setStato(Action.bid);
-                        textArea.appendText("E' il turno di "+partita.getAttuale().getNome()+"\n");
+                        textArea.appendText("E' il turno d+i "+partita.getAttuale().getNome()+"\n");
                         if (partita.getAttuale().getNome().equals("Computer"))
                                 partita.setQuota(0);
 
+                } else if (action.equals(Action.pescato)) {
+                        if (partita.getManoGiocatore() != null) {
+                                // Aggiungi la carta alla vista
+                                carteList.add(partita.getManoGiocatore());
+                        }
+                        giocatoriDx.refresh();
+                        giocatoriSx.refresh();
+                } else if (action.equals(Action.reset)) {
+                        this.initialize();
                 }
+                });
         }
+
 }
 

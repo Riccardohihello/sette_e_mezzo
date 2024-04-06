@@ -55,6 +55,9 @@ public class Giocatore {
        return this.strategia.daiGettoni(this,quotaVersata);
 
     }
+    public boolean scelta() {
+        return  this.strategia.scelta(this.mano);
+    }
 
     public Strategia getStrategia() {
         return strategia;

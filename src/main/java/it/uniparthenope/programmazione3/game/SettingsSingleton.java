@@ -3,21 +3,34 @@ package it.uniparthenope.programmazione3.game;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 
 public class SettingsSingleton {
     private static SettingsSingleton instance;
     private int numeroGiocatori;
+
+
+
     private int numeroTurni;
 
+
+    private int countTurni;
     private ObservableList<Giocatore> listaGiocatori = FXCollections.observableArrayList();
 
     public void addGiocatore(Giocatore g) {
         listaGiocatori.add(g);
     }
-
+    public void updateList(ArrayList<Giocatore> giocatori) {
+        listaGiocatori.clear();
+        for (Giocatore g : giocatori) {
+            addGiocatore(g);
+        }
+    }
     public ObservableList<Giocatore> getListaGiocatori() {
         return listaGiocatori;
     }
+
 
     public static SettingsSingleton getInstance() {
         if (instance == null) {
@@ -36,4 +49,16 @@ public class SettingsSingleton {
     public int getNumeroGiocatori() {
         return numeroGiocatori;
     }
+    public int getNumeroTurni() {
+        return numeroTurni;
+    }
+
+    public int getCountTurni() {
+        return countTurni;
+    }
+
+    public void setCountTurni() {
+        this.countTurni = countTurni+1;
+    }
+
 }

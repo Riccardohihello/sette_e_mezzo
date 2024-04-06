@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 public class MenuUI {
     @FXML
     private Spinner<Integer> spinnerGiocatori;
+    @FXML
+    private Spinner<Integer> spinnerTurni;
 
     @FXML
     private Label labelRisultato;
@@ -23,10 +25,12 @@ public class MenuUI {
         inizializzaSpinner();
         aggiornaLabelRisultato();
         collegaSpinnerARisultato(spinnerGiocatori);
+        collegaSpinnerARisultato(spinnerTurni);
     }
 
     private void inizializzaSpinner() {
         inizializzaSpinner(spinnerGiocatori, 2, 4, 2);
+        inizializzaSpinner(spinnerTurni,1,5,1);
     }
 
     public void inizializzaSpinner(Spinner<Integer> spinner, int min, int max, int valoreIniziale) {
@@ -42,6 +46,8 @@ public class MenuUI {
 
     private void aggiornaLabelRisultato() {
         SettingsSingleton.getInstance().setNumeroGiocatori(spinnerGiocatori.getValue());
+        SettingsSingleton.getInstance().setNumeroTurni(spinnerTurni.getValue());
+        System.out.println("Numero turni : "+spinnerTurni.getValue()+" tua madre è una troia\n");
         labelRisultato.setText("Numero di giocatori selezionati: " + spinnerGiocatori.getValue());
     }
 
