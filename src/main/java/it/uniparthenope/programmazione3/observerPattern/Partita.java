@@ -30,6 +30,7 @@ public class Partita  {
             Collections.shuffle(giocatori);
         //if (giocatori.get(indiceScorrimento).getStrategia().getClass().equals(StrategiaMazziere.class))
             //  scorriGiocatori();
+        prossimoGiocatore(Action.bid);
     }
 
     public void notificaOsservatore(Action action, String... message) {
@@ -61,7 +62,6 @@ public class Partita  {
             else if (g.getNome().equals(giocatori.get(rand).getNome())) {
                 g.setStrategia(new StrategiaMazziere());
                 g.setStato(Action.mazziere);
-
             }else
                 g.setStrategia(new StrategiaGiocatore());
         }
@@ -147,7 +147,7 @@ public class Partita  {
 
     public void scorriGiocatori(){
         indiceScorrimento += 1;
-        indiceScorrimento %= giocatori.size()+1;
+        indiceScorrimento %= giocatori.size();
     }
 
     public Giocatore getAttuale() {
@@ -155,8 +155,8 @@ public class Partita  {
     }
 
     public String getManoGiocatore(){
-        if (giocatori.get(indiceScorrimento).getMano().cartaPescata()!=null)
-            return giocatori.get(indiceScorrimento).getMano().cartaPescata().getImagePath();
+        if (getAttuale().getMano().cartaPescata()!=null)
+            return getAttuale().getMano().cartaPescata().getImagePath();
         else
             return null;
     }
@@ -166,8 +166,7 @@ public class Partita  {
     }
 
     public void riempiPiatto(int quota){
-        this.piatto += quota;
-        this.giocatori.get(indiceScorrimento).puntataDaVersare(quota);
+        this.piatto += getAttuale().puntataDaVersare(quota);
     }
 
     public void sceltaComputer() {
@@ -189,13 +188,13 @@ public class Partita  {
         }
     }
     private void prossimoGiocatore(Action azione) {
-        Giocatore prossimo = giocatori.get(indiceScorrimento);
+        Giocatore prossimo = getAttuale();
         if (prossimo.getStato().equals(Action.mazziere) && azione.equals(Action.bid)) {
             //Salta automaticamente il mazziere quando lo incontra
             notificaOsservatore(Action.stampa, "Il giocatore " + prossimo.getNome() + " è il mazziere");
             setQuota(0);
         } else if (prossimo.getNome().equals("Computer") && azione.equals(Action.bid)) {
-            notificaOsservatore(Action.bid);
+            setQuota(piatto/giocatori.size());
         } else if (prossimo.getNome().equals("Computer") && azione.equals(Action.match)) {
             sceltaComputer();
         } else {
@@ -206,24 +205,18 @@ public class Partita  {
     }
 
     public void setQuota(int quotaVersata) {
-        Giocatore attuale = giocatori.get(indiceScorrimento);
-        if (strategiaGiocatore().getClass().equals(StrategiaComputer.class)) {
-            int quotaComputer = piatto/giocatori.size();
-            riempiPiatto(attuale.puntataDaVersare(quotaComputer));
-            notificaOsservatore(Action.stampa,"Il computer "+attuale.getNome()+" ha versato "+attuale.puntataDaVersare(quotaComputer));
-            attuale.setStato(Action.bidded);
-        }else if (attuale.getStato()!=Action.mazziere){
+        System.out.println("Val indice scorr pre:" + indiceScorrimento);
+        Giocatore attuale = getAttuale();
+        if (attuale.getStato()!=Action.mazziere){
             attuale.setStato(Action.bidded);
             notificaOsservatore(Action.stampa,"Il giocatore "+attuale.getNome()+" ha versato "+quotaVersata);
             riempiPiatto(quotaVersata);
         }
         scorriGiocatori();
-        if(indiceScorrimento==giocatori.size()) {
+        System.out.println("Val indice scorr:" + indiceScorrimento);
+        if(indiceScorrimento==0) {
             attuale.setStato(Action.bidded);
-            scorriGiocatori();
-            indiceScorrimento = 0;
             notificaOsservatore(Action.match);
-
         } else {
             prossimoGiocatore(Action.bid);
         }

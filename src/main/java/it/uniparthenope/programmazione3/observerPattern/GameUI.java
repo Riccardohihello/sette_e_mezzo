@@ -161,7 +161,6 @@ public class GameUI implements gameObserver {
                         quotaSpinner.setVisible(false);
                         quotaLabel.setVisible(false);
                         quotaButton.setVisible(false);
-
                 } else if (action.equals(Action.busted)) {
                         showFlashImage("/it/uniparthenope/programmazione3/images/sballato.png");
                         //hideFlashImage();
@@ -193,10 +192,7 @@ public class GameUI implements gameObserver {
                         quotaLabel.setVisible(true);
                         quotaButton.setVisible(true);
                         partita.getAttuale().setStato(Action.bid);
-                        textArea.appendText("E' il turno d+i "+partita.getAttuale().getNome()+"\n");
-                        if (partita.getAttuale().getNome().equals("Computer"))
-                                partita.setQuota(0);
-
+                        textArea.appendText("E' il turno di "+partita.getAttuale().getNome()+"\n");
                 } else if (action.equals(Action.pescato)) {
                         if (partita.getManoGiocatore() != null) {
                                 // Aggiungi la carta alla vista

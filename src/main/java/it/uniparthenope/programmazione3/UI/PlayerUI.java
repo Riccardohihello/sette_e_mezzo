@@ -27,7 +27,7 @@ public class PlayerUI extends ListCell<Giocatore> {
         vbox.getChildren().addAll(img, nameLabel, saldoLabel,statoLabel);
         setGraphic(vbox);
 
-        vbox.setStyle("-fx-background-color: #afaeae; -fx-border-radius: 10px;-fx-background-radius: 10px" );
+        vbox.setStyle("-fx-background-color: #FF0000; -fx-border-radius: 10px;-fx-background-radius: 10px" );
         nameLabel.setStyle("-fx-text-fill: #2a2828;-fx-font-weight: bold");
         saldoLabel.setStyle("-fx-text-fill: #2a2828");
         statoLabel.setStyle("-fx-text-fill: #2a2828");
@@ -56,6 +56,7 @@ public class PlayerUI extends ListCell<Giocatore> {
             } else if (Action.bidded.equals(giocatore.getStato())) {
                 statoLabel.setText("Versato...");
             } else if (Action.mazziere.equals(giocatore.getStato())) {
+                nameLabel.setText("Mazziere: "+giocatore.getNome());
                 statoLabel.setText("Mazziere");
             } else if (Action.wait.equals(giocatore.getStato())) {
                 statoLabel.setText("In attesa..");
