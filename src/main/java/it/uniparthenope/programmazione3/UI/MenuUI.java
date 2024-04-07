@@ -47,7 +47,6 @@ public class MenuUI {
     private void aggiornaLabelRisultato() {
         SettingsSingleton.getInstance().setNumeroGiocatori(spinnerGiocatori.getValue());
         SettingsSingleton.getInstance().setNumeroTurni(spinnerTurni.getValue());
-        System.out.println("Numero turni : "+spinnerTurni.getValue()+" tua madre è una troia\n");
         labelRisultato.setText("Numero di giocatori selezionati: " + spinnerGiocatori.getValue());
     }
 

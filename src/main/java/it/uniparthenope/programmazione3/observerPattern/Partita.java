@@ -82,24 +82,6 @@ public class Partita  {
         System.out.println("Resetto");
         SettingsSingleton.getInstance().updateList(giocatori);
         notificaOsservatore(Action.reset);
-        /*
-        for (Giocatore g : giocatori) {
-            g.setStato(stato);
-            //Se è uguale a wait ricomincia una nuova partita e resetto anche le variabili
-            if (stato == Action.wait) {
-                g.resetMano();
-            }
-        }
-        if (stato == Action.wait) {
-            winners.clear();
-            winValue = -1;
-            piatto = 0;
-            mazzoIterator.mischia();
-            aggiungiGiocatori();
-            //Ciclo per posizionare mazziere alla fine (a scopo di debug)
-            while(giocatori.get(giocatori.size()-1).getStato().equals(Action.wait) || giocatori.get(giocatori.size()-1).getStato().equals(Action.computer))
-                Collections.shuffle(giocatori);
-        }*/
     }
     public void stai() {
         Giocatore giocatore = giocatori.get(indiceScorrimento);
@@ -172,7 +154,7 @@ public class Partita  {
 
     public void sceltaComputer() {
         Giocatore computer = getAttuale();
-        if (computer.getStato() != Action.results ||computer.getStato() != Action.busted) {
+        if (computer.getStato() != Action.results || computer.getStato() != Action.busted) {
             Thread computerThread = new Thread(() -> {
                 do {
                     pesca();
