@@ -174,6 +174,7 @@ public class Partita  {
         if (prossimo.getStato().equals(Action.mazziere) && azione.equals(Action.bid)) {
             //Salta automaticamente il mazziere quando lo incontra
             notificaOsservatore(Action.stampa, "Il giocatore " + prossimo.getNome() + " è il mazziere");
+            System.out.println("Mazziere");
             setQuota(0);
         } else if (prossimo.getNome().equals("Computer") && azione.equals(Action.bid)) {
             setQuota(piatto/giocatori.size());
@@ -192,6 +193,7 @@ public class Partita  {
         if (attuale.getStato()!=Action.mazziere){
             attuale.setStato(Action.bidded);
             notificaOsservatore(Action.stampa,"Il giocatore "+attuale.getNome()+" ha versato "+quotaVersata);
+            System.out.println("quota versata: "+quotaVersata);
             riempiPiatto(quotaVersata);
         }
         scorriGiocatori();
