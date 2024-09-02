@@ -23,6 +23,16 @@ public class Giocatore {
     }
     public void aggiungiCarta(Carta c) {
         this.mano.addCarta(c);
+        if (mano.getValore()>7.5)
+            stato = Action.busted;
+    }
+
+    public Boolean strat(){
+        return strategia.applicaStrategia(this.mano);
+    }
+
+    public int daiGettoniStrat(Giocatore g, int gettoni){
+        return this.strategia.daiGettoni(g, gettoni);
     }
 
     public String getNome() {
@@ -49,18 +59,6 @@ public class Giocatore {
 
     public void riscuoti(int importo) {
         gettoni += importo;
-    }
-
-    public int puntataDaVersare(int quotaVersata) {
-       return this.strategia.daiGettoni(this,quotaVersata);
-
-    }
-    public boolean scelta() {
-        return  this.strategia.scelta(this.mano);
-    }
-
-    public Strategia getStrategia() {
-        return strategia;
     }
 
 }

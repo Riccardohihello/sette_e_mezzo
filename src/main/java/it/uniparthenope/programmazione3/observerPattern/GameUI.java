@@ -47,7 +47,7 @@ public class GameUI implements gameObserver {
                 carteListView.setItems(carteList);
                 carteListView.setCellFactory(param -> new CardUI());
                 inizializzaSpinner(quotaSpinner, 5, 100, 5,5);
-                partita.getAttuale().setStato(Action.bid);
+                partita.getGiocatoreAttuale().setStato(Action.bid);
                 riempi(partita.getGiocatori());
                 flashText.setVisible(true);
                 update(Action.bid);
@@ -78,7 +78,7 @@ public class GameUI implements gameObserver {
         public void riempiLista(ListView<Giocatore> lista, List<Giocatore> giocatori) {
                 lista.setItems(FXCollections.observableArrayList(giocatori));
                 lista.setCellFactory(param -> new PlayerUI());
-                lista.setMouseTransparent(true); // Impedisce la selezione
+                lista.setMouseTransparent(true);
         }
 
         public void stai() {
@@ -147,7 +147,10 @@ public class GameUI implements gameObserver {
                                         clearBoard();
                                         break;
                                 case results:
-                                        showResults();
+                                        //PauseTransition delay = new PauseTransition(Duration.seconds(1.0));
+                                        //delay.setOnFinished(event -> showResults());
+                                        //delay.play();
+                                        disableInteractiveElements(true);
                                         break;
                                 case setteMezzo:
                                         showSetteMezzo();
@@ -159,7 +162,7 @@ public class GameUI implements gameObserver {
                                         prepareForBid();
                                         break;
                                 case pescato:
-                                        updateCardsView();
+                                        animazionePescata();
                                         break;
                                 case reset:
                                         initialize();
@@ -169,18 +172,10 @@ public class GameUI implements gameObserver {
         }
 
         private void startMatch() {
-                textArea.clear();
                 showFlashImage("/it/uniparthenope/programmazione3/images/money.gif");
-                textArea.appendText("Inizio partita\nE'il turno di " + partita.getAttuale().getNome() + "\n");
 
                 PauseTransition delay = new PauseTransition(Duration.seconds(1));
                 delay.setOnFinished(event -> {
-                        Giocatore attuale = partita.getAttuale();
-                        attuale.setStato(Action.match);
-                        if (attuale.getNome().equals("Computer")) {
-                                partita.sceltaComputer();
-                                update(Action.pescato); // Chiama update per aggiornare la visualizzazione della pesca
-                        }
                         pesca.setVisible(true);
                         stai.setVisible(true);
                         quotaSpinner.setVisible(false);
@@ -192,24 +187,42 @@ public class GameUI implements gameObserver {
 
         private void handleBusted() {
                 showFlashImage("/it/uniparthenope/programmazione3/images/sballato.png");
-                pesca.setVisible(false);
-                textArea.appendText("Il giocatore " + partita.getAttuale().getNome() + " ha sballato!\n");
+                textArea.appendText("Il giocatore " + partita.getGiocatoreAttuale().getNome() + " ha sballato!\n");
 
                 PauseTransition delay = new PauseTransition(Duration.seconds(1));
-                delay.setOnFinished(event -> update(Action.clear));
                 delay.play();
         }
 
         private void clearBoard() {
-                pesca.setVisible(true);
                 carteList.clear();
                 giocatoriDx.refresh();
                 giocatoriSx.refresh();
         }
 
+        private void animazionePescata() {
+                if (partita.getCardImage() != null) {
+                        carteList.add(partita.getCardImage());
+                }
+                giocatoriDx.refresh();
+                giocatoriSx.refresh();
+                disableInteractiveElements(true);
+
+                PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
+                delay.setOnFinished(event -> {
+                        if(partita.getGiocatoreAttuale().getNome().equals("Computer"))
+                                partita.pesca();
+                        disableInteractiveElements(false);
+
+                });
+                delay.play();
+        }
+
+
+
         private void showResults() {
                 pesca.setVisible(false);
                 stai.setVisible(false);
+                quotaButton.setVisible(false);
                 carteListView.setVisible(false);
                 carteList.clear();
                 quotaLabel.setVisible(true);
@@ -229,18 +242,7 @@ public class GameUI implements gameObserver {
                 quotaSpinner.setVisible(true);
                 quotaLabel.setVisible(true);
                 quotaButton.setVisible(true);
-                partita.getAttuale().setStato(Action.bid);
-                textArea.appendText("E' il turno di " + partita.getAttuale().getNome() + "\n");
+                textArea.appendText("E' il turno di " + partita.getGiocatoreAttuale().getNome() + "\n");
         }
-
-        private void updateCardsView() {
-                if (partita.getManoGiocatore() != null) {
-                        carteList.add(partita.getManoGiocatore());
-                }
-                giocatoriDx.refresh();
-                giocatoriSx.refresh();
-        }
-
-
 }
 

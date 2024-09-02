@@ -20,10 +20,6 @@ public class Carta {
         return valore == 10.0 && seme.equals("Denari");
     }
 
-    public String getSeme() {
-        return seme;
-    }
-
     public String getImagePath() {
         return "/it/uniparthenope/programmazione3/images/Carte/" + seme +"/"+ valore +seme.charAt(0) + ".png";
     }

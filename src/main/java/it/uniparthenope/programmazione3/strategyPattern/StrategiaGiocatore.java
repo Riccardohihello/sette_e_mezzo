@@ -5,8 +5,8 @@ import it.uniparthenope.programmazione3.game.Mano;
 public class StrategiaGiocatore implements Strategia{
 
     @Override
-    public boolean scelta(Mano mano) {
-        return mano.getValore()>7.5;
+    public boolean applicaStrategia(Mano mano) {
+        return mano.getValore()<7.5;
     }
 
     @Override

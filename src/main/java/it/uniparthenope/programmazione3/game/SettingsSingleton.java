@@ -16,7 +16,7 @@ public class SettingsSingleton {
 
 
     private int countTurni;
-    private ObservableList<Giocatore> listaGiocatori = FXCollections.observableArrayList();
+    private final ObservableList<Giocatore> listaGiocatori = FXCollections.observableArrayList();
 
     public void addGiocatore(Giocatore g) {
         listaGiocatori.add(g);

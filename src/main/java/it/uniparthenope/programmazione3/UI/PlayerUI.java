@@ -66,7 +66,6 @@ public class PlayerUI extends ListCell<Giocatore> {
                 saldoLabel.setVisible(true);
                 statoLabel.setVisible(true);
                 statoLabel.setText("Valore mano: " + giocatore.getMano().getValore());
-                saldoLabel.setText("Saldo: " + giocatore.getGettoni() + " gettoni");
         } else {
                 saldoLabel.setStyle("-fx-text-fill: #2a2828");
                 statoLabel.setStyle("-fx-text-fill: #2a2828");
