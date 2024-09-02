@@ -24,13 +24,14 @@ public class PlayerUI extends ListCell<Giocatore> {
         img.setFitHeight(70); // Imposta l'altezza desiderata dell'immagine
         img.setPreserveRatio(true);
         vbox.setAlignment(Pos.CENTER);
-        vbox.getChildren().addAll(img, nameLabel, saldoLabel,statoLabel);
+        vbox.getChildren().addAll(img, nameLabel, saldoLabel,statoLabel,ruolo);
         setGraphic(vbox);
 
         vbox.setStyle("-fx-background-color: #FF0000; -fx-border-radius: 10px;-fx-background-radius: 10px" );
         nameLabel.setStyle("-fx-text-fill: #2a2828;-fx-font-weight: bold");
         saldoLabel.setStyle("-fx-text-fill: #2a2828");
         statoLabel.setStyle("-fx-text-fill: #2a2828");
+        ruolo.setStyle("-fx-text-fill: #2a2828");
     }
 
     private void check_state_color(Action stato) {
@@ -43,9 +44,13 @@ public class PlayerUI extends ListCell<Giocatore> {
     public void updateItem(Giocatore giocatore, boolean empty) {
         super.updateItem(giocatore, empty);
         setText(null);
+
         if (giocatore!= null && !empty) {
             nameLabel.setText(giocatore.getNome());
             saldoLabel.setText("Gettoni: " + giocatore.getGettoni());
+            if (giocatore.isMazziere)
+                    ruolo.setText("Mazziere");
+            else ruolo.setText("Player");
             if (giocatore.getStato() != null)
                 check_state_color(giocatore.getStato());
             if (Action.bid.equals(giocatore.getStato())) {
@@ -55,9 +60,6 @@ public class PlayerUI extends ListCell<Giocatore> {
                 saldoLabel.setText("Valore mano: "+giocatore.getMano().getValore());
             } else if (Action.bidded.equals(giocatore.getStato())) {
                 statoLabel.setText("Versato...");
-            } else if (Action.mazziere.equals(giocatore.getStato())) {
-                nameLabel.setText("Mazziere: "+giocatore.getNome());
-                statoLabel.setText("Mazziere");
             } else if (Action.wait.equals(giocatore.getStato())) {
                 statoLabel.setText("In attesa..");
             } else if (Action.busted.equals(giocatore.getStato())) {

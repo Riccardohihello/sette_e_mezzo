@@ -120,7 +120,7 @@ public class GameUI implements gameObserver {
                 pauseBeforeAction.play();
                 fadeIn.play();
 
-                fadeOut.setOnFinished(event -> {
+                fadeOut.setOnFinished(event ->{
                         flashText.setVisible(false);
                 });
         }
