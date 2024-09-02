@@ -1,5 +1,6 @@
 package it.uniparthenope.programmazione3.game;
 
+import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

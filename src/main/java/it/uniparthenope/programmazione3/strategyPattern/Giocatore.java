@@ -1,6 +1,7 @@
-package it.uniparthenope.programmazione3.game;
+package it.uniparthenope.programmazione3.strategyPattern;
+import it.uniparthenope.programmazione3.game.Carta;
+import it.uniparthenope.programmazione3.game.Mano;
 import it.uniparthenope.programmazione3.observerPattern.Action;
-import it.uniparthenope.programmazione3.strategyPattern.Strategia;
 
 public class Giocatore {
     public Giocatore(String nome){
