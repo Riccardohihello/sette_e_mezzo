@@ -25,7 +25,7 @@ public class Giocatore {
     }
     public void aggiungiCarta(Carta c) {
         this.mano.addCarta(c);
-        if (mano.getValore()>7.5)
+        if (mano.getValore()>0.1)
             stato = Action.busted;
     }
 
