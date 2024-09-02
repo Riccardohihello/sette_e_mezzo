@@ -190,6 +190,10 @@ public class GameUI implements gameObserver {
                 textArea.appendText("Il giocatore " + partita.getGiocatoreAttuale().getNome() + " ha sballato!\n");
 
                 PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                delay.setOnFinished(event -> {
+                        if (!partita.getGiocatoreAttuale().getNome().equals("Computer"))
+                                stai();
+                });
                 delay.play();
         }
 
@@ -207,10 +211,13 @@ public class GameUI implements gameObserver {
                 giocatoriSx.refresh();
                 disableInteractiveElements(true);
 
-                PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
+                PauseTransition delay = new PauseTransition(Duration.seconds(1));
                 delay.setOnFinished(event -> {
                         if(partita.getGiocatoreAttuale().getNome().equals("Computer"))
-                                partita.pesca();
+                                if(partita.getGiocatoreAttuale().strat())
+                                        partita.pesca();
+                                else
+                                        partita.stai();
                         disableInteractiveElements(false);
 
                 });

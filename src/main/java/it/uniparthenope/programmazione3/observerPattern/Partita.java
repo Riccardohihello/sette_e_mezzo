@@ -64,16 +64,13 @@ public class Partita  {
         System.out.println("Il Mazziere è: " + mazziere.getNome() + "\n");
     }
 
-
     public void pesca(){
         Giocatore giocatore = getGiocatoreAttuale();
         giocatore.aggiungiCarta(mazzoIterator.next());
         notificaOsservatore(Action.pescato);
         if(giocatore.getStato() == Action.busted)
             notificaOsservatore(Action.busted);
-        if(!giocatore.strat()){
-            stai();
-            }
+
     }
 
     private void resetStato() {
@@ -85,13 +82,11 @@ public class Partita  {
         Giocatore giocatore = getGiocatoreAttuale();
         if (giocatore.getMano().getValore() == 7.5)
             notificaOsservatore(Action.setteMezzo);
-        if (!giocatore.getNome().equals("Computer")){
+
+        if(!(getGiocatoreAttuale().getStato() == Action.busted))
             getGiocatoreAttuale().setStato(Action.results);
-            notificaOsservatore(Action.clear);
-        }
+        notificaOsservatore(Action.clear);
         scorriGiocatori();
-        if (getGiocatoreAttuale().getNome().equals("Computer"))
-            pesca();
     }
 
     public void scorriGiocatori(){
@@ -106,11 +101,14 @@ public class Partita  {
             else if (statoPartita == 2)
                 notificaOsservatore(Action.results);
         }
-        if(statoPartita == 0 && getGiocatoreAttuale().getNome().equals("Computer"))
-            setQuota(piatto/giocatori.size());
+        if(getGiocatoreAttuale().getNome().equals("Computer"))
+            if(statoPartita == 0)
+                setQuota(piatto/giocatori.size());
+            else if(statoPartita == 1)
+                pesca();
 
         if(statoPartita == 1) {
-            notificaOsservatore(Action.stampa,"E'il turno di " + getGiocatoreAttuale().getNome());
+            notificaOsservatore(Action.stampa, "E'il turno di " + getGiocatoreAttuale().getNome());
             getGiocatoreAttuale().setStato(Action.match);
         }
     }
