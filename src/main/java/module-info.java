@@ -2,6 +2,7 @@ module it.uniparthenope.programmazione3 {
     requires javafx.controls;
     requires javafx.fxml;
     requires jdk.jconsole;
+    requires javafx.media;
 
 
     opens it.uniparthenope.programmazione3 to javafx.fxml;

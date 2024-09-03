@@ -9,6 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
+
 
 
 public class MenuUI {
@@ -28,6 +32,12 @@ public class MenuUI {
         collegaSpinnerARisultato(spinnerTurni);
     }
 
+    private void playSound(String soundFile) {
+        Media sound = new Media(new File(soundFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    }
+
     private void inizializzaSpinner() {
         inizializzaSpinner(spinnerGiocatori, 2, 4, 2);
         inizializzaSpinner(spinnerTurni,1,5,1);
@@ -40,8 +50,10 @@ public class MenuUI {
     }
 
     public void collegaSpinnerARisultato(Spinner<Integer> spinner) {
-        spinner.valueProperty().addListener((observable , valorePrecedente, nuovoValore) ->
-                aggiornaLabelRisultato());
+        spinner.valueProperty().addListener((observable , valorePrecedente, nuovoValore) -> {
+                playSound("src/main/resources/it/uniparthenope/programmazione3/sounds/191754__leszek_szary__button-5.wav");
+                aggiornaLabelRisultato();
+        });
     }
 
     private void aggiornaLabelRisultato() {

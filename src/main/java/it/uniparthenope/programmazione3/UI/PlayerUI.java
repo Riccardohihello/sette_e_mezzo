@@ -11,66 +11,106 @@ import javafx.scene.layout.VBox;
 import java.util.Objects;
 
 public class PlayerUI extends ListCell<Giocatore> {
+    private static final String DEFAULT_BACKGROUND_COLOR = "#f5f5dc";
+    private static final String DEALER_BACKGROUND_COLOR = "#0a55a6";
+    private static final String BORDER_RADIUS = "10px";
+    private static final String DEFAULT_TEXT_COLOR = "#2a2828";
+    private static final String BORDER_GREEN = "#28a745";
+    private static final String BORDER_RED = "#dc3545";
+
     VBox vbox = new VBox();
     Label nameLabel = new Label("");
-    Label ruolo = new Label("");
-    Label saldoLabel = new Label("");
-    Label statoLabel = new Label("");
+    Label role = new Label("");
+    Label balanceLabel = new Label("");
+    Label stateLabel = new Label("");
     ImageView img = new ImageView();
+    boolean isActive = false;
 
     public PlayerUI() {
         super();
-        img.setFitWidth(120);  // Imposta la larghezza desiderata dell'immagine
-        img.setFitHeight(70); // Imposta l'altezza desiderata dell'immagine
+        img.setFitWidth(120);
+        img.setFitHeight(70);
         img.setPreserveRatio(true);
         vbox.setAlignment(Pos.CENTER);
-        vbox.getChildren().addAll(img, nameLabel, saldoLabel,statoLabel,ruolo);
+        vbox.getChildren().addAll(img, nameLabel, balanceLabel, stateLabel, role);
         setGraphic(vbox);
 
-        vbox.setStyle("-fx-background-color: #FF0000; -fx-border-radius: 10px;-fx-background-radius: 10px" );
-        nameLabel.setStyle("-fx-text-fill: #2a2828;-fx-font-weight: bold");
-        saldoLabel.setStyle("-fx-text-fill: #2a2828");
-        statoLabel.setStyle("-fx-text-fill: #2a2828");
-        ruolo.setStyle("-fx-text-fill: #2a2828");
+        setDefaultStyles();
     }
 
-    private void check_state_color(Action stato) {
-        if (stato.equals(Action.bid) || stato.equals(Action.match))
-            statoLabel.setStyle("-fx-text-fill: #17cb17;");
-        else
-            statoLabel.setStyle("-fx-text-fill: #2a2828");
-
+    private void setDefaultStyles() {
+        vbox.setStyle(String.format("-fx-background-color: %s; -fx-border-radius: %s; -fx-background-radius: %s", DEFAULT_BACKGROUND_COLOR, BORDER_RADIUS, BORDER_RADIUS));
+        setTextStyle(nameLabel, DEFAULT_TEXT_COLOR, true);
+        setTextStyle(balanceLabel, DEFAULT_TEXT_COLOR, false);
+        setTextStyle(stateLabel, DEFAULT_TEXT_COLOR, false);
+        setTextStyle(role, DEFAULT_TEXT_COLOR, false);
     }
-    public void updateItem(Giocatore giocatore, boolean empty) {
-        super.updateItem(giocatore, empty);
+
+    private void setTextStyle(Label label, String color, boolean bold) {
+        label.setStyle(String.format("-fx-text-fill: %s; %s", color, bold ? "-fx-font-weight: bold" : ""));
+    }
+
+    private void setBackgroundColor(String color) {
+        vbox.setStyle(String.format("-fx-background-color: %s; -fx-border-radius: %s; -fx-background-radius: %s", color, BORDER_RADIUS, BORDER_RADIUS));
+    }
+
+    private void setBorderColor(String color) {
+        vbox.setStyle(String.format("-fx-background-color: %s; -fx-border-color: %s; -fx-border-radius: %s; -fx-background-radius: %s; -fx-border-width: 5;", DEFAULT_BACKGROUND_COLOR, color, BORDER_RADIUS, BORDER_RADIUS));
+    }
+
+    @Override
+    public void updateItem(Giocatore player, boolean empty) {
+        super.updateItem(player, empty);
         setText(null);
 
-        if (giocatore!= null && !empty) {
-            nameLabel.setText(giocatore.getNome());
-            saldoLabel.setText("Gettoni: " + giocatore.getGettoni());
-            if (giocatore.isMazziere)
-                    ruolo.setText("Mazziere");
-            else ruolo.setText("Player");
-            if (giocatore.getStato() != null)
-                check_state_color(giocatore.getStato());
-            if (Action.bid.equals(giocatore.getStato())) {
-                statoLabel.setText("Deve versare");
-            } else if (Action.match.equals(giocatore.getStato())){
-                statoLabel.setText("Gioca");
-                saldoLabel.setText("Valore mano: "+giocatore.getMano().getValore());
-            } else if (Action.bidded.equals(giocatore.getStato())) {
-                statoLabel.setText("Versato...");
-            } else if (Action.wait.equals(giocatore.getStato())) {
-                statoLabel.setText("In attesa..");
-            } else if (Action.busted.equals(giocatore.getStato())) {
-                statoLabel.setText("Sballato!");
-            } else if (Action.results.equals(giocatore.getStato())) {
-                saldoLabel.setVisible(true);
-                statoLabel.setVisible(true);
-                statoLabel.setText("Valore mano: " + giocatore.getMano().getValore());
-        } else {
-                saldoLabel.setStyle("-fx-text-fill: #2a2828");
-                statoLabel.setStyle("-fx-text-fill: #2a2828");
+        if (player != null && !empty) {
+            nameLabel.setText(player.getNome());
+            balanceLabel.setText("Gettoni: " + player.getGettoni());
+            setBorderColor(DEFAULT_BACKGROUND_COLOR);
+            setTextStyle(stateLabel,DEFAULT_TEXT_COLOR,true);
+            if (player.isMazziere) {
+                role.setText("Mazziere");
+                setBackgroundColor(DEALER_BACKGROUND_COLOR);
+            } else
+                setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
+            if (player.getStato() != null) {
+                switch (player.getStato()) {
+                    case bid:
+                        stateLabel.setText("Deve versare");
+                        setBorderColor(BORDER_GREEN);
+                        setTextStyle(stateLabel,BORDER_GREEN,true);
+                        break;
+
+                    case match:
+                        stateLabel.setText("Gioca");
+                        setBorderColor(BORDER_GREEN);
+                        setTextStyle(stateLabel,BORDER_GREEN,true);
+                        balanceLabel.setText("Valore mano: " + player.getMano().getValore());
+                        break;
+
+                    case bidded:
+                        stateLabel.setText("Versato...");
+                        break;
+
+                    case wait:
+                        stateLabel.setText("In attesa...");
+                        break;
+
+                    case busted:
+                        setBorderColor(BORDER_RED);
+                        stateLabel.setText("Sballato!");
+                        break;
+
+                    case results:
+                        balanceLabel.setVisible(true);
+                        stateLabel.setVisible(true);
+                        stateLabel.setText("Valore mano: " + player.getMano().getValore());
+                        break;
+
+                    default:
+                        setDefaultStyles();
+                        break;
+                }
             }
             img.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/uniparthenope/programmazione3/images/avatar.png"))));
             setGraphic(vbox);
@@ -79,8 +119,5 @@ public class PlayerUI extends ListCell<Giocatore> {
         }
     }
 
-    public void setRuolo(String ruolo) {
-        this.ruolo.setText(ruolo);
-    }
-
 }
+

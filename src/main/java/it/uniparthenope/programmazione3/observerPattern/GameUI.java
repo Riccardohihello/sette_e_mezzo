@@ -138,6 +138,8 @@ public class GameUI implements gameObserver {
                 Platform.runLater(() -> {
                         switch (action) {
                                 case match:
+                                        textArea.clear();
+                                        textArea.appendText("Inizia la partita:\n");
                                         startMatch();
                                         break;
                                 case busted:
@@ -147,9 +149,6 @@ public class GameUI implements gameObserver {
                                         clearBoard();
                                         break;
                                 case results:
-                                        //PauseTransition delay = new PauseTransition(Duration.seconds(1.0));
-                                        //delay.setOnFinished(event -> showResults());
-                                        //delay.play();
                                         disableInteractiveElements(true);
                                         break;
                                 case setteMezzo:
@@ -168,8 +167,12 @@ public class GameUI implements gameObserver {
                                         initialize();
                                         break;
                         }
+                        // Refresh delle liste per aggiornare i colori delle card
+                        giocatoriDx.refresh();
+                        giocatoriSx.refresh();
                 });
         }
+
 
         private void startMatch() {
                 showFlashImage("/it/uniparthenope/programmazione3/images/money.gif");
@@ -187,11 +190,10 @@ public class GameUI implements gameObserver {
 
         private void handleBusted() {
                 showFlashImage("/it/uniparthenope/programmazione3/images/sballato.png");
-                textArea.appendText("Il giocatore " + partita.getGiocatoreAttuale().getNome() + " ha sballato!\n");
+                textArea.appendText(partita.getGiocatoreAttuale().getNome() + " ha sballato!\n");
 
                 PauseTransition delay = new PauseTransition(Duration.seconds(1));
                 delay.setOnFinished(event -> {
-                        if (!partita.getGiocatoreAttuale().getNome().equals("Computer"))
                                 stai();
                 });
                 delay.play();
@@ -216,7 +218,7 @@ public class GameUI implements gameObserver {
                         if(partita.getGiocatoreAttuale().getNome().equals("Computer"))
                                 if(partita.getGiocatoreAttuale().strat())
                                         partita.pesca();
-                                else
+                                else if(!partita.getGiocatoreAttuale().getStato().equals(Action.busted))
                                         partita.stai();
                         disableInteractiveElements(false);
 
@@ -240,6 +242,11 @@ public class GameUI implements gameObserver {
 
         private void showSetteMezzo() {
                 showFlashImage("/it/uniparthenope/programmazione3/images/setteMezzo.png");
+                PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                delay.setOnFinished(event -> {
+                        partita.next();
+                });
+                delay.play();
         }
 
         private void prepareForBid() {

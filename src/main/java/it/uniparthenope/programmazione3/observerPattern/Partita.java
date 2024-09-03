@@ -79,15 +79,19 @@ public class Partita  {
         notificaOsservatore(Action.reset);
     }
 
+    public void next() {
+        notificaOsservatore(Action.clear);
+        scorriGiocatori();
+    }
     public void stai() {
         Giocatore giocatore = getGiocatoreAttuale();
         if (giocatore.getMano().getValore() == 7.5)
             notificaOsservatore(Action.setteMezzo);
-
-        if(!(getGiocatoreAttuale().getStato() == Action.busted))
-            getGiocatoreAttuale().setStato(Action.results);
-        notificaOsservatore(Action.clear);
-        scorriGiocatori();
+        else {
+            if(!(getGiocatoreAttuale().getStato() == Action.busted))
+                getGiocatoreAttuale().setStato(Action.results);
+            next();
+        }
     }
 
     public void scorriGiocatori(){
