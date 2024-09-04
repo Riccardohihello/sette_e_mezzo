@@ -64,7 +64,7 @@ public class GameLoadingUI implements gameObserver {
         formPlayer.clear();
     }
 
-    //Metodo generico per riempire una listView, controllo interno per vedere se è carta o lista giocatori
+    //Metodo generico per riempire la listView con i giocatori
     public void riempiLista(ObservableList<Giocatore> args) {
             prePartita.setItems(args);
             prePartita.setCellFactory(param -> new PlayerUI());

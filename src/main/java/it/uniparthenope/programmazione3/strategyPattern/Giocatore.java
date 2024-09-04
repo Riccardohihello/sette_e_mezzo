@@ -43,6 +43,8 @@ public class Giocatore {
 
     public Action getStato() {return stato;}
 
+    public Strategia getStrategia() {return strategia;}
+
     public void setStrategia(Strategia s) {
         this.strategia = s;
     }
