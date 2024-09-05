@@ -61,17 +61,19 @@ public class Partita  {
         mazziere.setStato(Action.wait);
         mazziere.isMazziere = true;
         giocatori.add(mazziere);
-
-        System.out.println("Il Mazziere è: " + mazziere.getNome() + "\n");
     }
 
     public void pesca(){
         Giocatore giocatore = getGiocatoreAttuale();
-        giocatore.aggiungiCarta(mazzoIterator.next());
-        notificaOsservatore(Action.pescato);
-        if(giocatore.getStato() == Action.busted)
-            notificaOsservatore(Action.busted);
-
+        Carta cartaPescata = mazzoIterator.next();
+        notificaOsservatore(Action.pescato, cartaPescata.getImagePath());
+        if (cartaPescata.matta() && !giocatore.getNome().equals("Computer"))
+                notificaOsservatore(Action.matta);
+        else {
+            giocatore.aggiungiCarta(cartaPescata);
+            if (giocatore.getStato() == Action.busted)
+                notificaOsservatore(Action.busted);
+        }
     }
 
     private void resetStato() {
@@ -96,6 +98,7 @@ public class Partita  {
 
     public void scorriGiocatori(){
         indiceScorrimento += 1;
+        System.out.println("indice " + indiceScorrimento);
         int statoPartita = indiceScorrimento / giocatori.size();
         if(indiceScorrimento % giocatori.size() == 0) {
             if (statoPartita == 1) {
@@ -142,5 +145,9 @@ public class Partita  {
             setQuota(0);
         }
 
+    }
+
+    public void setMatta(int matta) {
+        getGiocatoreAttuale().aggiungiCarta(new Carta(matta, "Matta"));
     }
 }

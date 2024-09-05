@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,14 +19,15 @@ import javafx.scene.image.ImageView;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
-import static it.uniparthenope.programmazione3.UI.Spinner.inizializzaSpinner;
 
 public class GameUI implements gameObserver {
 
         public Spinner<Integer> quotaSpinner;
         private Partita partita;
         public Button quotaButton;
-        public  ImageView flashText = new ImageView();
+
+        @FXML
+        public  ImageView flashText;
         public Label quotaLabel;
         public TextArea textArea;
         @FXML
@@ -38,6 +40,7 @@ public class GameUI implements gameObserver {
         private Button pesca;
         @FXML
         private Button stai;
+        private int stato = 0;
 
         public void initialize() {
                 partita = new Partita();
@@ -46,7 +49,7 @@ public class GameUI implements gameObserver {
                 stai.setVisible(false);
                 carteListView.setItems(carteList);
                 carteListView.setCellFactory(param -> new CardUI());
-                inizializzaSpinner(quotaSpinner, 5, 100, 5,5);
+                creaSpinner(quotaSpinner, 5, 100, 5, 5);
                 partita.getGiocatoreAttuale().setStato(Action.bid);
                 riempi(partita.getGiocatori());
                 flashText.setVisible(true);
@@ -54,11 +57,25 @@ public class GameUI implements gameObserver {
 
 
         }
+
+
         @FXML
         private void quotaButton() {
-                int quotaVersata = quotaSpinner.getValue(); // Ottieni il valore dallo Spinner
-                partita.setQuota(quotaVersata);
-                riempi(partita.getGiocatori());
+                System.out.println("ciaooo");
+                if(stato == 1) {
+                        int valoreMatta = quotaSpinner.getValue();
+                        partita.setMatta(valoreMatta);
+                        quotaLabel.setVisible(false);
+                        quotaButton.setVisible(false);
+                        quotaSpinner.setVisible(false);
+                        stato = 0;
+                        giocatoriDx.refresh();
+                        giocatoriSx.refresh();
+                } else {
+                        int quotaVersata = quotaSpinner.getValue();
+                        partita.setQuota(quotaVersata);
+                        riempi(partita.getGiocatori());
+                }
         }
 
         public void riempi(List<Giocatore> giocatori) {
@@ -161,16 +178,36 @@ public class GameUI implements gameObserver {
                                         prepareForBid();
                                         break;
                                 case pescato:
-                                        animazionePescata();
+                                        animazionePescata(String.join("", message));
                                         break;
                                 case reset:
                                         initialize();
+                                        break;
+                                case matta:
+                                        stato = 1;
+                                        gestisciMatta();
                                         break;
                         }
                         // Refresh delle liste per aggiornare i colori delle card
                         giocatoriDx.refresh();
                         giocatoriSx.refresh();
                 });
+        }
+
+        private void gestisciMatta() {
+                stato = 1;
+                quotaLabel.setText("Inserisci il valore per la matta");
+                quotaButton.setText("Conferma");
+                creaSpinner( quotaSpinner, 1, 10, 1, 1);  // Adatta lo spinner per la matta
+                quotaLabel.setVisible(true);
+                quotaButton.setVisible(true);
+                quotaSpinner.setVisible(true);
+        }
+
+        public void creaSpinner(Spinner<Integer> spinner, int min, int max, int valoreIniziale, int passo) {
+                quotaSpinner.getStyleClass().add("split-arrows-horizontal");
+                SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, valoreIniziale, passo);
+                quotaSpinner.setValueFactory(valueFactory);
         }
 
 
@@ -205,10 +242,8 @@ public class GameUI implements gameObserver {
                 giocatoriSx.refresh();
         }
 
-        private void animazionePescata() {
-                if (partita.getCardImage() != null) {
-                        carteList.add(partita.getCardImage());
-                }
+        private void animazionePescata(String message) {
+                carteList.add(message);
                 giocatoriDx.refresh();
                 giocatoriSx.refresh();
                 disableInteractiveElements(true);
@@ -252,7 +287,6 @@ public class GameUI implements gameObserver {
         private void prepareForBid() {
                 pesca.setVisible(false);
                 stai.setVisible(false);
-                inizializzaSpinner(quotaSpinner, 5, 100, 5, 5);
                 quotaSpinner.setVisible(true);
                 quotaLabel.setVisible(true);
                 quotaButton.setVisible(true);

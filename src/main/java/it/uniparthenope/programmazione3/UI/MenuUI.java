@@ -18,18 +18,18 @@ import java.io.File;
 public class MenuUI {
     @FXML
     private Spinner<Integer> spinnerGiocatori;
-    @FXML
-    private Spinner<Integer> spinnerTurni;
 
     @FXML
     private Label labelRisultato;
 
     @FXML
     private void initialize() {
-        inizializzaSpinner();
-        aggiornaLabelRisultato();
-        collegaSpinnerARisultato(spinnerGiocatori);
-        collegaSpinnerARisultato(spinnerTurni);
+        labelRisultato.setText("Seleziona il numero di giocatori");
+        creaSpinner(spinnerGiocatori, 2, 4, 2);
+        spinnerGiocatori.getStyleClass().add("split-arrows-horizontal");
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory( 2, 4, 2, 1);
+        spinnerGiocatori.setValueFactory(valueFactory);
+
     }
 
     private void playSound(String soundFile) {
@@ -38,32 +38,19 @@ public class MenuUI {
         mediaPlayer.play();
     }
 
-    private void inizializzaSpinner() {
-        inizializzaSpinner(spinnerGiocatori, 2, 4, 2);
-        inizializzaSpinner(spinnerTurni,1,5,1);
-    }
-
-    public void inizializzaSpinner(Spinner<Integer> spinner, int min, int max, int valoreIniziale) {
+    public void creaSpinner(Spinner<Integer> spinner, int min, int max, int valoreIniziale) {
         spinner.getStyleClass().add("split-arrows-horizontal");
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, valoreIniziale);
         spinner.setValueFactory(valueFactory);
     }
 
-    public void collegaSpinnerARisultato(Spinner<Integer> spinner) {
-        spinner.valueProperty().addListener((observable , valorePrecedente, nuovoValore) -> {
-                playSound("src/main/resources/it/uniparthenope/programmazione3/sounds/191754__leszek_szary__button-5.wav");
-                aggiornaLabelRisultato();
-        });
-    }
+    public void collegaSpinner(Spinner<Integer> spinner) {
 
-    private void aggiornaLabelRisultato() {
-        SettingsSingleton.getInstance().setNumeroGiocatori(spinnerGiocatori.getValue());
-        SettingsSingleton.getInstance().setNumeroTurni(spinnerTurni.getValue());
-        labelRisultato.setText("Numero di giocatori selezionati: " + spinnerGiocatori.getValue());
     }
 
     @FXML
     public void gameSceneButton(ActionEvent event) throws Exception {
+        SettingsSingleton.getInstance().setNumeroGiocatori(spinnerGiocatori.getValue());
         Main.cambiaScena("preGame.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 

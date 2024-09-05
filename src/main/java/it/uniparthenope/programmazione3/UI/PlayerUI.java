@@ -22,11 +22,9 @@ public class PlayerUI extends ListCell<Giocatore> {
     HBox hbox = new HBox(10); // spacing tra l'immagine e il testo
     VBox vbox = new VBox(5); // spacing tra le etichette
     Label nameLabel = new Label("");
-    Label role = new Label("");
     Label balanceLabel = new Label("");
     Label stateLabel = new Label("");
     ImageView img = new ImageView();
-    boolean isActive = false;
 
     public PlayerUI() {
         super();
@@ -34,7 +32,7 @@ public class PlayerUI extends ListCell<Giocatore> {
         img.setFitHeight(70);
         img.setPreserveRatio(true);
         vbox.setAlignment(Pos.CENTER);
-        vbox.getChildren().addAll(nameLabel, balanceLabel, stateLabel, role);
+        vbox.getChildren().addAll(nameLabel, balanceLabel, stateLabel);
         hbox.setAlignment(Pos.CENTER_LEFT);
         hbox.getChildren().addAll(img, vbox);
         setGraphic(hbox);
@@ -48,7 +46,6 @@ public class PlayerUI extends ListCell<Giocatore> {
         setTextStyle(nameLabel, DEFAULT_TEXT_COLOR, true);
         setTextStyle(balanceLabel, DEFAULT_TEXT_COLOR, false);
         setTextStyle(stateLabel, DEFAULT_TEXT_COLOR, false);
-        setTextStyle(role, DEFAULT_TEXT_COLOR, false);
     }
 
     private void setTextStyle(Label label, String color, boolean bold) {
@@ -73,8 +70,8 @@ public class PlayerUI extends ListCell<Giocatore> {
             balanceLabel.setText("Gettoni: " + player.getGettoni());
             setBorderColor(DEFAULT_BACKGROUND_COLOR);
             setTextStyle(stateLabel, DEFAULT_TEXT_COLOR, true);
+            setTextStyle(balanceLabel, DEFAULT_TEXT_COLOR, true);
             if (player.isMazziere) {
-                role.setText("Mazziere");
                 setBackgroundColor(DEALER_BACKGROUND_COLOR);
             } else
                 setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
@@ -90,7 +87,7 @@ public class PlayerUI extends ListCell<Giocatore> {
                         stateLabel.setText("Gioca");
                         setBorderColor(BORDER_GREEN);
                         setTextStyle(stateLabel, BORDER_GREEN, true);
-                        balanceLabel.setText("Valore mano: " + player.getMano().getValore());
+                        stateLabel.setText("Valore mano: " + player.getMano().getValore());
                         break;
 
                     case bidded:

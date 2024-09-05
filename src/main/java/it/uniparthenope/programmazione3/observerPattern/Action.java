@@ -15,4 +15,5 @@ public enum Action {
     setteMezzo,
     pescato,
     reset,
+    matta
 }

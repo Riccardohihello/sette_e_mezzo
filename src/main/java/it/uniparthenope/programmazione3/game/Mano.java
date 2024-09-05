@@ -13,10 +13,9 @@ public class Mano {
         this.manoDicarte.add(c);
 
         if (c.matta()) {
-            System.out.println("Matta");
             gestisciMatta();
         } else {
-            aggiornaValoreCartaNormale(c);
+            aggiornaValoreCarta(c);
         }
     }
 
@@ -28,7 +27,7 @@ public class Mano {
         }
     }
 
-    private void aggiornaValoreCartaNormale(Carta c) {
+    private void aggiornaValoreCarta(Carta c) {
             this.valore += c.getValore();
     }
 

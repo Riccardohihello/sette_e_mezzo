@@ -11,7 +11,7 @@ public class StrategiaMazziere implements Strategia {
     @Override
     public int daiGettoni(Giocatore giocatore, int puntataGiocatore) {
         giocatore.daiGettoni(puntataGiocatore);
-        giocatore.riscuoti(puntataGiocatore*2);
+        giocatore.riscuoti(puntataGiocatore);
         return puntataGiocatore;
     }
 }
