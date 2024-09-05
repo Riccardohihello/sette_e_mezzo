@@ -71,7 +71,7 @@ public class PlayerUI extends ListCell<Giocatore> {
             setBorderColor(DEFAULT_BACKGROUND_COLOR);
             setTextStyle(stateLabel, DEFAULT_TEXT_COLOR, true);
             setTextStyle(balanceLabel, DEFAULT_TEXT_COLOR, true);
-            if (player.isMazziere) {
+            if (player.getStrategia() instanceof StrategiaMazziere) {
                 setBackgroundColor(DEALER_BACKGROUND_COLOR);
             } else
                 setBackgroundColor(DEFAULT_BACKGROUND_COLOR);

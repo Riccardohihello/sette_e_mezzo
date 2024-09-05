@@ -6,7 +6,12 @@ public class StrategiaComputer implements Strategia {
 
     @Override
     public boolean applicaStrategia(Mano mano) {
-        return (mano.getValore() < 5);
+        boolean manovuota;
+        if (mano.primaCarta() == null)
+            manovuota = true;
+        else
+            manovuota = mano.primaCarta().getValore() < 4;
+        return manovuota && mano.getValore() < 5;
     }
 
     @Override

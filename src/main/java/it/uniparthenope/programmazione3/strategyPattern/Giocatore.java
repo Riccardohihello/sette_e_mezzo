@@ -13,7 +13,6 @@ public class Giocatore {
     protected Action stato;
     protected Strategia strategia;
     protected int gettoni;
-    public boolean isMazziere = false;
     Mano mano = new Mano();
 
     public Mano getMano(){

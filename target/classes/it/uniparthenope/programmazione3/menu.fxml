@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.UI.MenuUI">
+<StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.UI.MenuUI">
     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="80.0">
         <HBox alignment="TOP_CENTER" prefHeight="58.0" prefWidth="1280.0">
             <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Sette e mezzo Demo">
@@ -24,14 +24,6 @@
                 </font>
             </Label>
             <Spinner fx:id="spinnerGiocatori" />
-        </HBox>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <Label text="Numero di round: ">
-                <font>
-                    <Font size="20.0" />
-                </font>
-            </Label>
-            <Spinner fx:id="spinnerTurni" />
         </HBox>
         <Label fx:id="labelRisultato" text="Label" textAlignment="CENTER">
             <font>

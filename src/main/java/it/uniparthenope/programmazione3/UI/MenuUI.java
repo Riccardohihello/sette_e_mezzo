@@ -9,10 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import java.io.File;
-
 
 
 public class MenuUI {
@@ -32,20 +28,10 @@ public class MenuUI {
 
     }
 
-    private void playSound(String soundFile) {
-        Media sound = new Media(new File(soundFile).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
-    }
-
     public void creaSpinner(Spinner<Integer> spinner, int min, int max, int valoreIniziale) {
         spinner.getStyleClass().add("split-arrows-horizontal");
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, valoreIniziale);
         spinner.setValueFactory(valueFactory);
-    }
-
-    public void collegaSpinner(Spinner<Integer> spinner) {
-
     }
 
     @FXML

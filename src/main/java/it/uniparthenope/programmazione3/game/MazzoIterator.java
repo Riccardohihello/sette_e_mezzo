@@ -42,7 +42,7 @@ public class MazzoIterator implements Iterator<Carta> {
         } else {
             iteratorPosition = 0;
         }
-        return carte.get(temp);
+        return carte.remove(temp);
     }
 
     public Carta previous() {

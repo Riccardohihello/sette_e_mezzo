@@ -37,6 +37,7 @@
 }
 
 .list-view {
+    -fx-alignment: center;
     -fx-background-insets: 0;
     -fx-padding: 0;
     -fx-border-color: transparent;

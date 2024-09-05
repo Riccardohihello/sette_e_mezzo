@@ -16,7 +16,6 @@ public class Partita  {
     MazzoIterator mazzoIterator = new MazzoIterator();
     public int piatto;
 
-    // Costruttore privato per impedire istanze multiple
     public Partita() {
         giocatori.addAll(SettingsSingleton.getInstance().getListaGiocatori());
         mazzoIterator.mischia();
@@ -59,14 +58,12 @@ public class Partita  {
         //Mazziere aggiunto dopo cosi è sempre l'ultimo (vantaggio tattico)
         mazziere.setStrategia(new StrategiaMazziere());
         mazziere.setStato(Action.wait);
-        mazziere.isMazziere = true;
         giocatori.add(mazziere);
     }
 
     public void pesca(){
         Giocatore giocatore = getGiocatoreAttuale();
         Carta cartaPescata = mazzoIterator.next();
-        notificaOsservatore(Action.pescato, cartaPescata.getImagePath());
         if (cartaPescata.matta() && !giocatore.getNome().equals("Computer"))
                 notificaOsservatore(Action.matta);
         else {
@@ -74,17 +71,9 @@ public class Partita  {
             if (giocatore.getStato() == Action.busted)
                 notificaOsservatore(Action.busted);
         }
+        notificaOsservatore(Action.pescato, cartaPescata.getImagePath());
     }
 
-    private void resetStato() {
-        SettingsSingleton.getInstance().updateList(giocatori);
-        notificaOsservatore(Action.reset);
-    }
-
-    public void next() {
-        notificaOsservatore(Action.clear);
-        scorriGiocatori();
-    }
     public void stai() {
         Giocatore giocatore = getGiocatoreAttuale();
         if (giocatore.getMano().getValore() == 7.5)
@@ -92,13 +81,13 @@ public class Partita  {
         else {
             if(!(getGiocatoreAttuale().getStato() == Action.busted))
                 getGiocatoreAttuale().setStato(Action.results);
-            next();
+            notificaOsservatore(Action.clear);
         }
+        scorriGiocatori();
     }
 
     public void scorriGiocatori(){
         indiceScorrimento += 1;
-        System.out.println("indice " + indiceScorrimento);
         int statoPartita = indiceScorrimento / giocatori.size();
         if(indiceScorrimento % giocatori.size() == 0) {
             if (statoPartita == 1) {
@@ -112,8 +101,11 @@ public class Partita  {
         if(getGiocatoreAttuale().getNome().equals("Computer"))
             if(statoPartita == 0)
                 setQuota(piatto/giocatori.size());
-            else if(statoPartita == 1)
-                pesca();
+            else if(statoPartita == 1) {
+                while (getGiocatoreAttuale().strat())
+                    pesca();
+                notificaOsservatore(Action.computer);
+            }
 
         if(statoPartita == 1) {
             notificaOsservatore(Action.stampa, "E'il turno di " + getGiocatoreAttuale().getNome());
@@ -125,13 +117,6 @@ public class Partita  {
         return giocatori.get(indiceScorrimento % giocatori.size());
     }
 
-    public String getCardImage(){
-        if (getGiocatoreAttuale().getMano().cartaPescata()!=null)
-            return getGiocatoreAttuale().getMano().cartaPescata().getImagePath();
-        else
-            return null;
-    }
-
     public void setQuota(int quotaVersata) {
         Giocatore attuale = getGiocatoreAttuale();
         piatto += attuale.daiGettoniStrat(getGiocatoreAttuale(), quotaVersata);
@@ -139,9 +124,9 @@ public class Partita  {
         attuale.setStato(Action.bidded);
         scorriGiocatori();
 
-        if(!(indiceScorrimento % giocatori.size() == 0) && !getGiocatoreAttuale().isMazziere)
+        if(indiceScorrimento%giocatori.size() != 0 )
             getGiocatoreAttuale().setStato(Action.bid);
-        else if (getGiocatoreAttuale().isMazziere) {
+        if (getGiocatoreAttuale().getStrategia() instanceof StrategiaMazziere) {
             setQuota(0);
         }
 

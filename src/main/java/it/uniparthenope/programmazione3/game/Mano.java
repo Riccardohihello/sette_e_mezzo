@@ -31,11 +31,10 @@ public class Mano {
             this.valore += c.getValore();
     }
 
-    public Carta cartaPescata(){
-        if(this.manoDicarte.isEmpty())
+    public Carta primaCarta() {
+        if (this.manoDicarte.isEmpty())
             return null;
-        else
-            return this.manoDicarte.get(manoDicarte.size()-1);
+        return this.manoDicarte.get(0);
     }
 
     public double getValore(){
