@@ -34,11 +34,6 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="formPlayer" alignment="CENTER" maxWidth="100.0" onAction="#riempiPlayers" prefWidth="100.0">
-                     <font>
-                        <Font name="System Italic" size="16.0" />
-                     </font>
-                  </TextField>
                   <Button fx:id="avviaPartita" onAction="#avviaPartita" text="Avvia Partita" textAlignment="CENTER" />
                   <ListView fx:id="prePartita" editable="true" orientation="HORIZONTAL" prefHeight="220.0" prefWidth="800.0" />
                </children>

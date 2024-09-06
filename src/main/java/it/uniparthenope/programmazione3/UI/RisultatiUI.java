@@ -11,7 +11,7 @@ public class RisultatiUI {
     @FXML
     private ListView<Memento> History; // Usare il ListView definito in FXML
     private final Caretaker caretaker = new Caretaker();
-    private final String saveFilePath = "storico_partite/salvataggi.dat";
+    private final String saveFilePath = "it/uniparthenope/programmazione3/storico_partite/salvataggi.dat";
 
     public void initialize() throws IOException {
         visualizzaStorico();

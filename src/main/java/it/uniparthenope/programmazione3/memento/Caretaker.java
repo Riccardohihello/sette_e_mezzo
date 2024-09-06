@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Caretaker {
-    private final String saveFilePath = "storico_partite/";
+    private final String saveFilePath = "src/main/resources/it/uniparthenope/programmazione3/storico_partite/";
     private final List<Memento> mementoList = loadFromDisk(saveFilePath);
 
 
