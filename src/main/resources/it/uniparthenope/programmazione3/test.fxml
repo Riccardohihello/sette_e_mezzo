@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.UI.GameLoadingUI">
+    <HBox alignment="CENTER" prefHeight="800.0" prefWidth="1280.0">
+        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <ListView fx:id="giocatoriSx" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="300.0" stylesheets="@styles.css" />
+        </VBox>
+        <VBox alignment="CENTER" prefHeight="800.0" prefWidth="680.0" stylesheets="@styles.css">
+            <VBox alignment="BOTTOM_CENTER" spacing="10.0">
+                <Label text="In quanti siete?">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="50.0" />
+                    </VBox.margin>
+                </Label>
+                <Spinner fx:id="spinnerGiocatori" />
+            </VBox>
+            <Button fx:id="avviaPartita" onAction="#avviaPartita" text="Start Game" />
+        </VBox>
+        <VBox alignment="CENTER">
+            <ListView fx:id="giocatoriDx" editable="true" prefHeight="600.0" prefWidth="300.0" stylesheets="@styles.css" />
+        </VBox>
+    </HBox>
+</Pane>

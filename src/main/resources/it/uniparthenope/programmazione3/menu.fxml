@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -17,27 +16,26 @@
                 </font>
             </Label>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <Label alignment="CENTER" contentDisplay="TOP" text="Numero di giocatori: " textAlignment="CENTER">
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0">
+            <Label fx:id="labelRisultato" text="Label" textAlignment="CENTER">
                 <font>
-                    <Font size="20.0" />
-                </font>
-            </Label>
-            <Spinner fx:id="spinnerGiocatori" />
-        </HBox>
-        <Label fx:id="labelRisultato" text="Label" textAlignment="CENTER">
-            <font>
-                <Font size="24.0" />
-            </font></Label>
-        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" text="Inizia">
+                    <Font size="24.0" />
+                </font></Label>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" text="Nuova Partita">
                 <font>
                     <Font size="18.0" />
-                </font></Button>
+                </font>
+            </Button>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#historySceneButton" text="Storico Partite">
+            <font>
+                <Font size="18.0" />
+            </font>
+            </Button>
             <Button onAction="#exitButton" text="esci">
                 <font>
                     <Font size="18.0" />
-                </font></Button>
-        </HBox>
+                </font>
+            </Button>
+        </VBox>
     </VBox>
 </StackPane>

@@ -7,6 +7,7 @@ import it.uniparthenope.programmazione3.strategyPattern.StrategiaGiocatore;
 import it.uniparthenope.programmazione3.strategyPattern.StrategiaMazziere;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Partita  {
@@ -40,9 +41,11 @@ public class Partita  {
         Random random = new Random();
         int rand;
         do {
+            Collections.shuffle(giocatori);
+        }while(giocatori.get(0).getNome().equals("Computer"));
+        do {
             rand = random.nextInt(giocatori.size());
         } while (giocatori.get(rand).getNome().equals("Computer"));
-
         Giocatore mazziere = giocatori.get(rand);
         giocatori.remove(rand);
 

@@ -1,23 +1,20 @@
 package it.uniparthenope.programmazione3.game;
 
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.time.LocalDateTime;
 
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class SettingsSingleton {
+public class SettingsSingleton implements Serializable {
     private static SettingsSingleton instance;
     private int numeroGiocatori;
-
-
-
     private int numeroTurni;
-
-
     private int countTurni;
-    private final ObservableList<Giocatore> listaGiocatori = FXCollections.observableArrayList();
+    private  LocalDateTime saveDateTime;
+    private ArrayList<Giocatore> listaGiocatori;
 
     public void addGiocatore(Giocatore g) {
         listaGiocatori.add(g);
@@ -28,10 +25,12 @@ public class SettingsSingleton {
             addGiocatore(g);
         }
     }
-    public ObservableList<Giocatore> getListaGiocatori() {
-        return listaGiocatori;
-    }
 
+    public void setSaveDateTime() { this.saveDateTime = LocalDateTime.now();}
+    public LocalDateTime getSaveDateTime() { return saveDateTime; }
+
+    //public ObservableList<Giocatore> getListaGiocatori() {return listaGiocatori;}
+    public ArrayList<Giocatore> getListaGiocatori() { return listaGiocatori; }
 
     public static SettingsSingleton getInstance() {
         if (instance == null) {
@@ -39,7 +38,10 @@ public class SettingsSingleton {
         }
         return instance;
     }
-
+    public static void setInstance (SettingsSingleton settings) {
+        instance = settings;
+    }
+    public void setListaGiocatori (ArrayList<Giocatore> listaGiocatori) { this.listaGiocatori = listaGiocatori;}
     public void setNumeroGiocatori(int numeroGiocatori) {
         this.numeroGiocatori = numeroGiocatori;
     }

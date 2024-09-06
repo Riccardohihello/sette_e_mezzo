@@ -1,6 +1,8 @@
 package it.uniparthenope.programmazione3.game;
 
-public class Carta {
+import java.io.Serializable;
+
+public class Carta implements Serializable {
     private final int valore;
     private final String seme;
     public Carta(int valore, String seme) {

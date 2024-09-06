@@ -9,10 +9,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Spinner?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.UI.GameLoadingUI">
    <children>
       <HBox alignment="CENTER" prefHeight="800.0" prefWidth="1280.0">
          <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <Label alignment="CENTER" contentDisplay="TOP" text="Numero di giocatori: " textAlignment="CENTER">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+               </Label>
+               <Spinner fx:id="spinnerGiocatori" />
+            </HBox>
             <VBox alignment="CENTER" maxHeight="600.0" prefHeight="600.0">
                <children>
                   <Label fx:id="secondLabel" alignment="CENTER" prefHeight="97.0" prefWidth="394.0" textAlignment="CENTER">
@@ -25,11 +34,6 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="formPlayer" alignment="CENTER" maxWidth="100.0" onAction="#riempiPlayers" prefWidth="100.0">
-                     <font>
-                        <Font name="System Italic" size="16.0" />
-                     </font>
-                  </TextField>
                   <Button fx:id="avviaPartita" onAction="#avviaPartita" text="Avvia Partita" textAlignment="CENTER" />
                   <ListView fx:id="prePartita" editable="true" orientation="HORIZONTAL" prefHeight="220.0" prefWidth="800.0" />
                </children>

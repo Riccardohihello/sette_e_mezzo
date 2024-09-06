@@ -1,5 +1,8 @@
 package it.uniparthenope.programmazione3.observerPattern;
 
+import it.uniparthenope.programmazione3.game.SettingsSingleton;
+import it.uniparthenope.programmazione3.memento.Caretaker;
+import it.uniparthenope.programmazione3.memento.Memento;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import it.uniparthenope.programmazione3.UI.CardUI;
 import it.uniparthenope.programmazione3.UI.PlayerUI;
@@ -9,6 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +30,8 @@ public class GameUI implements gameObserver {
         private final Sounds soundController = new Sounds();
         private Partita partita;
         public Button quotaButton;
+
+        private final Caretaker caretaker = new Caretaker();
 
         @FXML
         public  ImageView flashText;
@@ -158,7 +165,13 @@ public class GameUI implements gameObserver {
                                 case results:
                                         nascondiBottoniPescata(false);
                                         nascondiBottoniQuota(false);
-                                        break;
+                                        try {
+                                                salvaPartita();
+                                        } catch (IOException e) {
+                                                throw new RuntimeException(e);
+                                        }
+
+                                    break;
                                 case setteMezzo:
                                         showFlashImage("setteMezzo.png");
                                         clearBoard();
@@ -275,5 +288,14 @@ public class GameUI implements gameObserver {
                 nascondiBottoniQuota(true);
                 textArea.appendText("E' il turno di " + partita.getGiocatoreAttuale().getNome() + "\n");
         }
+
+        public void salvaPartita() throws IOException {
+                SettingsSingleton settings = SettingsSingleton.getInstance();
+                Memento newMemento = new Memento(settings);
+                caretaker.add(newMemento);
+                System.out.println("Partita salvata con successo.");
+        }
+
+
 }
 

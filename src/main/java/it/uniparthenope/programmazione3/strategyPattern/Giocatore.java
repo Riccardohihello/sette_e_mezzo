@@ -3,7 +3,9 @@ import it.uniparthenope.programmazione3.game.Carta;
 import it.uniparthenope.programmazione3.game.Mano;
 import it.uniparthenope.programmazione3.observerPattern.Action;
 
-public class Giocatore {
+import java.io.Serializable;
+
+public class Giocatore implements Serializable {
     public Giocatore(String nome){
         this.nome=nome;
         this.gettoni=100;
@@ -39,6 +41,7 @@ public class Giocatore {
     public String getNome() {
         return nome;
     }
+    public void setNome( String nome) {this.nome = nome;}
 
     public Action getStato() {return stato;}
 
@@ -55,6 +58,7 @@ public class Giocatore {
     public int getGettoni() {
         return gettoni;
     }
+    public void setGettoni(int gettoni) {this.gettoni = gettoni;}
 
     public void daiGettoni(int puntata){
         this.gettoni-=puntata;

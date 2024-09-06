@@ -1,10 +1,11 @@
 package it.uniparthenope.programmazione3.game;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Mano {
+public class Mano implements Serializable {
     private final ArrayList<Carta> manoDicarte = new ArrayList<>();
     private double valore = 0;
 
