@@ -10,26 +10,14 @@ import java.util.ArrayList;
 
 public class SettingsSingleton implements Serializable {
     private static SettingsSingleton instance;
-    private int numeroGiocatori;
     private int numeroTurni;
     private int countTurni;
     private  LocalDateTime saveDateTime;
     private ArrayList<Giocatore> listaGiocatori;
 
-    public void addGiocatore(Giocatore g) {
-        listaGiocatori.add(g);
-    }
-    public void updateList(ArrayList<Giocatore> giocatori) {
-        listaGiocatori.clear();
-        for (Giocatore g : giocatori) {
-            addGiocatore(g);
-        }
-    }
-
     public void setSaveDateTime() { this.saveDateTime = LocalDateTime.now();}
     public LocalDateTime getSaveDateTime() { return saveDateTime; }
 
-    //public ObservableList<Giocatore> getListaGiocatori() {return listaGiocatori;}
     public ArrayList<Giocatore> getListaGiocatori() { return listaGiocatori; }
 
     public static SettingsSingleton getInstance() {
@@ -42,16 +30,11 @@ public class SettingsSingleton implements Serializable {
         instance = settings;
     }
     public void setListaGiocatori (ArrayList<Giocatore> listaGiocatori) { this.listaGiocatori = listaGiocatori;}
-    public void setNumeroGiocatori(int numeroGiocatori) {
-        this.numeroGiocatori = numeroGiocatori;
-    }
+
     public void setNumeroTurni(int numeroTurni) {
         this.numeroTurni = numeroTurni;
     }
 
-    public int getNumeroGiocatori() {
-        return numeroGiocatori;
-    }
     public int getNumeroTurni() {
         return numeroTurni;
     }

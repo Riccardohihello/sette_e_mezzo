@@ -15,7 +15,6 @@ import java.util.Objects;
 public class PlayerCreationUI extends ListCell<Giocatore> {
 
     private final HBox hbox = new HBox(10); // spacing tra l'immagine e il testo
-    private final VBox vbox = new VBox(5); // spacing tra le etichette
     private final TextField nameField = new TextField();
     private final ImageView img = new ImageView();
     private final Spinner<Integer> gettoni;
@@ -30,6 +29,8 @@ public class PlayerCreationUI extends ListCell<Giocatore> {
         gettoni.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 50));
         gettoni.getEditor().setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
 
+        // spacing tra le etichette
+        VBox vbox = new VBox(5);
         vbox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(nameField, gettoni);
         hbox.setAlignment(Pos.CENTER_LEFT);
