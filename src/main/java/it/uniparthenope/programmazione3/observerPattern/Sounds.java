@@ -1,8 +1,7 @@
 package it.uniparthenope.programmazione3.observerPattern;
 
 import javafx.application.Platform;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.AudioClip;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -47,8 +46,7 @@ public class Sounds implements gameObserver {
     }
 
     private void playSounds(String fileAudio) throws URISyntaxException {
-        Media sound = new Media(new File(fileAudio).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
+        AudioClip sound = new AudioClip(new File(fileAudio).toURI().toString());
+        sound.play();
     }
 }

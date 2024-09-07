@@ -26,7 +26,6 @@
     -fx-fill: lightseagreen;
     -fx-stroke: firebrick;
     -fx-stroke-width: 2px;
-
 }
 
 .spinner .increment-arrow-button, .increment-arrow, .decrement-arrow-button, .decrement-arrow {

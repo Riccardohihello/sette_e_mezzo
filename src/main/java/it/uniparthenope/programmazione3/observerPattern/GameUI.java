@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,22 +66,11 @@ public class GameUI implements gameObserver {
 
         }
 
-
         @FXML
         private void quotaButton() {
-                if(stato == 1) {
-                        int valoreMatta = quotaSpinner.getValue();
-                        partita.setMatta(valoreMatta);
-                        nascondiBottoniQuota(true);
-
-                        stato = 0;
-                        giocatoriDx.refresh();
-                        giocatoriSx.refresh();
-                } else {
-                        int quotaVersata = quotaSpinner.getValue();
-                        partita.setQuota(quotaVersata);
-                        riempi(partita.getGiocatori());
-                }
+                int quotaVersata = quotaSpinner.getValue();
+                partita.setQuota(quotaVersata);
+                riempi(partita.getGiocatori());
         }
 
         public void riempi(List<Giocatore> giocatori) {
@@ -110,7 +100,6 @@ public class GameUI implements gameObserver {
         public void pesca() {
                 partita.pesca();
         }
-
 
         public void showFlashImage(String filename) {
                 String path = "/it/uniparthenope/programmazione3/images/";
@@ -207,6 +196,16 @@ public class GameUI implements gameObserver {
                 creaSpinner( 1, 10, 1, 1);  // Adatta lo spinner per la matta
                 nascondiBottoniQuota(true);
                 nascondiBottoniPescata(false);
+        }
+
+        private void impostaValoreMatta(ActionEvent event){
+                int valoreMatta = quotaSpinner.getValue();
+                partita.setMatta(valoreMatta);
+                nascondiBottoniQuota(true);
+
+                stato = 0;
+                giocatoriDx.refresh();
+                giocatoriSx.refresh();
         }
 
         public void creaSpinner(int min, int max, int valoreIniziale, int passo) {
