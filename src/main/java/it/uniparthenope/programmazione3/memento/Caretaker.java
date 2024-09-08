@@ -33,8 +33,17 @@ public class Caretaker {
     public List<Memento> getMementoList() {return mementoList;}
 
     public void saveOnDisk(String path) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path + "Partita_"+(mementoList.size())+".txt"))) {
-            oos.writeObject(mementoList.get(mementoList.size()-1));
+
+        File directory = new File(path);
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Directory creata: " + path);
+            } else {
+                throw new IOException("Impossibile creare la directory: " + path);
+            }
+        }
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path + "/Partita_" + (mementoList.size()) + ".txt"))) {
+            oos.writeObject(mementoList.get(mementoList.size() - 1));
         }
     }
     public List<Memento> loadFromDisk(String path) {

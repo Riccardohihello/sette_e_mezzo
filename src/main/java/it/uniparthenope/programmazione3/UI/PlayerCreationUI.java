@@ -25,7 +25,7 @@ public class PlayerCreationUI extends ListCell<Giocatore> {
         img.setPreserveRatio(true);
 
         gettoni = new Spinner<>(0, 100, 50);
-        gettoni.setEditable(true); // Abilita l'editing diretto del testo
+        gettoni.setEditable(true);
         gettoni.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 50));
         gettoni.getEditor().setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
 

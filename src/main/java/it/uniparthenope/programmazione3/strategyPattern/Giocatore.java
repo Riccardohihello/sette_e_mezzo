@@ -15,6 +15,8 @@ public class Giocatore implements Serializable {
     protected Action stato;
     protected Strategia strategia;
     protected int gettoni;
+    private int vittorie = 0;
+    public boolean isWinner;
     Mano mano = new Mano();
 
     public Mano getMano(){
@@ -44,15 +46,13 @@ public class Giocatore implements Serializable {
     public void setNome( String nome) {this.nome = nome;}
 
     public Action getStato() {return stato;}
-
-    public Strategia getStrategia() {return strategia;}
-
-    public void setStrategia(Strategia s) {
-        this.strategia = s;
-    }
-
     public void setStato(Action stato) {
         this.stato = stato;
+    }
+
+    public Strategia getStrategia() {return strategia;}
+    public void setStrategia(Strategia s) {
+        this.strategia = s;
     }
 
     public int getGettoni() {
@@ -60,13 +60,10 @@ public class Giocatore implements Serializable {
     }
     public void setGettoni(int gettoni) {this.gettoni = gettoni;}
 
-    public void daiGettoni(int puntata){
-        this.gettoni-=puntata;
-    }
+    public void daiGettoni(int puntata){ this.gettoni-=puntata;}
+    public void riscuoti(int importo) { gettoni += importo; }
 
-    public void riscuoti(int importo) {
-        gettoni += importo;
-    }
-
+    public void incrementaVittorie() { this.vittorie++; }
+    public int getVittorie() { return vittorie; }
 }
 

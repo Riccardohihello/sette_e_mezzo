@@ -5,21 +5,19 @@ import it.uniparthenope.programmazione3.memento.Memento;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
-import java.io.IOException;
 
-public class RisultatiUI {
+public class SavedGamesUI {
     @FXML
-    private ListView<Memento> History; // Usare il ListView definito in FXML
+    private ListView<Memento> History;
     private final Caretaker caretaker = new Caretaker();
-    private final String saveFilePath = "it/uniparthenope/programmazione3/storico_partite/salvataggi.dat";
 
-    public void initialize() throws IOException {
+    public void initialize(){
         visualizzaStorico();
         History.setCellFactory(listView -> new ResultsCellUI());
     }
 
     @FXML
-    private void visualizzaStorico() throws IOException {
+    private void visualizzaStorico() {
         if (!caretaker.getMementoList().isEmpty()) {
             History.getItems().setAll(caretaker.getMementoList());
         } else {

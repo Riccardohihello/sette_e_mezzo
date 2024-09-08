@@ -1,5 +1,6 @@
 package it.uniparthenope.programmazione3.observerPattern;
 
+import it.uniparthenope.programmazione3.Main;
 import it.uniparthenope.programmazione3.game.SettingsSingleton;
 import it.uniparthenope.programmazione3.memento.Caretaker;
 import it.uniparthenope.programmazione3.memento.Memento;
@@ -10,6 +11,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 
@@ -22,6 +24,7 @@ import java.util.Objects;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.animation.FadeTransition;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
 
@@ -152,15 +155,8 @@ public class GameUI implements gameObserver {
                                         clearBoard();
                                         break;
                                 case results:
-                                        nascondiBottoniPescata(false);
-                                        nascondiBottoniQuota(false);
-                                        try {
-                                                salvaPartita();
-                                        } catch (IOException e) {
-                                                throw new RuntimeException(e);
-                                        }
-
-                                    break;
+                                        showResults();
+                                        break;
                                 case setteMezzo:
                                         showFlashImage("setteMezzo.png");
                                         clearBoard();
@@ -267,7 +263,28 @@ public class GameUI implements gameObserver {
 
 
         private void showResults() {
+                ArrayList<Giocatore> vincitori = partita.determinaVincitori();
+                partita.distribuisciPiatto(vincitori);
 
+                textArea.appendText("Vincitori della partita:\n");
+                for (Giocatore vincitore : vincitori) {
+                        textArea.appendText(vincitore.getNome() + " ha vinto con " + vincitore.getMano().getValore() + " punti!\n");
+                }
+
+                // Aggiorna il contatore delle vittorie per ciascun vincitore
+                textArea.appendText("\nStatistiche aggiornate:\n");
+                for (Giocatore giocatore : partita.getGiocatori()) {
+                        textArea.appendText(giocatore.getNome() + ": " + giocatore.getVittorie() + " vittorie\n");
+                }
+
+                nascondiBottoniPescata(false);
+                nascondiBottoniQuota(false);
+
+                try {
+                        salvaPartita();
+                } catch (IOException e) {
+                        throw new RuntimeException(e);
+                }
         }
 
 
@@ -290,6 +307,7 @@ public class GameUI implements gameObserver {
 
         public void salvaPartita() throws IOException {
                 SettingsSingleton settings = SettingsSingleton.getInstance();
+                settings.setSaveDateTime();
                 Memento newMemento = new Memento(settings);
                 caretaker.add(newMemento);
                 System.out.println("Partita salvata con successo.");

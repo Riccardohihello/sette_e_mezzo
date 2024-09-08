@@ -24,7 +24,7 @@ public class MenuUI {
     }
     @FXML
     public void historySceneButton(ActionEvent event) throws Exception {
-        Main.cambiaScena("risultati.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
+        Main.cambiaScena("savedGames.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
     @FXML

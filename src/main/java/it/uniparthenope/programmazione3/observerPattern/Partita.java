@@ -98,8 +98,9 @@ public class Partita  {
                     g.setStato(Action.wait);
                 notificaOsservatore(Action.match);
             }
-            else if (statoPartita == 2)
+            else if (statoPartita == 2) {
                 notificaOsservatore(Action.results);
+            }
         }
         if(getGiocatoreAttuale().getNome().equals("Computer"))
             if(statoPartita == 0)
@@ -113,6 +114,32 @@ public class Partita  {
         if(statoPartita == 1) {
             notificaOsservatore(Action.stampa, "E'il turno di " + getGiocatoreAttuale().getNome());
             getGiocatoreAttuale().setStato(Action.match);
+        }
+    }
+
+    public ArrayList<Giocatore> determinaVincitori() {
+        ArrayList<Giocatore> vincitori = new ArrayList<>();
+        double punteggioMassimo = 0.0;
+
+        for (Giocatore giocatore : giocatori) {
+            double punteggio = giocatore.getMano().getValore();
+            if (punteggio <= 7.5 && punteggio > punteggioMassimo) {
+                punteggioMassimo = punteggio;
+                vincitori.clear();
+                vincitori.add(giocatore);
+            } else if (punteggio == punteggioMassimo) {
+                vincitori.add(giocatore);
+            }
+        }
+
+        return vincitori;
+    }
+
+    public void distribuisciPiatto(ArrayList<Giocatore> vincitori) {
+        int quotaVincita = piatto / vincitori.size();
+        for (Giocatore vincitore : vincitori) {
+            vincitore.riscuoti(quotaVincita);
+            vincitore.incrementaVittorie();
         }
     }
 

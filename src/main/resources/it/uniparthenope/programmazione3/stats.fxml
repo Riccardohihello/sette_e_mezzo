@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.UI.StatsUI">
+    <VBox alignment="CENTER" layoutX="124.0" layoutY="17.0" prefHeight="766.0" prefWidth="1032.0">
+        <ListView fx:id="Results" editable="true" stylesheets="@styles.css" />
+    </VBox>
+</Pane>

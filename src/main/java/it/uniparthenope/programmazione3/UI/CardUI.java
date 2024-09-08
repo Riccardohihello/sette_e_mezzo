@@ -11,8 +11,8 @@ public class CardUI extends ListCell<String> {
 
     public CardUI() {
         super();
-        img.setFitWidth(100);  // Imposta la larghezza desiderata dell'immagine
-        img.setFitHeight(150); // Imposta l'altezza desiderata dell'immagine
+        img.setFitWidth(100);
+        img.setFitHeight(150);
         img.setPreserveRatio(true);
         setGraphic(img);
 
@@ -25,7 +25,6 @@ public class CardUI extends ListCell<String> {
         if (empty) {
             img.setImage(null);
         } else {
-            // Carica l'immagine della carta in base all'item (potresti dover creare una logica specifica)
             Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(item)));
             img.setImage(image);
         }

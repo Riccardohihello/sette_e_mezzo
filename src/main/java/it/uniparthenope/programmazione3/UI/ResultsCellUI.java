@@ -39,7 +39,7 @@ public class ResultsCellUI extends ListCell<Memento> {
                     System.out.println("Load game " + memento.getSettings().getSaveDateTime());
                     caricaPartitaSelezionata(memento, event);
                 } catch (Exception e) {
-                    e.printStackTrace();  // Log the exception or handle it as needed
+                    e.printStackTrace();
                 }
             }
         });
@@ -75,7 +75,6 @@ public class ResultsCellUI extends ListCell<Memento> {
                 }
                 vbox.getChildren().add(playersBox);
             } else {
-                // Remove player details if expanded
                 if (vbox.getChildren().size() > 2) {
                     vbox.getChildren().remove(2, vbox.getChildren().size());
                 }
@@ -95,6 +94,5 @@ public class ResultsCellUI extends ListCell<Memento> {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Main.cambiaScena("game.fxml", stage);
         System.out.println("Partita caricata con successo.");
-        // Aggiungi logica per riprendere la partita se necessario
     }
 }
