@@ -100,6 +100,8 @@ public class Partita  {
             }
             else if (statoPartita == 2) {
                 notificaOsservatore(Action.results);
+                SettingsSingleton.getInstance().setVincitori(determinaVincitori());
+                distribuisciPiatto(SettingsSingleton.getInstance().getVincitori());
             }
         }
         if(getGiocatoreAttuale().getNome().equals("Computer"))

@@ -12,8 +12,12 @@ public class SettingsSingleton implements Serializable {
     private static SettingsSingleton instance;
     private int numeroTurni;
     private int countTurni;
-    private  LocalDateTime saveDateTime;
+    private  LocalDateTime saveDateTime = LocalDateTime.now();
     private ArrayList<Giocatore> listaGiocatori;
+
+
+
+    private ArrayList<Giocatore> vincitori = null;
 
     public void setSaveDateTime() { this.saveDateTime = LocalDateTime.now();}
     public LocalDateTime getSaveDateTime() { return saveDateTime; }
@@ -47,4 +51,11 @@ public class SettingsSingleton implements Serializable {
         this.countTurni = countTurni+1;
     }
 
+    public ArrayList<Giocatore> getVincitori() {
+        return vincitori;
+    }
+
+    public void setVincitori(ArrayList<Giocatore> vincitori) {
+        this.vincitori = vincitori;
+    }
 }
