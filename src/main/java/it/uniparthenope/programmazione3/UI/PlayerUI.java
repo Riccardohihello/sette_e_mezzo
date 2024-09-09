@@ -36,20 +36,10 @@ public class PlayerUI extends ListCell<Giocatore> {
         hbox.setAlignment(Pos.CENTER_LEFT);
         hbox.getChildren().addAll(img, vbox);
         setGraphic(hbox);
-
-        setDefaultStyles();
     }
 
-    private void setDefaultStyles() {
-        hbox.setStyle(String.format("-fx-background-color: %s; -fx-border-radius: %s; -fx-background-radius: %s", DEFAULT_BACKGROUND_COLOR, BORDER_RADIUS, BORDER_RADIUS));
-        vbox.maxWidth(70);
-        setTextStyle(nameLabel, DEFAULT_TEXT_COLOR, true);
-        setTextStyle(balanceLabel, DEFAULT_TEXT_COLOR, false);
-        setTextStyle(stateLabel, DEFAULT_TEXT_COLOR, false);
-    }
-
-    private void setTextStyle(Label label, String color, boolean bold) {
-        label.setStyle(String.format("-fx-text-fill: %s; %s", color, bold ? "-fx-font-weight: bold" : ""));
+    private void setTextStyle(Label label, String color) {
+        label.setStyle(String.format("-fx-text-fill: %s; %s", color,"-fx-font-weight: bold"));
     }
 
     private void setBackgroundColor(String color) {
@@ -69,8 +59,9 @@ public class PlayerUI extends ListCell<Giocatore> {
             nameLabel.setText(player.getNome());
             balanceLabel.setText("Gettoni: " + player.getGettoni());
             setBorderColor(DEFAULT_BACKGROUND_COLOR);
-            setTextStyle(stateLabel, DEFAULT_TEXT_COLOR, true);
-            setTextStyle(balanceLabel, DEFAULT_TEXT_COLOR, true);
+            setTextStyle(nameLabel, DEFAULT_TEXT_COLOR);
+            setTextStyle(stateLabel, DEFAULT_TEXT_COLOR);
+            setTextStyle(balanceLabel, DEFAULT_TEXT_COLOR);
             if (player.getStrategia() instanceof StrategiaMazziere) {
                 setBackgroundColor(DEALER_BACKGROUND_COLOR);
             } else
@@ -80,13 +71,13 @@ public class PlayerUI extends ListCell<Giocatore> {
                     case bid:
                         stateLabel.setText("Deve versare");
                         setBorderColor(BORDER_GREEN);
-                        setTextStyle(stateLabel, BORDER_GREEN, true);
+                        setTextStyle(stateLabel, BORDER_GREEN);
                         break;
 
                     case match:
                         stateLabel.setText("Gioca");
                         setBorderColor(BORDER_GREEN);
-                        setTextStyle(stateLabel, BORDER_GREEN, true);
+                        setTextStyle(stateLabel, BORDER_GREEN);
                         stateLabel.setText("Valore mano: " + player.getMano().getValore());
                         break;
 
@@ -109,18 +100,18 @@ public class PlayerUI extends ListCell<Giocatore> {
                         stateLabel.setText("Valore mano: " + player.getMano().getValore());
                         break;
 
-                    default:
-                        setDefaultStyles();
-                        break;
                 }
             }
             String imagePath = "/it/uniparthenope/programmazione3/images/";
-            if (player.getNome().equals("Computer"))
-                img.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + "cpu.png"))));
-            else if (player.getStrategia() instanceof StrategiaMazziere){
-                img.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + "dealer.png"))));
-            } else
-                img.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + "player.png"))));
+            String imageName;
+            if (player.getNome().equals("Computer")) {
+                imageName = "cpu.png";
+            } else if (player.getStrategia() instanceof StrategiaMazziere) {
+                imageName = "dealer.png";
+            } else {
+                imageName = "player.png";
+            }
+            img.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + imageName))));
             setGraphic(hbox);
         } else {
             setGraphic(null);

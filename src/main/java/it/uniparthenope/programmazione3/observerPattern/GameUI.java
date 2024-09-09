@@ -1,7 +1,6 @@
 package it.uniparthenope.programmazione3.observerPattern;
 
 import it.uniparthenope.programmazione3.Main;
-import it.uniparthenope.programmazione3.UI.StatsUI;
 import it.uniparthenope.programmazione3.game.SettingsSingleton;
 import it.uniparthenope.programmazione3.memento.Caretaker;
 import it.uniparthenope.programmazione3.memento.Memento;
@@ -11,17 +10,11 @@ import it.uniparthenope.programmazione3.UI.PlayerUI;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +33,7 @@ public class GameUI implements gameObserver {
         private Partita partita;
         public Button quotaButton;
 
-        private final Caretaker caretaker = new Caretaker();
+        private Caretaker caretaker;
 
         @FXML
         public  ImageView flashText;
@@ -56,22 +49,21 @@ public class GameUI implements gameObserver {
         private Button pesca;
         @FXML
         private Button stai;
-        private int stato = 0;
 
         public void initialize() {
                 partita = new Partita();
+                caretaker = new Caretaker();
+                riempi(partita.getGiocatori());
+
                 partita.addOsservatore(this);
                 partita.addOsservatore(soundController);
-                nascondiBottoniPescata(false);
+
                 carteListView.setItems(carteList);
                 carteListView.setCellFactory(param -> new CardUI());
+
                 creaSpinner( 5, 100, 5, 5);
-                partita.getGiocatoreAttuale().setStato(Action.bid);
-                riempi(partita.getGiocatori());
                 flashText.setVisible(true);
-                update(Action.bid);
-
-
+                nascondiBottoniPescata(false);
         }
 
         @FXML
@@ -84,12 +76,11 @@ public class GameUI implements gameObserver {
         public void riempi(List<Giocatore> giocatori) {
                 ArrayList<Giocatore> giocatoriSx = new ArrayList<>();
                 ArrayList<Giocatore> giocatoriDx = new ArrayList<>();
-                for (int i=0; i<giocatori.size(); i++) {
+                for (int i=0; i<giocatori.size(); i++)
                         if (i%2==0)
                                 giocatoriSx.add(giocatori.get(i));
                         else
                                 giocatoriDx.add(giocatori.get(i));
-                }
                 riempiLista(this.giocatoriDx,giocatoriDx);
                 riempiLista(this.giocatoriSx,giocatoriSx);
 
@@ -130,9 +121,7 @@ public class GameUI implements gameObserver {
                         disableInteractiveElements(false);
                 });
 
-                fadeOut.setOnFinished(event ->{
-                        flashText.setVisible(false);
-                });
+                fadeOut.setOnFinished(event -> flashText.setVisible(false));
 
                 fadeIn.play();
         }
@@ -148,54 +137,50 @@ public class GameUI implements gameObserver {
         @Override
         public void update(Action action, String... message) {
                 Platform.runLater(() -> {
-                        switch (action) {
-                                case match:
-                                        textArea.appendText("Inizia la partita:\n");
-                                        startMatch();
-                                        break;
-                                case busted:
-                                        handleBusted();
-                                        break;
-                                case clear:
-                                        clearBoard();
-                                        break;
-                                case results:
-                                    try {
-                                        showResults();
-                                    } catch (Exception e) {
+                        try {
+                                switch (action) {
+                                        case match:
+                                                startMatch();
+                                                break;
+                                        case busted:
+                                                handleBusted();
+                                                break;
+                                        case clear:
+                                                carteList.clear();
+                                                break;
+                                        case results:
+                                                showResults();
+                                        case setteMezzo:
+                                                showFlashImage("setteMezzo.png");
+                                                carteList.clear();
+                                                break;
+                                        case stampa:
+                                                textArea.appendText(String.join("", message) + "\n");
+                                                break;
+                                        case bid:
+                                                prepareForBid();
+                                                break;
+                                        case pescato:
+                                                animazionePescata(String.join("", message));
+                                                break;
+                                        case reset:
+                                                initialize();
+                                                break;
+                                        case matta:
+                                                //gestire la situazione di quando un giocatore imposta un numero per sballare da solo
+                                                gestisciMatta();
+                                                break;
+                                }
+                        } catch (Exception e) {
                                         throw new RuntimeException(e);
-                                    }
-                                    break;
-                                case setteMezzo:
-                                        showFlashImage("setteMezzo.png");
-                                        clearBoard();
-                                        break;
-                                case stampa:
-                                        textArea.appendText(String.join("", message) + "\n");
-                                        break;
-                                case bid:
-                                        prepareForBid();
-                                        break;
-                                case pescato:
-                                        animazionePescata(String.join("", message));
-                                        break;
-                                case reset:
-                                        initialize();
-                                        break;
-                                case matta:
-                                        stato = 1;
-                                        //gestire la situazione di quando un giocatore imposta un numero per sballare da solo
-                                        gestisciMatta();
-                                        break;
                         }
                         // Refresh delle liste per aggiornare i colori delle card
                         giocatoriDx.refresh();
                         giocatoriSx.refresh();
-                });
+                        });
         }
 
         private void gestisciMatta() {
-                stato = 1;
                 quotaLabel.setText("Inserisci il valore per la matta");
                 quotaButton.setText("Conferma");
                 creaSpinner( 1, 10, 1, 1);  // Adatta lo spinner per la matta
@@ -203,24 +188,23 @@ public class GameUI implements gameObserver {
                 nascondiBottoniPescata(false);
         }
 
-        private void impostaValoreMatta(ActionEvent event){
-                int valoreMatta = quotaSpinner.getValue();
-                partita.setMatta(valoreMatta);
-                nascondiBottoniQuota(true);
+        private void impostaValoreMatta(ActionEvent event) {
+                partita.setMatta(quotaSpinner.getValue()); // imposto il valore in base a quello selezionato sullo spinner
 
-                stato = 0;
+                nascondiBottoniQuota(false);
+                nascondiBottoniPescata(true);
                 giocatoriDx.refresh();
                 giocatoriSx.refresh();
         }
 
         public void creaSpinner(int min, int max, int valoreIniziale, int passo) {
                 quotaSpinner.getStyleClass().add("split-arrows-horizontal");
-                SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, valoreIniziale, passo);
-                quotaSpinner.setValueFactory(valueFactory);
+                quotaSpinner.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, valoreIniziale, passo));
         }
 
-
         private void startMatch() {
+                textArea.appendText("Inizia la partita:\n");
+                quotaButton.setOnAction(this::impostaValoreMatta);
                 showFlashImage("money.gif");
 
                 PauseTransition delay = new PauseTransition(Duration.seconds(1));
@@ -244,59 +228,25 @@ public class GameUI implements gameObserver {
                 delay.play();
         }
 
-        private void clearBoard() {
-                carteList.clear();
-                giocatoriDx.refresh();
-                giocatoriSx.refresh();
-        }
-
         private void animazionePescata(String message) {
                 carteList.add(message);
-                giocatoriDx.refresh();
-                giocatoriSx.refresh();
-                nascondiBottoniPescata(false);
 
                 PauseTransition delay = new PauseTransition(Duration.seconds(0.6));
                 delay.setOnFinished(event -> {
                         if(partita.getGiocatoreAttuale().getNome().equals("Computer"))
                                 if(partita.getGiocatoreAttuale().strat())
                                         partita.pesca();
-                                else if(!partita.getGiocatoreAttuale().getStato().equals(Action.busted))
-                                        partita.stai();
-
-                        nascondiBottoniPescata(true);
                 });
                 delay.play();
         }
 
-
-
         private void showResults() throws Exception {
-                ArrayList<Giocatore> vincitori = SettingsSingleton.getInstance().getVincitori();
-
-                textArea.appendText("Vincitori della partita:\n");
-                for (Giocatore vincitore : vincitori) {
-                        textArea.appendText(vincitore.getNome() + " ha vinto con " + vincitore.getMano().getValore() + " punti!\n");
-                }
-
-                // Aggiorna il contatore delle vittorie per ciascun vincitore
-                textArea.appendText("\nStatistiche aggiornate:\n");
-                for (Giocatore giocatore : partita.getGiocatori()) {
-                        textArea.appendText(giocatore.getNome() + ": " + giocatore.getVittorie() + " vittorie\n");
-                }
-
-                nascondiBottoniPescata(false);
-                nascondiBottoniQuota(false);
                 try {
                         salvaPartita();
                 } catch (IOException e) {
                         throw new RuntimeException(e);
                 }
-                cambiaScena();
-        }
-
-        private void cambiaScena() throws Exception {
-                Stage stage = (Stage) textArea.getScene().getWindow(); // Usa un nodo esistente come myNode (ad es. un TextArea o Button)
+                Stage stage = (Stage) textArea.getScene().getWindow();
                 Main.cambiaScena("stats.fxml", stage);
         }
 

@@ -16,7 +16,6 @@ public class Giocatore implements Serializable {
     protected Strategia strategia;
     protected int gettoni;
     private int vittorie = 0;
-    public boolean isWinner;
     Mano mano = new Mano();
 
     public Mano getMano(){

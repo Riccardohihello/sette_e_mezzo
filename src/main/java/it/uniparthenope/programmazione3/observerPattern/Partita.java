@@ -15,12 +15,19 @@ public class Partita  {
     private int indiceScorrimento = 0;
     private final ArrayList<Giocatore> giocatori = new ArrayList<>();
     MazzoIterator mazzoIterator = new MazzoIterator();
-    public int piatto;
+    private int piatto;
+    private Giocatore mazziere;
 
     public Partita() {
         giocatori.addAll(SettingsSingleton.getInstance().getListaGiocatori());
         mazzoIterator.mischia();
         sceltaRuoli();
+        getGiocatoreAttuale().setStato(Action.bid);
+        notificaOsservatore(Action.bid);
+        if(getGiocatoreAttuale().getNome().equals("Computer"))
+            setQuota(piatto/giocatori.size());
+        if (getGiocatoreAttuale().getStrategia() instanceof StrategiaMazziere)
+            setQuota(0);
     }
 
     public void notificaOsservatore(Action action, String... message) {
@@ -40,28 +47,27 @@ public class Partita  {
     private void sceltaRuoli() {
         Random random = new Random();
         int rand;
-        do {
-            Collections.shuffle(giocatori);
-        }while(giocatori.get(0).getNome().equals("Computer"));
-        do {
-            rand = random.nextInt(giocatori.size());
-        } while (giocatori.get(rand).getNome().equals("Computer"));
-        Giocatore mazziere = giocatori.get(rand);
-        giocatori.remove(rand);
+        Collections.shuffle(giocatori);
 
+        do
+            rand = random.nextInt(giocatori.size());
+        while (giocatori.get(rand).getNome().equals("Computer"));
+
+        Giocatore mazziere = giocatori.get(rand);
         for (Giocatore g : giocatori) {
             g.setStato(Action.wait);
             g.resetMano();
-            if (g.getNome().equals("Computer")) {
+            if (g.getNome().equals("Computer"))
                 g.setStrategia(new StrategiaComputer());
-            } else {
-                g.setStrategia(new StrategiaGiocatore());
+            else if (g.equals(mazziere)) {
+                g.setStrategia(new StrategiaMazziere());
+                this.mazziere = g;
             }
+            else
+                g.setStrategia(new StrategiaGiocatore());
+
         }
-        //Mazziere aggiunto dopo cosi è sempre l'ultimo (vantaggio tattico)
-        mazziere.setStrategia(new StrategiaMazziere());
-        mazziere.setStato(Action.wait);
-        giocatori.add(mazziere);
+
     }
 
     public void pesca(){
@@ -71,27 +77,30 @@ public class Partita  {
                 notificaOsservatore(Action.matta);
         else {
             giocatore.aggiungiCarta(cartaPescata);
+
             if (giocatore.getStato() == Action.busted)
                 notificaOsservatore(Action.busted);
         }
         notificaOsservatore(Action.pescato, cartaPescata.getImagePath());
+        if (giocatore.getNome().equals("Computer") && !giocatore.strat())
+            stai();
     }
 
     public void stai() {
         Giocatore giocatore = getGiocatoreAttuale();
         if (giocatore.getMano().getValore() == 7.5)
             notificaOsservatore(Action.setteMezzo);
-        else {
+        else
             if(!(getGiocatoreAttuale().getStato() == Action.busted))
                 getGiocatoreAttuale().setStato(Action.results);
-            notificaOsservatore(Action.clear);
-        }
+        notificaOsservatore(Action.clear);
         scorriGiocatori();
     }
 
     public void scorriGiocatori(){
         indiceScorrimento += 1;
         int statoPartita = indiceScorrimento / giocatori.size();
+        System.out.println(statoPartita);
         if(indiceScorrimento % giocatori.size() == 0) {
             if (statoPartita == 1) {
                 for (Giocatore g : giocatori)
@@ -99,18 +108,16 @@ public class Partita  {
                 notificaOsservatore(Action.match);
             }
             else if (statoPartita == 2) {
+                declareWinners();
                 notificaOsservatore(Action.results);
-                SettingsSingleton.getInstance().setVincitori(determinaVincitori());
-                distribuisciPiatto(SettingsSingleton.getInstance().getVincitori());
             }
+
         }
         if(getGiocatoreAttuale().getNome().equals("Computer"))
             if(statoPartita == 0)
                 setQuota(piatto/giocatori.size());
             else if(statoPartita == 1) {
-                while (getGiocatoreAttuale().strat())
                     pesca();
-                notificaOsservatore(Action.computer);
             }
 
         if(statoPartita == 1) {
@@ -119,29 +126,46 @@ public class Partita  {
         }
     }
 
-    public ArrayList<Giocatore> determinaVincitori() {
-        ArrayList<Giocatore> vincitori = new ArrayList<>();
-        double punteggioMassimo = 0.0;
+    private void declareWinners() {
+        ArrayList<Giocatore> winners = new ArrayList<>();
+        ArrayList<Giocatore> losers = new ArrayList<>();
+        double valoreMazziere = this.mazziere.getMano().getValore();
 
-        for (Giocatore giocatore : giocatori) {
-            double punteggio = giocatore.getMano().getValore();
-            if (punteggio <= 7.5 && punteggio > punteggioMassimo) {
-                punteggioMassimo = punteggio;
-                vincitori.clear();
-                vincitori.add(giocatore);
-            } else if (punteggio == punteggioMassimo) {
-                vincitori.add(giocatore);
+        if (valoreMazziere > 7.5) {
+            giocatori.remove(this.mazziere);
+            winners.addAll(giocatori);
+            giocatori.add(this.mazziere);
+            System.out.println("hanno vinto tutti");
+        } else {
+            for (Giocatore giocatore : giocatori) {
+                if (giocatore == this.mazziere) continue; // Salta il mazziere
+
+                double valoreGiocatore = giocatore.getMano().getValore();
+
+                if (valoreGiocatore <= 7.5 && valoreGiocatore > valoreMazziere) {
+                    winners.add(giocatore);
+                    giocatore.incrementaVittorie();
+                } else {
+                    losers.add(giocatore);
+                }
             }
         }
-
-        return vincitori;
+        if(!winners.isEmpty())
+            distributeMoney(winners);
+        else
+            mazziere.riscuoti(piatto);
+        SettingsSingleton.getInstance().setMazziere(mazziere);
+        SettingsSingleton.getInstance().setWinners(winners);
+        SettingsSingleton.getInstance().setLosers(losers);
     }
 
-    public void distribuisciPiatto(ArrayList<Giocatore> vincitori) {
+    private void distributeMoney(ArrayList<Giocatore> vincitori) {
         int quotaVincita = piatto / vincitori.size();
-        for (Giocatore vincitore : vincitori) {
-            vincitore.riscuoti(quotaVincita);
-            vincitore.incrementaVittorie();
+
+        for (Giocatore giocatore : giocatori) {
+            if(giocatore.getMano().getValore() > this.mazziere.getMano().getValore() && giocatore.getMano().getValore() < 7.5) {
+                this.mazziere.daiGettoniStrat(giocatore, quotaVincita);
+            }
         }
     }
 
@@ -156,11 +180,10 @@ public class Partita  {
         attuale.setStato(Action.bidded);
         scorriGiocatori();
 
-        if(indiceScorrimento%giocatori.size() != 0 )
+        if(indiceScorrimento % giocatori.size() != 0 )
             getGiocatoreAttuale().setStato(Action.bid);
-        if (getGiocatoreAttuale().getStrategia() instanceof StrategiaMazziere) {
+        if (getGiocatoreAttuale().getStrategia() instanceof StrategiaMazziere)
             setQuota(0);
-        }
 
     }
 

@@ -3,27 +3,33 @@ package it.uniparthenope.programmazione3.UI;
 import it.uniparthenope.programmazione3.game.SettingsSingleton;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
-import java.util.ArrayList;
-
 public class StatsUI {
     @FXML
-    private ListView<String> Results;
+    private ListView<Giocatore> vincitori;
 
+    @FXML
+    private ListView<Giocatore> sconfitti;
+
+    @FXML
+    private ListView<Giocatore> mazziere;
+
+
+    @FXML
     public void initialize() {
-        setPlayerStats(SettingsSingleton.getInstance().getListaGiocatori());
+        setPlayerStats();
+        vincitori.setCellFactory(param -> new PlayerUI());
+        sconfitti.setCellFactory(param -> new PlayerUI());
+        mazziere.setCellFactory(param -> new PlayerUI());
     }
 
-    public void setPlayerStats(ArrayList<Giocatore> listaGiocatori) {
-        ObservableList<String> items = FXCollections.observableArrayList();
-        for (Giocatore giocatore : listaGiocatori) {
-            System.out.println(giocatore.getNome());
-            items.add(giocatore.getNome() + " - Punti: " + giocatore.getMano().getValore());
-        }
-        Results.setItems(items);
+    public void setPlayerStats() {
+        vincitori.setItems(FXCollections.observableArrayList(SettingsSingleton.getInstance().getWinners()));
+        vincitori.setItems(FXCollections.observableArrayList(SettingsSingleton.getInstance().getLosers()));
+        mazziere.setItems(FXCollections.observableArrayList(SettingsSingleton.getInstance().getMazziere()));
+
     }
 
     @FXML

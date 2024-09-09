@@ -29,7 +29,6 @@ public class PlayerCreationUI extends ListCell<Giocatore> {
         gettoni.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 50));
         gettoni.getEditor().setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
 
-        // spacing tra le etichette
         VBox vbox = new VBox(5);
         vbox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(nameField, gettoni);

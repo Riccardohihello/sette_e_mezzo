@@ -15,12 +15,11 @@ public class MenuUI {
     @FXML
     private void initialize() {
         labelRisultato.setText("Menu Del Gioco");
-
     }
 
     @FXML
     public void gameSceneButton(ActionEvent event) throws Exception {
-        Main.cambiaScena("test.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
+        Main.cambiaScena("playerSelection.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
     @FXML
     public void historySceneButton(ActionEvent event) throws Exception {

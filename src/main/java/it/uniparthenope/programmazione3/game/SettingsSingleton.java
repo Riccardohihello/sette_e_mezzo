@@ -14,10 +14,17 @@ public class SettingsSingleton implements Serializable {
     private int countTurni;
     private  LocalDateTime saveDateTime = LocalDateTime.now();
     private ArrayList<Giocatore> listaGiocatori;
+    private ArrayList<Giocatore> winners = new ArrayList<>();
+    private ArrayList<Giocatore> losers = new ArrayList<>();
+    private Giocatore mazziere;
 
+    public void setWinners(ArrayList<Giocatore> winners) {
+        this.winners = winners;
+    }
 
-
-    private ArrayList<Giocatore> vincitori = null;
+    public void setLosers(ArrayList<Giocatore> losers) {
+        this.losers = losers;
+    }
 
     public void setSaveDateTime() { this.saveDateTime = LocalDateTime.now();}
     public LocalDateTime getSaveDateTime() { return saveDateTime; }
@@ -35,6 +42,21 @@ public class SettingsSingleton implements Serializable {
     }
     public void setListaGiocatori (ArrayList<Giocatore> listaGiocatori) { this.listaGiocatori = listaGiocatori;}
 
+
+    public ArrayList<Giocatore> getLosers(){
+        return losers;
+    }
+
+    public ArrayList<Giocatore> getWinners(){
+        return winners;
+    }
+
+    public void setMazziere(Giocatore mazziere) {
+        this.mazziere = mazziere;
+    }
+    public Giocatore getMazziere(){
+        return mazziere;
+    }
     public void setNumeroTurni(int numeroTurni) {
         this.numeroTurni = numeroTurni;
     }
@@ -51,11 +73,5 @@ public class SettingsSingleton implements Serializable {
         this.countTurni = countTurni+1;
     }
 
-    public ArrayList<Giocatore> getVincitori() {
-        return vincitori;
-    }
 
-    public void setVincitori(ArrayList<Giocatore> vincitori) {
-        this.vincitori = vincitori;
-    }
 }
