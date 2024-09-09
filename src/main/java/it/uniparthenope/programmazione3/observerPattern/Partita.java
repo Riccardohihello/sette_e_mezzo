@@ -65,8 +65,9 @@ public class Partita  {
             }
             else
                 g.setStrategia(new StrategiaGiocatore());
-
         }
+        giocatori.remove(mazziere);
+        giocatori.add(mazziere);
 
     }
 
@@ -82,7 +83,7 @@ public class Partita  {
                 notificaOsservatore(Action.busted);
         }
         notificaOsservatore(Action.pescato, cartaPescata.getImagePath());
-        if (giocatore.getNome().equals("Computer") && !giocatore.strat())
+        if (giocatore.getNome().equals("Computer") && giocatore.getMano().getValore()<=7.5 && !giocatore.strat())
             stai();
     }
 
@@ -111,8 +112,8 @@ public class Partita  {
                 declareWinners();
                 notificaOsservatore(Action.results);
             }
-
         }
+
         if(getGiocatoreAttuale().getNome().equals("Computer"))
             if(statoPartita == 0)
                 setQuota(piatto/giocatori.size());
