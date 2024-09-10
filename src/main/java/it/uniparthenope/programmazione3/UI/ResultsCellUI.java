@@ -4,31 +4,43 @@ import it.uniparthenope.programmazione3.Main;
 import it.uniparthenope.programmazione3.game.SettingsSingleton;
 import it.uniparthenope.programmazione3.memento.Memento;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+
 
 public class ResultsCellUI extends ListCell<Memento> {
 
     private final VBox vbox = new VBox(10);
     private final Label gameIdLabel = new Label();
-    private final Button loadGame = new Button("Load game");
     private boolean isExpanded = false;
 
     public ResultsCellUI() {
         super();
-        vbox.getChildren().addAll(gameIdLabel, loadGame);
+        // Add the gameIdLabel with a spacer and loadGame button to the HBox
+        Region spacer = new Region();
+        HBox hBox = new HBox(5);
+        Button loadGame = new Button("Load game");
+        hBox.getChildren().addAll(gameIdLabel, spacer, loadGame);
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        HBox.setHgrow(spacer, Priority.ALWAYS); // Make spacer take up all available space
+
+        vbox.getChildren().addAll(hBox);
+        vbox.setStyle("-fx-background-color: white;-fx-background-radius: 15;-fx-padding: 10");
         setGraphic(vbox);
-        setStyle("-fx-background-color: #f5f5dc; -fx-border-radius: 5; -fx-background-radius: 5");
+        setStyle("-fx-background-color: #f5f5dc; -fx-background-radius: 15");
         gameIdLabel.setStyle("-fx-text-fill: #333333;");
 
         // Handle the button action
@@ -55,31 +67,54 @@ public class ResultsCellUI extends ListCell<Memento> {
             setText(null);
             setGraphic(null);
         } else {
-            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy hh-mm-ss");
+            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM hh:mm");
             String formattedDate = memento.getSettings().getSaveDateTime().format(myFormatObj);
 
             gameIdLabel.setText("Partita " + (getIndex() + 1) + " - " + formattedDate);
 
             if (isExpanded) {
-                List<Giocatore> giocatori = memento.getSettings().getListaGiocatori();
-                VBox playersBox = new VBox(5);
-                for (Giocatore giocatore : giocatori) {
-                    HBox playerRow = new HBox(10);
-                    playerRow.setAlignment(Pos.CENTER_LEFT);
-                    Label playerName = new Label(giocatore.getNome() + ": ");
-                    Label playerTokens = new Label(giocatore.getGettoni() + " gettoni");
-                    playerName.setStyle("-fx-text-fill: #333333;");
-                    playerTokens.setStyle("-fx-text-fill: #333333;");
-                    playerRow.getChildren().addAll(playerName, playerTokens);
-                    playersBox.getChildren().add(playerRow);
-                }
-                vbox.getChildren().add(playersBox);
+                vbox.setStyle("-fx-background-color: #e1dfdf; -fx-background-radius: 15;-fx-padding: 10");
+                ListView<Giocatore> vincitori = new ListView<>();
+                ListView<Giocatore> sconfitti = new ListView<>();
+                ListView<Giocatore> mazziere = new ListView<>();
+                vincitori.setItems(FXCollections.observableArrayList(memento.getSettings().getWinners()));
+                sconfitti.setItems(FXCollections.observableArrayList(memento.getSettings().getLosers()));
+                mazziere.setItems(FXCollections.observableArrayList(memento.getSettings().getMazziere()));
+
+                vincitori.setCellFactory(param -> new PlayerUI());
+                sconfitti.setCellFactory(param -> new PlayerUI());
+                mazziere.setCellFactory(param -> new PlayerUI());
+
+                vincitori.setStyle( "-fx-background-color: #c8f4ba; -fx-background-radius: 15");
+                sconfitti.setStyle("-fx-background-color: #f3c6c6; -fx-background-radius: 15");
+
+                VBox winCol = new VBox(10);
+                Label win = new Label("Vincitori");
+                win.setStyle(" -fx-text-alignment: CENTER; -fx-text-fill: black");
+                VBox lossCol = new VBox(10);
+                Label loss = new Label("Sconfitti");
+                loss.setStyle(" -fx-text-alignment: CENTER; -fx-text-fill: black");
+                VBox mazzCol = new VBox(10);
+                Label mazz = new Label("Mazziere");
+                mazz.setStyle(" -fx-text-alignment: CENTER; -fx-text-fill: black");
+                winCol.getChildren().addAll(win, vincitori);
+                winCol.setAlignment(Pos.CENTER);
+                lossCol.getChildren().addAll(loss, sconfitti);
+                lossCol.setAlignment(Pos.CENTER);
+                mazzCol.getChildren().addAll(mazz,mazziere);
+                mazzCol.setAlignment(Pos.CENTER);
+
+                HBox players = new HBox(3);
+                players.setAlignment(Pos.CENTER);
+                players.getChildren().addAll(winCol, lossCol, mazzCol);
+                vbox.getChildren().add(players);
             } else {
-                if (vbox.getChildren().size() > 2) {
-                    vbox.getChildren().remove(2, vbox.getChildren().size());
+                if (vbox.getChildren().size() > 1) {
+                    vbox.getChildren().remove(1, vbox.getChildren().size());
+                    vbox.setStyle("-fx-background-color: white; -fx-background-radius: 15;-fx-padding: 10");
+
                 }
             }
-
             setGraphic(vbox);
         }
     }
@@ -96,3 +131,4 @@ public class ResultsCellUI extends ListCell<Memento> {
         System.out.println("Partita caricata con successo.");
     }
 }
+

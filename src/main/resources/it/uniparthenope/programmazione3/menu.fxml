@@ -11,39 +11,40 @@
 <StackPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.uniparthenope.programmazione3.UI.MenuUI">
     <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
         <StackPane.margin>
-            <Insets top="50.0"/>
+            <Insets top="50.0" />
         </StackPane.margin>
-        <Label alignment="CENTER" contentDisplay="CENTER" text="Sette e mezzo Demo" textAlignment="CENTER"
-               textFill="WHITE">
+        <Label alignment="CENTER" contentDisplay="CENTER" text="Sette e mezzo Demo" textAlignment="CENTER" textFill="WHITE">
             <font>
-                <Font name="Comic Sans MS" size="36.0"/>
+                <Font name="Comic Sans MS" size="36.0" />
             </font>
         </Label>
     </HBox>
     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="80.0">
-        <HBox alignment="CENTER" prefHeight="236.0" prefWidth="1281.0">
-            <VBox alignment="CENTER" prefHeight="232.0" prefWidth="208.0" spacing="20.0"
-                  style="-fx-background-color: f5f5dc; -fx-background-radius: 15px;">
-                <Label fx:id="labelRisultato" text="Label" textAlignment="CENTER" style="-fx-text-fill: black;">
+        <HBox alignment="CENTER" prefHeight="275.0" prefWidth="1281.0">
+            <VBox alignment="CENTER" prefHeight="232.0" prefWidth="208.0" spacing="20.0" style="-fx-background-color: f5f5dc; -fx-background-radius: 15px;">
+                <Label fx:id="labelRisultato" style="-fx-text-fill: black;" text="Label" textAlignment="CENTER">
                     <font>
-                        <Font size="24.0"/>
+                        <Font size="24.0" />
                     </font>
                 </Label>
-                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" prefHeight="36.0"
-                        prefWidth="140.0" text="Nuova Partita" textAlignment="CENTER">
+                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#gameSceneButton" prefHeight="36.0" prefWidth="140.0" text="Nuova Partita" textAlignment="CENTER">
                     <font>
-                        <Font size="18.0"/>
+                        <Font size="18.0" />
                     </font>
                 </Button>
-                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#historySceneButton" prefHeight="36.0"
-                        prefWidth="140.0" text="Storico Partite">
+                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#historySceneButton" prefHeight="36.0" prefWidth="140.0" text="Storico Partite">
                     <font>
-                        <Font size="18.0"/>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#computerStatsButton" prefHeight="36.0" prefWidth="140.0" text="Storico Computer">
+                    <font>
+                        <Font size="18.0" />
                     </font>
                 </Button>
                 <Button onAction="#exitButton" prefHeight="36.0" prefWidth="140.0" text="Esci dal Gioco">
                     <font>
-                        <Font size="18.0"/>
+                        <Font size="18.0" />
                     </font>
                 </Button>
             </VBox>

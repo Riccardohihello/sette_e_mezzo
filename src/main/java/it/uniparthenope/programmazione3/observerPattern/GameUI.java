@@ -175,6 +175,9 @@ public class GameUI implements gameObserver {
                                                 //gestire la situazione di quando un giocatore imposta un numero per sballare da solo
                                                 gestisciMatta();
                                                 break;
+
+                                        case saveComputerWin:
+                                                caretaker.saveOnDisk("src/main/resources/it/uniparthenope/programmazione3/storico_computer");
                                 }
                         } catch (Exception e) {
                                         throw new RuntimeException(e);

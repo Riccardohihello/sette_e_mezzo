@@ -17,6 +17,7 @@ public class Partita  {
     MazzoIterator mazzoIterator = new MazzoIterator();
     private int piatto;
     private Giocatore mazziere;
+    private Giocatore computer;
 
     public Partita() {
         giocatori.addAll(SettingsSingleton.getInstance().getListaGiocatori());
@@ -60,8 +61,10 @@ public class Partita  {
         for (Giocatore g : giocatori) {
             g.setStato(Action.wait);
             g.resetMano();
-            if (g.getNome().equals("Computer"))
+            if (g.getNome().equals("Computer")) {
                 g.setStrategia(new StrategiaComputer());
+                this.computer = g;
+            }
             else if (g.equals(mazziere)) {
                 g.setStrategia(new StrategiaMazziere());
                 this.mazziere = g;
@@ -160,6 +163,9 @@ public class Partita  {
         SettingsSingleton.getInstance().setMazziere(mazziere);
         SettingsSingleton.getInstance().setWinners(winners);
         SettingsSingleton.getInstance().setLosers(losers);
+        if (winners.contains(computer)) {
+            notificaOsservatore(Action.saveComputerWin);
+        }
     }
 
     private void distributeMoney(ArrayList<Giocatore> vincitori) {
