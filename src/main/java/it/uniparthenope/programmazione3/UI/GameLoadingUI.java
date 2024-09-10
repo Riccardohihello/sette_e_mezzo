@@ -29,7 +29,7 @@ public class GameLoadingUI implements gameObserver {
     @FXML
     public ListView<Giocatore> giocatoriDx = new ListView<>();
 
-    private final ObservableList<Giocatore> giocatori = FXCollections.observableArrayList();;
+    private final ObservableList<Giocatore> giocatori = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -72,6 +72,10 @@ public class GameLoadingUI implements gameObserver {
     @Override
     public void update(Action action, String... message) {
 
+    }
+    @FXML
+    public void backToMenu(ActionEvent event) throws Exception {
+        Main.cambiaScena("menu.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 }
 
