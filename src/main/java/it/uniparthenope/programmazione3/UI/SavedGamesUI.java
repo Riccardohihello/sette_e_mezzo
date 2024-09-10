@@ -24,5 +24,9 @@ public class SavedGamesUI {
             System.out.println("Nessuna partita salvata.");
         }
     }
+    @FXML
+    public void backToMenu(ActionEvent event) throws Exception {
+        Main.cambiaScena("menu.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
+    }
 
 }

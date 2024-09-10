@@ -17,10 +17,11 @@ public class Carta implements Serializable {
      else
          return 0.5;
     }
-
+/*
     public String getSeme() {
         return seme;
     }
+ */
 
     public boolean matta() {
         return valore == 10.0 && seme.equals("Denari");

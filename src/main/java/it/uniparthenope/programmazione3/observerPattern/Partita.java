@@ -47,13 +47,16 @@ public class Partita  {
     private void sceltaRuoli() {
         Random random = new Random();
         int rand;
-        Collections.shuffle(giocatori);
 
         do
             rand = random.nextInt(giocatori.size());
         while (giocatori.get(rand).getNome().equals("Computer"));
-
         Giocatore mazziere = giocatori.get(rand);
+
+        do
+            Collections.shuffle(giocatori);
+        while (giocatori.get(0).getNome().equals("Computer"));
+
         for (Giocatore g : giocatori) {
             g.setStato(Action.wait);
             g.resetMano();
@@ -68,7 +71,6 @@ public class Partita  {
         }
         giocatori.remove(mazziere);
         giocatori.add(mazziere);
-
     }
 
     public void pesca(){

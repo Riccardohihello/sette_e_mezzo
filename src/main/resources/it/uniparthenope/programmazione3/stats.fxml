@@ -41,8 +41,6 @@
                <Button mnemonicParsing="false" onAction="#nuovaPartita" text="Nuova Partita" />
                <Button mnemonicParsing="false" onAction="#backToMenu" text="Torna al Menu" />
          </HBox>
-      <padding>
-         <Insets bottom="50.0" />
-      </padding>
+      <padding><Insets bottom="50.0" /></padding>
    </VBox>
 </StackPane>
