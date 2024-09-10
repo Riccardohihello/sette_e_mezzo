@@ -11,10 +11,10 @@ public class Giocatore implements Serializable {
         this.gettoni=100;
 
     }
-    protected String nome;
-    protected Action stato;
-    protected Strategia strategia;
-    protected int gettoni;
+    private String nome;
+    private Action stato;
+    private Strategia strategia;
+    private int gettoni;
     private int vittorie = 0;
     Mano mano = new Mano();
 

@@ -36,13 +36,18 @@ public class GameUI implements gameObserver {
         private Caretaker caretaker;
 
         @FXML
-        public  ImageView flashText;
+        private   ImageView flashText;
+
         public Label quotaLabel;
+
         public TextArea textArea;
+
         @FXML
         private final ObservableList<String> carteList = FXCollections.observableArrayList();
+
         public ListView<Giocatore> giocatoriSx;
         public ListView<Giocatore> giocatoriDx;
+
         @FXML
         private ListView<String> carteListView;
         @FXML
@@ -73,7 +78,7 @@ public class GameUI implements gameObserver {
                 riempi(partita.getGiocatori());
         }
 
-        public void riempi(List<Giocatore> giocatori) {
+        private void riempi(List<Giocatore> giocatori) {
                 ArrayList<Giocatore> giocatoriSx = new ArrayList<>();
                 ArrayList<Giocatore> giocatoriDx = new ArrayList<>();
                 for (int i=0; i<giocatori.size(); i++)
@@ -86,7 +91,7 @@ public class GameUI implements gameObserver {
 
         }
 
-        public void riempiLista(ListView<Giocatore> lista, List<Giocatore> giocatori) {
+        private void riempiLista(ListView<Giocatore> lista, List<Giocatore> giocatori) {
                 lista.setItems(FXCollections.observableArrayList(giocatori));
                 lista.setCellFactory(param -> new PlayerUI());
                 lista.setMouseTransparent(true);
@@ -100,7 +105,7 @@ public class GameUI implements gameObserver {
                 partita.pesca();
         }
 
-        public void showFlashImage(String filename) {
+        private void showFlashImage(String filename) {
                 String path = "/it/uniparthenope/programmazione3/images/";
                 filename = path + filename;
                 Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(filename)));
@@ -197,7 +202,7 @@ public class GameUI implements gameObserver {
                 giocatoriSx.refresh();
         }
 
-        public void creaSpinner(int min, int max, int valoreIniziale, int passo) {
+        private void creaSpinner(int min, int max, int valoreIniziale, int passo) {
                 quotaSpinner.getStyleClass().add("split-arrows-horizontal");
                 quotaSpinner.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, valoreIniziale, passo));
         }
@@ -255,7 +260,7 @@ public class GameUI implements gameObserver {
                 stai.setVisible(bool);
         }
 
-        public void nascondiBottoniQuota(boolean bool){
+        private void nascondiBottoniQuota(boolean bool){
                 quotaSpinner.setVisible(bool);
                 quotaLabel.setVisible(bool);
                 quotaButton.setVisible(bool);
@@ -267,11 +272,10 @@ public class GameUI implements gameObserver {
                 textArea.appendText("E' il turno di " + partita.getGiocatoreAttuale().getNome() + "\n");
         }
 
-        public void salvaPartita() throws IOException {
+        private void salvaPartita() throws IOException {
                 SettingsSingleton settings = SettingsSingleton.getInstance();
                 Memento newMemento = new Memento(settings);
                 caretaker.add(newMemento);
-                System.out.println("Partita salvata con successo.");
         }
 
 

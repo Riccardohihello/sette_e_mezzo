@@ -55,7 +55,7 @@ public class Caretaker {
         File[] files = file.listFiles();
         if(files != null) {
             for (int i = 0; i < Objects.requireNonNull(files).length; i++) {
-                if (files[i].isFile()) { //this line weeds out other directories/folders
+                if (files[i].isFile()) {
                     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(files[i]))) {
                         mementoList.add((Memento) ois.readObject());
                     } catch (IOException | ClassNotFoundException e) {

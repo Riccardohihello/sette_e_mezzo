@@ -18,16 +18,16 @@ public class MenuUI {
     }
 
     @FXML
-    public void gameSceneButton(ActionEvent event) throws Exception {
+    private void gameSceneButton(ActionEvent event) throws Exception {
         Main.cambiaScena("playerSelection.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
     @FXML
-    public void historySceneButton(ActionEvent event) throws Exception {
+    private void historySceneButton(ActionEvent event) throws Exception {
         Main.cambiaScena("savedGames.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
     @FXML
-    public void exitButton() {
+    private void exitButton() {
         System.exit(0);
     }
 

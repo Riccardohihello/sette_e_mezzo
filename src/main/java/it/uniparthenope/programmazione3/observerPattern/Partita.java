@@ -30,7 +30,7 @@ public class Partita  {
             setQuota(0);
     }
 
-    public void notificaOsservatore(Action action, String... message) {
+    private void notificaOsservatore(Action action, String... message) {
         if (!osservatori.isEmpty())
             for (gameObserver observer : this.osservatori)
                 observer.update(action,message);
@@ -98,10 +98,9 @@ public class Partita  {
         scorriGiocatori();
     }
 
-    public void scorriGiocatori(){
+    private void scorriGiocatori(){
         indiceScorrimento += 1;
         int statoPartita = indiceScorrimento / giocatori.size();
-        System.out.println(statoPartita);
         if(indiceScorrimento % giocatori.size() == 0) {
             if (statoPartita == 1) {
                 for (Giocatore g : giocatori)
@@ -110,6 +109,8 @@ public class Partita  {
             }
             else if (statoPartita == 2) {
                 declareWinners();
+                for (Giocatore g : giocatori)
+                    g.setStato(Action.results);
                 notificaOsservatore(Action.results);
             }
         }
@@ -136,7 +137,6 @@ public class Partita  {
             giocatori.remove(this.mazziere);
             winners.addAll(giocatori);
             giocatori.add(this.mazziere);
-            System.out.println("hanno vinto tutti");
         } else {
             for (Giocatore giocatore : giocatori) {
                 if (giocatore == this.mazziere) continue; // Salta il mazziere
@@ -181,8 +181,9 @@ public class Partita  {
         attuale.setStato(Action.bidded);
         scorriGiocatori();
 
-        if(indiceScorrimento % giocatori.size() != 0 )
+        if(indiceScorrimento % giocatori.size() != 0 && getGiocatoreAttuale().getStato() != Action.match) {
             getGiocatoreAttuale().setStato(Action.bid);
+        }
         if (getGiocatoreAttuale().getStrategia() instanceof StrategiaMazziere)
             setQuota(0);
 

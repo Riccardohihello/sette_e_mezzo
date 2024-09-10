@@ -97,6 +97,7 @@ public class PlayerUI extends ListCell<Giocatore> {
                     case results:
                         balanceLabel.setVisible(true);
                         stateLabel.setVisible(true);
+                        setTextStyle(stateLabel, DEFAULT_TEXT_COLOR);
                         stateLabel.setText("Valore mano: " + player.getMano().getValore());
                         break;
 
