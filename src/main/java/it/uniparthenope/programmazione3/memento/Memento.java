@@ -1,7 +1,5 @@
 package it.uniparthenope.programmazione3.memento;
 
-import it.uniparthenope.programmazione3.game.SettingsSingleton;
-
 import java.io.Serializable;
 
 public class Memento implements Serializable {

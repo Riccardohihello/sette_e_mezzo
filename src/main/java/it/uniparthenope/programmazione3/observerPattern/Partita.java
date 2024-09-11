@@ -1,6 +1,7 @@
 package it.uniparthenope.programmazione3.observerPattern;
 
 import it.uniparthenope.programmazione3.game.*;
+import it.uniparthenope.programmazione3.memento.SettingsSingleton;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import it.uniparthenope.programmazione3.strategyPattern.StrategiaComputer;
 import it.uniparthenope.programmazione3.strategyPattern.StrategiaGiocatore;
@@ -14,7 +15,7 @@ public class Partita  {
     private final ArrayList<gameObserver> osservatori = new ArrayList<>();
     private int indiceScorrimento = 0;
     private final ArrayList<Giocatore> giocatori = new ArrayList<>();
-    MazzoIterator mazzoIterator = new MazzoIterator();
+    private final MazzoIterator mazzoIterator = new MazzoIterator();
     private int piatto;
     private Giocatore mazziere;
     private Giocatore computer;
@@ -110,7 +111,7 @@ public class Partita  {
             if (statoPartita == 1) {
                 for (Giocatore g : giocatori)
                     g.setStato(Action.wait);
-                notificaOsservatore(Action.match);
+                notificaOsservatore(Action.match, "valore piatto: " + piatto);
             }
             else if (statoPartita == 2) {
                 declareWinners();
@@ -123,9 +124,8 @@ public class Partita  {
         if(getGiocatoreAttuale().getNome().equals("Computer"))
             if(statoPartita == 0)
                 setQuota(piatto/giocatori.size());
-            else if(statoPartita == 1) {
+            else if(statoPartita == 1)
                     pesca();
-            }
 
         if(statoPartita == 1) {
             notificaOsservatore(Action.stampa, "E'il turno di " + getGiocatoreAttuale().getNome());
@@ -138,22 +138,18 @@ public class Partita  {
         ArrayList<Giocatore> losers = new ArrayList<>();
         double valoreMazziere = this.mazziere.getMano().getValore();
 
-        if (valoreMazziere > 7.5) {
-            giocatori.remove(this.mazziere);
-            winners.addAll(giocatori);
-            giocatori.add(this.mazziere);
-        } else {
-            for (Giocatore giocatore : giocatori) {
-                if (giocatore == this.mazziere) continue; // Salta il mazziere
+        if(valoreMazziere>7.5) valoreMazziere = 0.0;
 
-                double valoreGiocatore = giocatore.getMano().getValore();
+        for (Giocatore giocatore : giocatori) {
+            if (giocatore == this.mazziere && valoreMazziere <= 7.5) continue; // Salta il mazziere
 
-                if (valoreGiocatore <= 7.5 && valoreGiocatore > valoreMazziere) {
-                    winners.add(giocatore);
-                    giocatore.incrementaVittorie();
-                } else {
-                    losers.add(giocatore);
-                }
+            double valoreGiocatore = giocatore.getMano().getValore();
+
+            if (valoreGiocatore <= 7.5 && valoreGiocatore > valoreMazziere) {
+                winners.add(giocatore);
+                giocatore.incrementaVittorie();
+            } else {
+                losers.add(giocatore);
             }
         }
         if(!winners.isEmpty())
@@ -171,11 +167,8 @@ public class Partita  {
     private void distributeMoney(ArrayList<Giocatore> vincitori) {
         int quotaVincita = piatto / vincitori.size();
 
-        for (Giocatore giocatore : giocatori) {
-            if(giocatore.getMano().getValore() > this.mazziere.getMano().getValore() && giocatore.getMano().getValore() < 7.5) {
-                this.mazziere.daiGettoniStrat(giocatore, quotaVincita);
-            }
-        }
+        for (Giocatore giocatore : vincitori)
+            this.mazziere.daiGettoniStrat(giocatore, quotaVincita);
     }
 
     public Giocatore getGiocatoreAttuale() {
@@ -189,9 +182,8 @@ public class Partita  {
         attuale.setStato(Action.bidded);
         scorriGiocatori();
 
-        if(indiceScorrimento % giocatori.size() != 0 && getGiocatoreAttuale().getStato() != Action.match) {
+        if(indiceScorrimento % giocatori.size() != 0 && getGiocatoreAttuale().getStato() != Action.match)
             getGiocatoreAttuale().setStato(Action.bid);
-        }
         if (getGiocatoreAttuale().getStrategia() instanceof StrategiaMazziere)
             setQuota(0);
 

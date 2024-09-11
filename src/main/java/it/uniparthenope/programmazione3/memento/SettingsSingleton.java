@@ -1,4 +1,4 @@
-package it.uniparthenope.programmazione3.game;
+package it.uniparthenope.programmazione3.memento;
 
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import java.time.LocalDateTime;

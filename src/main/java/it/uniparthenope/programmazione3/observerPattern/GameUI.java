@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.observerPattern;
 
 import it.uniparthenope.programmazione3.Main;
-import it.uniparthenope.programmazione3.game.SettingsSingleton;
+import it.uniparthenope.programmazione3.memento.SettingsSingleton;
 import it.uniparthenope.programmazione3.memento.Caretaker;
 import it.uniparthenope.programmazione3.memento.Memento;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
@@ -145,7 +145,7 @@ public class GameUI implements gameObserver {
                         try {
                                 switch (action) {
                                         case match:
-                                                startMatch();
+                                                startMatch(String.join("", message));
                                                 break;
                                         case busted:
                                                 handleBusted();
@@ -198,7 +198,6 @@ public class GameUI implements gameObserver {
 
         private void impostaValoreMatta(ActionEvent event) {
                 partita.setMatta(quotaSpinner.getValue()); // imposto il valore in base a quello selezionato sullo spinner
-
                 nascondiBottoniQuota(false);
                 nascondiBottoniPescata(true);
                 giocatoriDx.refresh();
@@ -210,7 +209,8 @@ public class GameUI implements gameObserver {
                 quotaSpinner.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, valoreIniziale, passo));
         }
 
-        private void startMatch() {
+        private void startMatch(String message) {
+                quotaLabel.setText(message);
                 textArea.appendText("Inizia la partita:\n");
                 quotaButton.setOnAction(this::impostaValoreMatta);
                 showFlashImage("money.gif");
@@ -265,7 +265,6 @@ public class GameUI implements gameObserver {
 
         private void nascondiBottoniQuota(boolean bool){
                 quotaSpinner.setVisible(bool);
-                quotaLabel.setVisible(bool);
                 quotaButton.setVisible(bool);
         }
 

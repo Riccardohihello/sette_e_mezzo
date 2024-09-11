@@ -2,7 +2,7 @@ package it.uniparthenope.programmazione3.UI;
 
 import it.uniparthenope.programmazione3.Main;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
-import it.uniparthenope.programmazione3.game.SettingsSingleton;
+import it.uniparthenope.programmazione3.memento.SettingsSingleton;
 import it.uniparthenope.programmazione3.observerPattern.Action;
 import it.uniparthenope.programmazione3.observerPattern.gameObserver;
 import javafx.collections.FXCollections;
@@ -16,8 +16,10 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 
-public class GameLoadingUI implements gameObserver {
+public class PlayerSelectionUI implements gameObserver {
 
+    @FXML
+    private Label vittorieComputer;
     @FXML
     public Spinner<Integer> spinnerGiocatori;
     @FXML
@@ -44,6 +46,7 @@ public class GameLoadingUI implements gameObserver {
 
         spinnerGiocatori.valueProperty().addListener((obs, oldValue, newValue) -> updatePlayerList(oldValue, newValue));
         avviaPartita.setVisible(false);
+
     }
 
     @FXML

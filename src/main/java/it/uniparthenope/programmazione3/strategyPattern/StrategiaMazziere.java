@@ -10,7 +10,7 @@ public class StrategiaMazziere implements Strategia {
 
     @Override
     public int daiGettoni(Giocatore giocatore, int percentualeVittoria) {
-        giocatore.daiGettoni(percentualeVittoria);
+        giocatore.riscuoti(percentualeVittoria);
         return percentualeVittoria;
     }
 }

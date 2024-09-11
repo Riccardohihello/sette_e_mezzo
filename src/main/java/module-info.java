@@ -16,4 +16,6 @@ module it.uniparthenope.programmazione3 {
     exports it.uniparthenope.programmazione3;
     exports it.uniparthenope.programmazione3.UI;
     opens it.uniparthenope.programmazione3.UI to javafx.fxml;
+    exports it.uniparthenope.programmazione3.memento;
+    opens it.uniparthenope.programmazione3.memento to javafx.fxml;
 }
