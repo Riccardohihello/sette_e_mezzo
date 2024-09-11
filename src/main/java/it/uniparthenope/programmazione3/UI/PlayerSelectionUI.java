@@ -13,7 +13,9 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class PlayerSelectionUI implements gameObserver {
@@ -37,7 +39,11 @@ public class PlayerSelectionUI implements gameObserver {
     public void initialize() {
         spinnerGiocatori.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 1));
         spinnerGiocatori.getStyleClass().add("split-arrows-horizontal");
-
+        File file = new File("src/main/resources/it/uniparthenope/programmazione3/storico_computer");
+        File[] files = file.listFiles();
+        if(files != null)
+            vittorieComputer.setText("Vittorie Computer: "+ (Objects.requireNonNull(file.list())).length);
+        else vittorieComputer.setText("Vittorie Computer: 0");
         giocatoriSx.setCellFactory(param -> new PlayerCreationUI());
         giocatoriDx.setCellFactory(param -> new PlayerCreationUI());
 

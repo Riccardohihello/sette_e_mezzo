@@ -103,11 +103,14 @@ public class ResultsCellUI extends ListCell<Memento> {
                 lossCol.setAlignment(Pos.CENTER);
                 mazzCol.getChildren().addAll(mazz,mazziere);
                 mazzCol.setAlignment(Pos.CENTER);
+                Label countTurni = new Label();
+                countTurni.setStyle(" -fx-text-alignment: CENTER; -fx-text-fill: black");
+                countTurni.setText("Turni Giocati: " + memento.getSettings().getCountTurni() + "\nRisultati ultimo turno: ");
 
                 HBox players = new HBox(3);
                 players.setAlignment(Pos.CENTER);
                 players.getChildren().addAll(winCol, lossCol, mazzCol);
-                vbox.getChildren().add(players);
+                vbox.getChildren().addAll(countTurni,players);
             } else {
                 if (vbox.getChildren().size() > 1) {
                     vbox.getChildren().remove(1, vbox.getChildren().size());

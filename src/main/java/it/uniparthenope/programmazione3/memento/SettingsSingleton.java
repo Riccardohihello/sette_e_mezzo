@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class SettingsSingleton implements Serializable {
     private static SettingsSingleton instance;
-    private int numeroTurni;
     private int countTurni;
     private  LocalDateTime saveDateTime = LocalDateTime.now();
     private ArrayList<Giocatore> listaGiocatori;
@@ -56,13 +55,6 @@ public class SettingsSingleton implements Serializable {
     }
     public Giocatore getMazziere(){
         return mazziere;
-    }
-    public void setNumeroTurni(int numeroTurni) {
-        this.numeroTurni = numeroTurni;
-    }
-
-    public int getNumeroTurni() {
-        return numeroTurni;
     }
 
     public int getCountTurni() {

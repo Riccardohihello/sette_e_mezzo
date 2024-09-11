@@ -22,6 +22,7 @@ public class Partita  {
 
     public Partita() {
         giocatori.addAll(SettingsSingleton.getInstance().getListaGiocatori());
+        SettingsSingleton.getInstance().setCountTurni(); //Incremento il counter per quel memento
         mazzoIterator.mischia();
         sceltaRuoli();
         getGiocatoreAttuale().setStato(Action.bid);
@@ -118,6 +119,9 @@ public class Partita  {
                 for (Giocatore g : giocatori)
                     g.setStato(Action.results);
                 notificaOsservatore(Action.results);
+                if (SettingsSingleton.getInstance().getWinners().contains(computer)) {
+                    notificaOsservatore(Action.saveComputerWin);
+                }
             }
         }
 
@@ -159,9 +163,7 @@ public class Partita  {
         SettingsSingleton.getInstance().setMazziere(mazziere);
         SettingsSingleton.getInstance().setWinners(winners);
         SettingsSingleton.getInstance().setLosers(losers);
-        if (winners.contains(computer)) {
-            notificaOsservatore(Action.saveComputerWin);
-        }
+
     }
 
     private void distributeMoney(ArrayList<Giocatore> vincitori) {
