@@ -11,6 +11,8 @@ public class Caretaker {
 
 
     public void add(Memento memento) throws IOException {
+        System.out.println("Size: " + mementoList.size());
+
         for (int i=0;i<mementoList.size();i++) {
             System.out.println("X: "+mementoList.get(i).getSettings().getSaveDateTime().toString() + " è uguale a : "+ memento.getSettings().getSaveDateTime().toString() + " ? ");
 
@@ -57,7 +59,7 @@ public class Caretaker {
                     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(files[i]))) {
                         mementoList.add((Memento) ois.readObject());
                     } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
+                        System.out.println("Impossibile caricare il file: " + e);
                     }
                 }
             }

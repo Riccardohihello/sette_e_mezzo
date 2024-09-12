@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.UI;
 
 import it.uniparthenope.programmazione3.Main;
-import it.uniparthenope.programmazione3.memento.SettingsSingleton;
+import it.uniparthenope.programmazione3.memento.gameSettings;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -39,9 +39,9 @@ public class StatsUI {
     }
 
     private void setPlayerStats() {
-        vincitori.setItems(FXCollections.observableArrayList(SettingsSingleton.getInstance().getWinners()));
-        sconfitti.setItems(FXCollections.observableArrayList(SettingsSingleton.getInstance().getLosers()));
-        mazziere.setItems(FXCollections.observableArrayList(SettingsSingleton.getInstance().getMazziere()));
+        vincitori.setItems(FXCollections.observableArrayList(gameSettings.getSettings().getWinners()));
+        sconfitti.setItems(FXCollections.observableArrayList(gameSettings.getSettings().getLosers()));
+        mazziere.setItems(FXCollections.observableArrayList(gameSettings.getSettings().getMazziere()));
     }
 
     @FXML

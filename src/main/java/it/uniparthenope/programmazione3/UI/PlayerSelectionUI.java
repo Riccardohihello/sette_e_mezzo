@@ -2,7 +2,7 @@ package it.uniparthenope.programmazione3.UI;
 
 import it.uniparthenope.programmazione3.Main;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
-import it.uniparthenope.programmazione3.memento.SettingsSingleton;
+import it.uniparthenope.programmazione3.memento.gameSettings;
 import it.uniparthenope.programmazione3.observerPattern.Action;
 import it.uniparthenope.programmazione3.observerPattern.gameObserver;
 import javafx.collections.FXCollections;
@@ -58,7 +58,7 @@ public class PlayerSelectionUI implements gameObserver {
     @FXML
     //Handler del pulsante avvia partita
     public void avviaPartita(ActionEvent event) throws Exception {
-        SettingsSingleton.getInstance().setListaGiocatori(new ArrayList<>(giocatori));
+        gameSettings.getSettings().setListaGiocatori(new ArrayList<>(giocatori));
         Main.cambiaScena("game.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow() );
     }
 

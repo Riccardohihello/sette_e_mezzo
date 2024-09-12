@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class Memento implements Serializable {
 
-    private SettingsSingleton settings;
-    public Memento(SettingsSingleton settings) {
+    private gameSettings settings;
+    public Memento(gameSettings settings) {
         this.settings = settings;
     }
-    public void setSettings(SettingsSingleton settings) {this.settings = settings;}
-    public SettingsSingleton getSettings() {
+    public void setSettings(gameSettings settings) {this.settings = settings;}
+    public gameSettings getSettings() {
         return settings;
     }
 }

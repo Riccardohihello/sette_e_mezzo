@@ -1,21 +1,20 @@
 package it.uniparthenope.programmazione3.memento;
 
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
+import it.uniparthenope.programmazione3.strategyPattern.StrategiaMazziere;
+
 import java.time.LocalDateTime;
-
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class SettingsSingleton implements Serializable {
-    private static SettingsSingleton instance;
+public class gameSettings implements Serializable {
+    private static gameSettings instance;
     private int countTurni;
     private  LocalDateTime saveDateTime = LocalDateTime.now();
     private ArrayList<Giocatore> listaGiocatori;
     private ArrayList<Giocatore> winners = new ArrayList<>();
     private ArrayList<Giocatore> losers = new ArrayList<>();
-    private Giocatore mazziere;
 
     public void setWinners(ArrayList<Giocatore> winners) {
         this.winners = winners;
@@ -30,13 +29,14 @@ public class SettingsSingleton implements Serializable {
 
     public ArrayList<Giocatore> getListaGiocatori() { return listaGiocatori; }
 
-    public static SettingsSingleton getInstance() {
+    public static gameSettings getSettings() {
         if (instance == null) {
-            instance = new SettingsSingleton();
+            instance = new gameSettings();
         }
         return instance;
     }
-    public static void setInstance (SettingsSingleton settings) {
+
+    public static void updateSettings(gameSettings settings) {
         instance = settings;
     }
     public void setListaGiocatori (ArrayList<Giocatore> listaGiocatori) { this.listaGiocatori = listaGiocatori;}
@@ -50,11 +50,11 @@ public class SettingsSingleton implements Serializable {
         return winners;
     }
 
-    public void setMazziere(Giocatore mazziere) {
-        this.mazziere = mazziere;
-    }
-    public Giocatore getMazziere(){
-        return mazziere;
+    public Giocatore getMazziere() {
+        for (Giocatore giocatore : listaGiocatori)
+            if (giocatore.getStrategia() instanceof StrategiaMazziere)
+                return giocatore;
+        return null;
     }
 
     public int getCountTurni() {
@@ -62,8 +62,6 @@ public class SettingsSingleton implements Serializable {
     }
 
     public void setCountTurni() {
-        this.countTurni = countTurni+1;
+        this.countTurni = countTurni + 1;
     }
-
-
 }

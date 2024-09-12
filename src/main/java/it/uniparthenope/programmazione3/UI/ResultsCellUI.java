@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.UI;
 
 import it.uniparthenope.programmazione3.Main;
-import it.uniparthenope.programmazione3.memento.SettingsSingleton;
+import it.uniparthenope.programmazione3.memento.gameSettings;
 import it.uniparthenope.programmazione3.memento.Memento;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import javafx.collections.FXCollections;
@@ -128,7 +128,7 @@ public class ResultsCellUI extends ListCell<Memento> {
     }
 
     private void caricaPartitaSelezionata(Memento memento, ActionEvent event) throws Exception {
-        SettingsSingleton.setInstance(memento.getSettings());
+        gameSettings.updateSettings(memento.getSettings());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Main.cambiaScena("game.fxml", stage);
         System.out.println("Partita caricata con successo.");

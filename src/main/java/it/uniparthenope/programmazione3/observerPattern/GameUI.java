@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.observerPattern;
 
 import it.uniparthenope.programmazione3.Main;
-import it.uniparthenope.programmazione3.memento.SettingsSingleton;
+import it.uniparthenope.programmazione3.memento.gameSettings;
 import it.uniparthenope.programmazione3.memento.Caretaker;
 import it.uniparthenope.programmazione3.memento.Memento;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
@@ -275,9 +275,7 @@ public class GameUI implements gameObserver {
         }
 
         private void salvaPartita() throws IOException {
-                SettingsSingleton settings = SettingsSingleton.getInstance();
-                Memento newMemento = new Memento(settings);
-                caretaker.add(newMemento);
+                caretaker.add(new Memento(gameSettings.getSettings()));
         }
 
 

@@ -35,8 +35,8 @@ public class Giocatore implements Serializable {
         return strategia.applicaStrategia(this.mano);
     }
 
-    public int daiGettoniStrat(Giocatore g, int gettoni){
-        return this.strategia.daiGettoni(g, gettoni);
+    public int daiGettoniStrat(int gettoni){
+        return this.strategia.daiGettoni(this, gettoni);
     }
 
     public String getNome() {
