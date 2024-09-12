@@ -1,6 +1,7 @@
 package it.uniparthenope.programmazione3.UI;
 
 import it.uniparthenope.programmazione3.Main;
+import it.uniparthenope.programmazione3.UI.playerStates.PlayerUI;
 import it.uniparthenope.programmazione3.memento.gameSettings;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import javafx.collections.FXCollections;

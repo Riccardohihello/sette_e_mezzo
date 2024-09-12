@@ -19,20 +19,10 @@ public class Sounds implements gameObserver {
                     case busted:
                         playSounds(path + "game-over.wav");
                         break;
-                    case clear:
-                        break;
-                    case results:
-                        break;
                     case setteMezzo:
                         playSounds(path + "applause.mp3");
                         break;
-                    case stampa:
-                        break;
-                    case bid:
-                        break;
                     case pescato:
-                        break;
-                    case reset:
                         break;
                     case matta:
                         playSounds(path + "success.wav");

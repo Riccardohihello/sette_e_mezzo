@@ -6,7 +6,7 @@ import it.uniparthenope.programmazione3.memento.Caretaker;
 import it.uniparthenope.programmazione3.memento.Memento;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import it.uniparthenope.programmazione3.UI.CardUI;
-import it.uniparthenope.programmazione3.UI.PlayerUI;
+import it.uniparthenope.programmazione3.UI.playerStates.PlayerUI;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -98,7 +99,13 @@ public class GameUI implements gameObserver {
         }
 
         public void stai() {
-                partita.stai();
+                PauseTransition delay = new PauseTransition(Duration.seconds(0.6));
+                delay.setOnFinished(event -> {
+                        nascondiBottoniPescata(true);
+                        carteList.clear();
+                        partita.stai();
+                });
+                delay.play();
         }
 
         public void pesca() {
@@ -150,9 +157,6 @@ public class GameUI implements gameObserver {
                                         case busted:
                                                 handleBusted();
                                                 break;
-                                        case clear:
-                                                carteList.clear();
-                                                break;
                                         case results:
                                                 showResults();
                                         case setteMezzo:
@@ -175,7 +179,6 @@ public class GameUI implements gameObserver {
                                                 //gestire la situazione di quando un giocatore imposta un numero per sballare da solo
                                                 gestisciMatta();
                                                 break;
-
                                         case saveComputerWin:
                                                 caretaker.saveOnDisk("src/main/resources/it/uniparthenope/programmazione3/storico_computer");
                                 }
@@ -187,6 +190,7 @@ public class GameUI implements gameObserver {
                         giocatoriSx.refresh();
                         });
         }
+
 
         private void gestisciMatta() {
                 quotaLabel.setText("Inserisci il valore per la matta");
@@ -227,23 +231,24 @@ public class GameUI implements gameObserver {
                 nascondiBottoniPescata(false);
                 textArea.appendText(partita.getGiocatoreAttuale().getNome() + " ha sballato!\n");
                 showFlashImage("sballato.png");
-
-                PauseTransition delay = new PauseTransition(Duration.seconds(1));
-                delay.setOnFinished(event -> {
-                                stai();
-                                nascondiBottoniPescata(true);
-                });
-                delay.play();
+                stai();
         }
 
         private void animazionePescata(String message) {
+                Giocatore attuale = partita.getGiocatoreAttuale();
+                double mills = 0.6;
+                if (attuale.getNome().equals("Computer"))
+                        mills = 1.0;
                 carteList.add(message);
-
-                PauseTransition delay = new PauseTransition(Duration.seconds(0.6));
+                nascondiBottoniPescata(false);
+                PauseTransition delay = new PauseTransition(Duration.seconds(mills));
                 delay.setOnFinished(event -> {
-                        if(partita.getGiocatoreAttuale().getNome().equals("Computer"))
-                                if(partita.getGiocatoreAttuale().strat())
-                                        partita.pesca();
+                        nascondiBottoniPescata(true);
+                        if (attuale.getNome().equals("Computer"))
+                                if (attuale.strat() && attuale.getStato() != Action.busted)
+                                        pesca();
+                                else
+                                        stai();
                 });
                 delay.play();
         }

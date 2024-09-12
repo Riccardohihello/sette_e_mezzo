@@ -97,24 +97,24 @@ public class Partita  {
                 notificaOsservatore(Action.busted);
         }
         notificaOsservatore(Action.pescato, cartaPescata.getImagePath());
-        if (giocatore.getNome().equals("Computer") && giocatore.getMano().getValore()<=7.5 && !giocatore.strat())
-            stai();
     }
 
     public void stai() {
-        Giocatore giocatore = getGiocatoreAttuale();
-        if (giocatore.getMano().getValore() == 7.5)
+        if (getGiocatoreAttuale().getMano().getValore() == 7.5)
             notificaOsservatore(Action.setteMezzo);
         else
-            if(!(getGiocatoreAttuale().getStato() == Action.busted))
-                getGiocatoreAttuale().setStato(Action.results);
-        notificaOsservatore(Action.clear);
+        if(!(getGiocatoreAttuale().getStato() == Action.busted))
+            getGiocatoreAttuale().setStato(Action.results);
+
         scorriGiocatori();
+
     }
 
     private void scorriGiocatori(){
         indiceScorrimento += 1;
         int statoPartita = indiceScorrimento / giocatori.size();
+
+
         if(indiceScorrimento % giocatori.size() == 0) {
             if (statoPartita == 1) {
                 for (Giocatore g : giocatori)
@@ -153,23 +153,16 @@ public class Partita  {
         if(valoreMazziere>7.5) valoreMazziere = 0.0;
 
         for (Giocatore giocatore : giocatori) {
-
-            double valoreGiocatore = giocatore.getMano().getValore();
-
-            if (valoreGiocatore <= 7.5 && valoreGiocatore > valoreMazziere) {
+            if (giocatore.getMano().getValore() <= 7.5 && giocatore.getMano().getValore() > valoreMazziere) {
                 winners.add(giocatore);
                 giocatore.riscuoti(mazziere.daiGettoniStrat(puntate.get(giocatori.indexOf(giocatore))));
-                giocatore.incrementaVittorie();
-            } else {
+            } else
                 losers.add(giocatore);
-            }
         }
         gameSettings.getSettings().setWinners(winners);
         gameSettings.getSettings().setLosers(losers);
-        if (winners.contains(computer)) {
+        if (winners.contains(computer))
             notificaOsservatore(Action.saveComputerWin);
-        }
-
     }
 
     public Giocatore getGiocatoreAttuale() {

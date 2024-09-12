@@ -28,6 +28,14 @@ public class Mano implements Serializable {
         }
     }
 
+    public String stampaCarte() {
+        ArrayList<String> stampaMano = new ArrayList<>();
+        for (Carta c : manoDicarte) {
+            stampaMano.add(" " + c.getImagePath());
+        }
+        return String.join(" ", stampaMano);
+    }
+
     private void aggiornaValoreCarta(Carta c) {
             this.valore += c.getValore();
     }

@@ -7,7 +7,6 @@ public enum Action {
     match,
     busted,
     mazziere,
-    clear,
     results,
     stampa,
     wait,

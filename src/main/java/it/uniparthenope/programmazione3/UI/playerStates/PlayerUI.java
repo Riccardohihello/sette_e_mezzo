@@ -1,4 +1,4 @@
-package it.uniparthenope.programmazione3.UI;
+package it.uniparthenope.programmazione3.UI.playerStates;
 
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import it.uniparthenope.programmazione3.strategyPattern.StrategiaMazziere;
@@ -12,12 +12,12 @@ import javafx.scene.layout.VBox;
 import java.util.Objects;
 
 public class PlayerUI extends ListCell<Giocatore> {
-    private static final String DEFAULT_BACKGROUND_COLOR = "#f5f5dc";
-    private static final String DEALER_BACKGROUND_COLOR = "#0a55a6";
-    private static final String BORDER_RADIUS = "5px";
-    private static final String DEFAULT_TEXT_COLOR = "#2a2828";
-    private static final String BORDER_GREEN = "#28a745";
-    private static final String BORDER_RED = "#dc3545";
+    public static final String DEFAULT_BACKGROUND_COLOR = "#f5f5dc";
+    public static final String DEALER_BACKGROUND_COLOR = "#0a55a6";
+    public static final String BORDER_RADIUS = "5px";
+    public static final String DEFAULT_TEXT_COLOR = "#2a2828";
+    public static final String BORDER_GREEN = "#28a745";
+    public static final String BORDER_RED = "#dc3545";
 
     HBox hbox = new HBox(10); // spacing tra l'immagine e il testo
     VBox vbox = new VBox(5); // spacing tra le etichette
@@ -38,15 +38,15 @@ public class PlayerUI extends ListCell<Giocatore> {
         setGraphic(hbox);
     }
 
-    private void setTextStyle(Label label, String color) {
+    public void setTextStyle(Label label, String color) {
         label.setStyle(String.format("-fx-text-fill: %s; %s", color,"-fx-font-weight: bold"));
     }
 
-    private void setBackgroundColor(String color) {
+    public void setBackgroundColor(String color) {
         hbox.setStyle(String.format("-fx-background-color: %s; -fx-border-radius: %s; -fx-background-radius: %s", color, BORDER_RADIUS, BORDER_RADIUS));
     }
 
-    private void setBorderColor(String color) {
+    public void setBorderColor(String color) {
         hbox.setStyle(String.format("-fx-background-color: %s; -fx-border-color: %s; -fx-border-radius: %s; -fx-background-radius: %s; -fx-border-width: 5;", DEFAULT_BACKGROUND_COLOR, color, BORDER_RADIUS, BORDER_RADIUS));
     }
 
@@ -62,47 +62,27 @@ public class PlayerUI extends ListCell<Giocatore> {
             setTextStyle(nameLabel, DEFAULT_TEXT_COLOR);
             setTextStyle(stateLabel, DEFAULT_TEXT_COLOR);
             setTextStyle(balanceLabel, DEFAULT_TEXT_COLOR);
+
             if (player.getStrategia() instanceof StrategiaMazziere) {
                 setBackgroundColor(DEALER_BACKGROUND_COLOR);
-            } else
+            } else {
                 setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
-            if (player.getStato() != null) {
-                switch (player.getStato()) {
-                    case bid:
-                        stateLabel.setText("Deve versare");
-                        setBorderColor(BORDER_GREEN);
-                        setTextStyle(stateLabel, BORDER_GREEN);
-                        break;
-
-                    case match:
-                        stateLabel.setText("Gioca");
-                        setBorderColor(BORDER_GREEN);
-                        setTextStyle(stateLabel, BORDER_GREEN);
-                        stateLabel.setText("Valore mano: " + player.getMano().getValore());
-                        break;
-
-                    case bidded:
-                        stateLabel.setText("Versato...");
-                        break;
-
-                    case wait:
-                        stateLabel.setText("In attesa...");
-                        break;
-
-                    case busted:
-                        setBorderColor(BORDER_RED);
-                        stateLabel.setText("Sballato!");
-                        break;
-
-                    case results:
-                        balanceLabel.setVisible(true);
-                        stateLabel.setVisible(true);
-                        setTextStyle(stateLabel, DEFAULT_TEXT_COLOR);
-                        stateLabel.setText("Valore mano: " + player.getMano().getValore());
-                        break;
-
-                }
             }
+
+            // Gestione dello stato tramite il pattern State
+            PlayerState state = switch (player.getStato()) {
+                case bid -> new BidState();
+                case match -> new MatchState();
+                case bidded -> new BiddedState();
+                case wait -> new WaitState();
+                case busted -> new BustedState();
+                case results -> new ResultsState();
+                default -> null;
+            };
+            if (state != null) {
+                state.updateState(this, player);
+            }
+
             String imagePath = "/it/uniparthenope/programmazione3/images/";
             String imageName;
             if (player.getNome().equals("Computer")) {
