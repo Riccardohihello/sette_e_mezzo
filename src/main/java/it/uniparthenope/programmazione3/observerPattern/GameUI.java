@@ -17,7 +17,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +26,11 @@ import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
 
+
+
 public class GameUI implements gameObserver {
+
+        final boolean IS_VISIBLE = true, IS_NOT_VISIBLE = false;
 
         public Spinner<Integer> quotaSpinner;
         private final Sounds soundController = new Sounds();
@@ -68,8 +71,8 @@ public class GameUI implements gameObserver {
                 carteListView.setCellFactory(param -> new CardUI());
 
                 creaSpinner( 5, 100, 5, 5);
-                flashText.setVisible(true);
-                nascondiBottoniPescata(false);
+                flashText.setVisible(IS_VISIBLE);
+                nascondiBottoniPescata(IS_NOT_VISIBLE);
         }
 
         @FXML
@@ -101,7 +104,7 @@ public class GameUI implements gameObserver {
         public void stai() {
                 PauseTransition delay = new PauseTransition(Duration.seconds(0.6));
                 delay.setOnFinished(event -> {
-                        nascondiBottoniPescata(true);
+                        nascondiBottoniPescata(IS_VISIBLE);
                         carteList.clear();
                         partita.stai();
                 });
@@ -196,14 +199,16 @@ public class GameUI implements gameObserver {
                 quotaLabel.setText("Inserisci il valore per la matta");
                 quotaButton.setText("Conferma");
                 creaSpinner( 1, 10, 1, 1);  // Adatta lo spinner per la matta
-                nascondiBottoniQuota(true);
-                nascondiBottoniPescata(false);
+                nascondiBottoniQuota(IS_VISIBLE);
+                nascondiBottoniPescata(IS_NOT_VISIBLE);
         }
 
         private void impostaValoreMatta(ActionEvent event) {
                 partita.setMatta(quotaSpinner.getValue()); // imposto il valore in base a quello selezionato sullo spinner
-                nascondiBottoniQuota(false);
-                nascondiBottoniPescata(true);
+                nascondiBottoniQuota(IS_NOT_VISIBLE);
+                stai.setVisible(true);
+                if (partita.getGiocatoreAttuale().getStato() != Action.busted)
+                        pesca.setVisible(true);
                 giocatoriDx.refresh();
                 giocatoriSx.refresh();
         }
@@ -221,17 +226,21 @@ public class GameUI implements gameObserver {
 
                 PauseTransition delay = new PauseTransition(Duration.seconds(1));
                 delay.setOnFinished(event -> {
-                        nascondiBottoniPescata(true);
-                        nascondiBottoniQuota(false);
+                        nascondiBottoniPescata(IS_VISIBLE);
+                        nascondiBottoniQuota(IS_NOT_VISIBLE);
                 });
                 delay.play();
         }
 
         private void handleBusted() {
-                nascondiBottoniPescata(false);
                 textArea.appendText(partita.getGiocatoreAttuale().getNome() + " ha sballato!\n");
                 showFlashImage("sballato.png");
-                stai();
+                pesca.setVisible(IS_NOT_VISIBLE);
+        }
+
+        public void disableDraw(boolean disable) {
+                pesca.setDisable(disable);
+                stai.setDisable(disable);
         }
 
         private void animazionePescata(String message) {
@@ -240,10 +249,10 @@ public class GameUI implements gameObserver {
                 if (attuale.getNome().equals("Computer"))
                         mills = 1.0;
                 carteList.add(message);
-                nascondiBottoniPescata(false);
+                disableDraw(true);
                 PauseTransition delay = new PauseTransition(Duration.seconds(mills));
                 delay.setOnFinished(event -> {
-                        nascondiBottoniPescata(true);
+                        disableDraw(false);
                         if (attuale.getNome().equals("Computer"))
                                 if (attuale.strat() && attuale.getStato() != Action.busted)
                                         pesca();
@@ -274,8 +283,8 @@ public class GameUI implements gameObserver {
         }
 
         private void prepareForBid() {
-                nascondiBottoniPescata(false);
-                nascondiBottoniQuota(true);
+                nascondiBottoniPescata(IS_NOT_VISIBLE);
+                nascondiBottoniQuota(IS_VISIBLE);
                 textArea.appendText("E' il turno di " + partita.getGiocatoreAttuale().getNome() + "\n");
         }
 

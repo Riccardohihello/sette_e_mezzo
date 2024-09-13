@@ -11,7 +11,6 @@ public class MazzoIterator implements Iterator<Carta> {
 
     public MazzoIterator() {
         this.carte = new ArrayList<>();
-        this.carte.add(new Carta(10, "Denari"));
         String[] semi = {"Coppe", "Denari", "Spade", "Bastoni"};
         for (String seme : semi) {
             for (int i = 0; i < 10; i++) {
@@ -25,34 +24,18 @@ public class MazzoIterator implements Iterator<Carta> {
         iteratorPosition = 0;
     }
 
-    public int getIteratorPosition() {
-        return iteratorPosition;
-    }
-
     @Override
     public boolean hasNext() {
-        int carteTotali = 40;
-        return iteratorPosition < carteTotali;
+        return iteratorPosition < carte.size();
     }
     @Override
     public Carta next() {
         int temp = iteratorPosition;
-        if (iteratorPosition < carte.size() - 1) {
+        if (hasNext())
             iteratorPosition++;
-        } else {
+        else
             iteratorPosition = 0;
-        }
-        return carte.remove(temp);
-    }
-
-    public Carta previous() {
-        if (iteratorPosition > 0) {
-            iteratorPosition--;
-        } else {
-            iteratorPosition = carte.size() - 1; // Torna all'ultima carta se sei all'inizio della lista
-        }
-
-        return carte.get(iteratorPosition);
+        return carte.get(temp);
     }
 
 

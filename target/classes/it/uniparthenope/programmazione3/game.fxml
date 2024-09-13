@@ -60,6 +60,9 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <VBox.margin>
+               <Insets bottom="20.0" />
+            </VBox.margin>
          </HBox>
          <TextArea fx:id="textArea" maxWidth="-Infinity" minHeight="66.0" minWidth="-Infinity" prefHeight="140.0" prefWidth="516.0">
             <VBox.margin>
