@@ -1,13 +1,11 @@
 package it.uniparthenope.programmazione3.memento;
 
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
-import it.uniparthenope.programmazione3.strategyPattern.StrategiaMazziere;
-
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
+// classe per gestire gli elementi della partita da salvare tramite memento
 public class gameSettings implements Serializable {
     private static gameSettings instance;
     private int countTurni;
@@ -52,7 +50,7 @@ public class gameSettings implements Serializable {
 
     public Giocatore getMazziere() {
         for (Giocatore giocatore : listaGiocatori)
-            if (giocatore.getStrategia() instanceof StrategiaMazziere)
+            if (giocatore.isMazziere())
                 return giocatore;
         return null;
     }

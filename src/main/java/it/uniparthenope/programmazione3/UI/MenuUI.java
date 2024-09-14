@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 
 public class MenuUI {
+
+    // menu iniziale del gioco
     @FXML
     private Label labelRisultato;
 

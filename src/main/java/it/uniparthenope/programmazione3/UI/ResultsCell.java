@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.UI;
 
 import it.uniparthenope.programmazione3.Main;
-import it.uniparthenope.programmazione3.UI.playerStates.PlayerUI;
+import it.uniparthenope.programmazione3.UI.StatePattern.PlayerGameCell;
 import it.uniparthenope.programmazione3.memento.gameSettings;
 import it.uniparthenope.programmazione3.memento.Memento;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
@@ -22,21 +22,20 @@ import javafx.stage.Stage;
 import java.time.format.DateTimeFormatter;
 
 
-public class ResultsCellUI extends ListCell<Memento> {
+public class ResultsCell extends ListCell<Memento> {
 
     private final VBox vbox = new VBox(10);
     private final Label gameIdLabel = new Label();
     private boolean isExpanded = false;
 
-    public ResultsCellUI() {
+    public ResultsCell() {
         super();
-        // Add the gameIdLabel with a spacer and loadGame button to the HBox
         Region spacer = new Region();
         HBox hBox = new HBox(5);
         Button loadGame = new Button("Load game");
         hBox.getChildren().addAll(gameIdLabel, spacer, loadGame);
         hBox.setAlignment(Pos.CENTER_LEFT);
-        HBox.setHgrow(spacer, Priority.ALWAYS); // Make spacer take up all available space
+        HBox.setHgrow(spacer, Priority.ALWAYS);
 
         vbox.getChildren().addAll(hBox);
         vbox.setStyle("-fx-background-color: white;-fx-background-radius: 15;-fx-padding: 10");
@@ -44,7 +43,6 @@ public class ResultsCellUI extends ListCell<Memento> {
         setStyle("-fx-background-color: #f5f5dc; -fx-background-radius: 15");
         gameIdLabel.setStyle("-fx-text-fill: #333333;");
 
-        // Handle the button action
         loadGame.setOnAction(event -> {
             Memento memento = getItem();
             if (memento != null) {
@@ -82,9 +80,9 @@ public class ResultsCellUI extends ListCell<Memento> {
                 sconfitti.setItems(FXCollections.observableArrayList(memento.getSettings().getLosers()));
                 mazziere.setItems(FXCollections.observableArrayList(memento.getSettings().getMazziere()));
 
-                vincitori.setCellFactory(param -> new PlayerUI());
-                sconfitti.setCellFactory(param -> new PlayerUI());
-                mazziere.setCellFactory(param -> new PlayerUI());
+                vincitori.setCellFactory(param -> new PlayerGameCell());
+                sconfitti.setCellFactory(param -> new PlayerGameCell());
+                mazziere.setCellFactory(param -> new PlayerGameCell());
 
                 vincitori.setStyle( "-fx-background-color: #c8f4ba; -fx-background-radius: 15");
                 sconfitti.setStyle("-fx-background-color: #f3c6c6; -fx-background-radius: 15");

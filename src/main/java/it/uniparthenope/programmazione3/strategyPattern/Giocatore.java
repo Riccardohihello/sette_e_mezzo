@@ -6,6 +6,7 @@ import it.uniparthenope.programmazione3.observerPattern.Action;
 import java.io.Serializable;
 
 public class Giocatore implements Serializable {
+    // classe rappresentante il giocatore
     public Giocatore(String nome){
         this.nome=nome;
         this.gettoni=100;
@@ -46,10 +47,12 @@ public class Giocatore implements Serializable {
     public Action getStato() {return stato;}
     public void setStato(Action stato) {
         this.stato = stato;
-        System.out.println(stato);
     }
 
-    public Strategia getStrategia() {return strategia;}
+    public boolean isMazziere() {
+        return strategia instanceof StrategiaMazziere;
+    }
+
     public void setStrategia(Strategia s) {
         this.strategia = s;
     }

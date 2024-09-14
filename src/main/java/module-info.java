@@ -1,4 +1,4 @@
-module it.uniparthenope.programmazione3 {
+module it.uniparthenope.sette_e_mezzo {
     requires javafx.controls;
     requires javafx.fxml;
     requires jdk.jconsole;
@@ -18,6 +18,6 @@ module it.uniparthenope.programmazione3 {
     opens it.uniparthenope.programmazione3.UI to javafx.fxml;
     exports it.uniparthenope.programmazione3.memento;
     opens it.uniparthenope.programmazione3.memento to javafx.fxml;
-    exports it.uniparthenope.programmazione3.UI.playerStates;
-    opens it.uniparthenope.programmazione3.UI.playerStates to javafx.fxml;
+    exports it.uniparthenope.programmazione3.UI.StatePattern;
+    opens it.uniparthenope.programmazione3.UI.StatePattern to javafx.fxml;
 }

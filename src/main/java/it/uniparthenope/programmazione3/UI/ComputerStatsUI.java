@@ -23,7 +23,7 @@ public class ComputerStatsUI {
 
     public void initialize(){
         visualizzaStorico();
-        History.setCellFactory(listView -> new ResultsCellUI());
+        History.setCellFactory(listView -> new ResultsCell());
         vittorieComputer.setText("Vittorie Computer: "+ Objects.requireNonNull(new File("src/main/resources/it/uniparthenope/programmazione3/storico_computer").list()).length);
 
     }

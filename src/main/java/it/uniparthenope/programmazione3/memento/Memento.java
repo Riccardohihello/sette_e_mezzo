@@ -3,7 +3,7 @@ package it.uniparthenope.programmazione3.memento;
 import java.io.Serializable;
 
 public class Memento implements Serializable {
-
+    // implementazione del pattern memento
     private gameSettings settings;
     public Memento(gameSettings settings) {
         this.settings = settings;

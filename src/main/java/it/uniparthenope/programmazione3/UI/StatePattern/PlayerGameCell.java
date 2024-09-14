@@ -1,7 +1,6 @@
-package it.uniparthenope.programmazione3.UI.playerStates;
+package it.uniparthenope.programmazione3.UI.StatePattern;
 
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
-import it.uniparthenope.programmazione3.strategyPattern.StrategiaMazziere;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -11,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.util.Objects;
 
-public class PlayerUI extends ListCell<Giocatore> {
+public class PlayerGameCell extends ListCell<Giocatore> {
     public static final String DEFAULT_BACKGROUND_COLOR = "#f5f5dc";
     public static final String DEALER_BACKGROUND_COLOR = "#0a55a6";
     public static final String BORDER_RADIUS = "5px";
@@ -26,7 +25,7 @@ public class PlayerUI extends ListCell<Giocatore> {
     Label stateLabel = new Label("");
     ImageView img = new ImageView();
 
-    public PlayerUI() {
+    public PlayerGameCell() { // rappresentazione del riquadro dei giocatori
         super();
         img.setFitWidth(70);
         img.setFitHeight(70);
@@ -63,14 +62,14 @@ public class PlayerUI extends ListCell<Giocatore> {
             setTextStyle(stateLabel, DEFAULT_TEXT_COLOR);
             setTextStyle(balanceLabel, DEFAULT_TEXT_COLOR);
 
-            if (player.getStrategia() instanceof StrategiaMazziere) {
+            if (player.isMazziere())
                 setBackgroundColor(DEALER_BACKGROUND_COLOR);
-            } else {
+            else
                 setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
-            }
 
             // Gestione dello stato tramite il pattern State
             PlayerState state = switch (player.getStato()) {
+                // cambiamento di stato in base al valore dell'enum ricevuto
                 case bid -> new BidState();
                 case match -> new MatchState();
                 case bidded -> new BiddedState();
@@ -79,23 +78,23 @@ public class PlayerUI extends ListCell<Giocatore> {
                 case results -> new ResultsState();
                 default -> null;
             };
-            if (state != null) {
+            if (state != null)
                 state.updateState(this, player);
-            }
 
             String imagePath = "/it/uniparthenope/programmazione3/images/";
             String imageName;
-            if (player.getNome().equals("Computer")) {
+
+            // cambiamento dell'immagine in base al giocatore
+            if (player.getNome().equals("Computer"))
                 imageName = "cpu.png";
-            } else if (player.getStrategia() instanceof StrategiaMazziere) {
+            else if (player.isMazziere())
                 imageName = "dealer.png";
-            } else {
+            else
                 imageName = "player.png";
-            }
+
             img.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + imageName))));
             setGraphic(hbox);
-        } else {
+        } else
             setGraphic(null);
-        }
     }
 }

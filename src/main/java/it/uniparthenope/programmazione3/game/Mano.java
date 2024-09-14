@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 
 public class Mano implements Serializable {
+    // mano di carte dei giocatori
     private final ArrayList<Carta> manoDicarte = new ArrayList<>();
     private double valore = 0;
 
@@ -16,11 +17,12 @@ public class Mano implements Serializable {
         if (c.matta()) {
             gestisciMatta();
         } else {
-            aggiornaValoreCarta(c);
+            aggiornaValoreMano(c);
         }
     }
 
     private void gestisciMatta() {
+        //assegnazione automatica del valore della matta per il computer
         if (this.valore % 1.0 == 0.5) {
             this.valore = 7.5;
         } else {
@@ -28,19 +30,12 @@ public class Mano implements Serializable {
         }
     }
 
-    public String stampaCarte() {
-        ArrayList<String> stampaMano = new ArrayList<>();
-        for (Carta c : manoDicarte) {
-            stampaMano.add(" " + c.getImagePath());
-        }
-        return String.join(" ", stampaMano);
-    }
-
-    private void aggiornaValoreCarta(Carta c) {
+    private void aggiornaValoreMano(Carta c) {
             this.valore += c.getValore();
     }
 
     public Carta primaCarta() {
+        // controllo della prima carta pescata
         if (this.manoDicarte.isEmpty())
             return null;
         return this.manoDicarte.get(0);

@@ -1,7 +1,7 @@
 package it.uniparthenope.programmazione3.UI;
 
 import it.uniparthenope.programmazione3.Main;
-import it.uniparthenope.programmazione3.UI.playerStates.PlayerUI;
+import it.uniparthenope.programmazione3.UI.StatePattern.PlayerGameCell;
 import it.uniparthenope.programmazione3.memento.gameSettings;
 import it.uniparthenope.programmazione3.strategyPattern.Giocatore;
 import javafx.collections.FXCollections;
@@ -34,9 +34,9 @@ public class StatsUI {
         vittoriaLabel.setStyle("-fx-text-fill: gold; -fx-background-color: black;");
         sconfittaLabel.setStyle("-fx-text-fill: red; -fx-background-color: black;");
         setPlayerStats();
-        vincitori.setCellFactory(param -> new PlayerUI());
-        sconfitti.setCellFactory(param -> new PlayerUI());
-        mazziere.setCellFactory(param -> new PlayerUI());
+        vincitori.setCellFactory(param -> new PlayerGameCell());
+        sconfitti.setCellFactory(param -> new PlayerGameCell());
+        mazziere.setCellFactory(param -> new PlayerGameCell());
     }
 
     private void setPlayerStats() {
