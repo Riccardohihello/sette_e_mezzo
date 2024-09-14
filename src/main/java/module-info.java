@@ -4,6 +4,7 @@ module it.uniparthenope.sette_e_mezzo {
     requires jdk.jconsole;
     requires javafx.media;
     requires java.logging;
+    requires javafx.graphics;
 
 
     opens it.uniparthenope.sette_e_mezzo to javafx.fxml;
