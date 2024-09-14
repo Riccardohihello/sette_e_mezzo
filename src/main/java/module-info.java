@@ -6,18 +6,18 @@ module it.uniparthenope.sette_e_mezzo {
     requires java.logging;
 
 
-    opens it.uniparthenope.programmazione3 to javafx.fxml;
-    exports it.uniparthenope.programmazione3.observerPattern;
-    opens it.uniparthenope.programmazione3.observerPattern to javafx.fxml;
-    exports it.uniparthenope.programmazione3.game;
-    opens it.uniparthenope.programmazione3.game to javafx.fxml;
-    exports it.uniparthenope.programmazione3.strategyPattern;
-    opens it.uniparthenope.programmazione3.strategyPattern to javafx.fxml;
-    exports it.uniparthenope.programmazione3;
-    exports it.uniparthenope.programmazione3.UI;
-    opens it.uniparthenope.programmazione3.UI to javafx.fxml;
-    exports it.uniparthenope.programmazione3.memento;
-    opens it.uniparthenope.programmazione3.memento to javafx.fxml;
-    exports it.uniparthenope.programmazione3.UI.StatePattern;
-    opens it.uniparthenope.programmazione3.UI.StatePattern to javafx.fxml;
+    opens it.uniparthenope.sette_e_mezzo to javafx.fxml;
+    exports it.uniparthenope.sette_e_mezzo.observerPattern;
+    opens it.uniparthenope.sette_e_mezzo.observerPattern to javafx.fxml;
+    exports it.uniparthenope.sette_e_mezzo.game;
+    opens it.uniparthenope.sette_e_mezzo.game to javafx.fxml;
+    exports it.uniparthenope.sette_e_mezzo.strategyPattern;
+    opens it.uniparthenope.sette_e_mezzo.strategyPattern to javafx.fxml;
+    exports it.uniparthenope.sette_e_mezzo;
+    exports it.uniparthenope.sette_e_mezzo.UI;
+    opens it.uniparthenope.sette_e_mezzo.UI to javafx.fxml;
+    exports it.uniparthenope.sette_e_mezzo.memento;
+    opens it.uniparthenope.sette_e_mezzo.memento to javafx.fxml;
+    exports it.uniparthenope.sette_e_mezzo.UI.StatePattern;
+    opens it.uniparthenope.sette_e_mezzo.UI.StatePattern to javafx.fxml;
 }
