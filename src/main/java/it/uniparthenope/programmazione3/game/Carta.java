@@ -3,6 +3,7 @@ package it.uniparthenope.programmazione3.game;
 import java.io.Serializable;
 
 public class Carta implements Serializable {
+    // classe rappresentate le singole carte
     private final int valore;
     private final String seme;
     public Carta(int valore, String seme) {
@@ -17,11 +18,6 @@ public class Carta implements Serializable {
      else
          return 0.5;
     }
-/*
-    public String getSeme() {
-        return seme;
-    }
- */
 
     public boolean matta() {
         return valore == 10.0 && seme.equals("Denari");

@@ -15,14 +15,13 @@ public class Partita  {
     private final ArrayList<gameObserver> osservatori = new ArrayList<>();
     private int indiceScorrimento = 0;
     private final ArrayList<Giocatore> giocatori = new ArrayList<>();
-    private final MazzoIterator mazzoIterator = new MazzoIterator();
     private Giocatore mazziere;
     private Giocatore computer;
     private final ArrayList<Integer> puntate = new ArrayList<>();
 
     public Partita() {
         giocatori.addAll(gameSettings.getSettings().getListaGiocatori());
-        mazzoIterator.mischia();
+        MazzoIteratorSingleton.getInstance().mischia();
         sceltaRuoli();
         getGiocatoreAttuale().setStato(Action.bid);
         notificaOsservatore(Action.bid);
@@ -47,7 +46,7 @@ public class Partita  {
                 observer.update(action,message);
     }
 
-    public void addOsservatore(gameObserver osservatore) {
+    public void addObserver(gameObserver osservatore) {
         this.osservatori.add(osservatore);
     }
 
@@ -88,8 +87,7 @@ public class Partita  {
 
     public void pesca(){    // pescata
         Giocatore giocatore = getGiocatoreAttuale();
-        Carta cartaPescata = mazzoIterator.next();
-        System.out.println(cartaPescata.getImagePath());
+        Carta cartaPescata = MazzoIteratorSingleton.getInstance().next();
         notificaOsservatore(Action.pescato, cartaPescata.getImagePath());
 
         if (cartaPescata.matta() && !giocatore.getNome().equals("Computer"))
@@ -161,6 +159,8 @@ public class Partita  {
 
         for (Giocatore giocatore : giocatori) { // per ogni giocatore compariamo il suo risultato
                                                 // con quello del mazziere
+            if (giocatore.isMazziere())
+                continue;
             if (giocatore.getMano().getValore() <= 7.5 && giocatore.getMano().getValore() > valoreMazziere) {
                 winners.add(giocatore); // aggiungiamo il giocatore all'array di vincitori
                 giocatore.riscuoti(mazziere.daiGettoniStrat(puntate.get(giocatori.indexOf(giocatore))));
@@ -186,7 +186,7 @@ public class Partita  {
         attuale.setStato(Action.bidded);
         scorriGiocatori();  // scorrimento dei giocatori
 
-        if (getGiocatoreAttuale().getStrategia() instanceof StrategiaMazziere)
+        if (getGiocatoreAttuale().isMazziere())
             setQuota(0);     // se il giocatore è il mazziere non versa nulla e passa
         else if(indiceScorrimento % giocatori.size() != 0 && getGiocatoreAttuale().getStato() != Action.match)
             // se non è il mazziere notifica a schermo per il giocatore che dovrà puntare

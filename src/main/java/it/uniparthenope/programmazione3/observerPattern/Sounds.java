@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 public class Sounds implements gameObserver {
     @Override
     public void update(Action action, String... message) {
+        // inizio del suono in base al messaggio inviato dall'observed
         Platform.runLater(() -> {
             String path = "src/main/resources/it/uniparthenope/programmazione3/sounds/";
             try {

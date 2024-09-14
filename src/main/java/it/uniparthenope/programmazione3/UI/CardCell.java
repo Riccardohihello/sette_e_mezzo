@@ -6,10 +6,11 @@ import javafx.scene.image.ImageView;
 
 import java.util.Objects;
 
-public class CardUI extends ListCell<String> {
+public class CardCell extends ListCell<String> {
+    // rappresentazione dell'immagine della carta
     private final ImageView img = new ImageView();
 
-    public CardUI() {
+    public CardCell() {
         super();
         img.setFitWidth(100);
         img.setFitHeight(150);

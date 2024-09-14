@@ -17,7 +17,7 @@ public class SavedGamesUI {
 
     public void initialize(){
         visualizzaStorico();
-        History.setCellFactory(listView -> new ResultsCellUI());
+        History.setCellFactory(listView -> new ResultsCell());
     }
 
     @FXML

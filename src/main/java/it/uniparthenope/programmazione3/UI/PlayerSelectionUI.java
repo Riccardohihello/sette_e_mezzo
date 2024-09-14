@@ -20,6 +20,9 @@ import java.util.Objects;
 
 public class PlayerSelectionUI implements gameObserver {
 
+    // scena d'intermezzo per la creazione dei giocatori
+    // prima dell'inizio del gioco
+
     @FXML
     private Label vittorieComputer;
     @FXML
@@ -44,8 +47,8 @@ public class PlayerSelectionUI implements gameObserver {
         if(files != null)
             vittorieComputer.setText("Vittorie Computer: "+ (Objects.requireNonNull(file.list())).length);
         else vittorieComputer.setText("Vittorie Computer: 0");
-        giocatoriSx.setCellFactory(param -> new PlayerCreationUI());
-        giocatoriDx.setCellFactory(param -> new PlayerCreationUI());
+        giocatoriSx.setCellFactory(param -> new PlayerCreationCell());
+        giocatoriDx.setCellFactory(param -> new PlayerCreationCell());
 
         giocatori.add(new Giocatore("Computer"));
         giocatoriSx.getItems().add(giocatori.get(0));

@@ -12,13 +12,14 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.util.Objects;
 
-public class PlayerCreationUI extends ListCell<Giocatore> {
+public class PlayerCreationCell extends ListCell<Giocatore> {
+
 
     private final HBox hbox = new HBox(10); // spacing tra l'immagine e il testo
     private final TextField nameField = new TextField();
     private final ImageView img = new ImageView();
     private final Spinner<Integer> gettoni;
-    public PlayerCreationUI() {
+    public PlayerCreationCell() {
         super();
         img.setFitHeight(30);
         img.setFitWidth(30);
