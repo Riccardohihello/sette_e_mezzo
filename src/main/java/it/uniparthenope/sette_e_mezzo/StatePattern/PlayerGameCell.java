@@ -1,4 +1,4 @@
-package it.uniparthenope.sette_e_mezzo.UI.StatePattern;
+package it.uniparthenope.sette_e_mezzo.StatePattern;
 
 import it.uniparthenope.sette_e_mezzo.strategyPattern.Giocatore;
 import javafx.geometry.Pos;
@@ -24,6 +24,7 @@ public class PlayerGameCell extends ListCell<Giocatore> {
     Label balanceLabel = new Label("");
     Label stateLabel = new Label("");
     ImageView img = new ImageView();
+    PlayerState state;
 
     public PlayerGameCell() { // rappresentazione del riquadro dei giocatori
         super();
@@ -68,7 +69,7 @@ public class PlayerGameCell extends ListCell<Giocatore> {
                 setBackgroundColor(DEFAULT_BACKGROUND_COLOR);
 
             // Gestione dello stato tramite il pattern State
-            PlayerState state = switch (player.getStato()) {
+            state = switch (player.getStato()) {
                 // cambiamento di stato in base al valore dell'enum ricevuto
                 case bid -> new BidState();
                 case match -> new MatchState();

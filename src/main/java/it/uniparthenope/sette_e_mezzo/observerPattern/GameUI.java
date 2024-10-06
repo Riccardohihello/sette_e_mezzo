@@ -6,7 +6,7 @@ import it.uniparthenope.sette_e_mezzo.memento.Caretaker;
 import it.uniparthenope.sette_e_mezzo.memento.Memento;
 import it.uniparthenope.sette_e_mezzo.strategyPattern.Giocatore;
 import it.uniparthenope.sette_e_mezzo.UI.CardCell;
-import it.uniparthenope.sette_e_mezzo.UI.StatePattern.PlayerGameCell;
+import it.uniparthenope.sette_e_mezzo.StatePattern.PlayerGameCell;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,7 +1,7 @@
 package it.uniparthenope.sette_e_mezzo.UI;
 
 import it.uniparthenope.sette_e_mezzo.Main;
-import it.uniparthenope.sette_e_mezzo.UI.StatePattern.PlayerGameCell;
+import it.uniparthenope.sette_e_mezzo.StatePattern.PlayerGameCell;
 import it.uniparthenope.sette_e_mezzo.memento.gameSettings;
 import it.uniparthenope.sette_e_mezzo.memento.Memento;
 import it.uniparthenope.sette_e_mezzo.strategyPattern.Giocatore;
