@@ -19,6 +19,6 @@ module it.uniparthenope.sette_e_mezzo {
     opens it.uniparthenope.sette_e_mezzo.UI to javafx.fxml;
     exports it.uniparthenope.sette_e_mezzo.memento;
     opens it.uniparthenope.sette_e_mezzo.memento to javafx.fxml;
-    exports it.uniparthenope.sette_e_mezzo.UI.StatePattern;
-    opens it.uniparthenope.sette_e_mezzo.UI.StatePattern to javafx.fxml;
+    exports it.uniparthenope.sette_e_mezzo.StatePattern;
+    opens it.uniparthenope.sette_e_mezzo.StatePattern to javafx.fxml;
 }

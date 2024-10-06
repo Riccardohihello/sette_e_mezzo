@@ -3,8 +3,6 @@ package it.uniparthenope.sette_e_mezzo.UI;
 import it.uniparthenope.sette_e_mezzo.Main;
 import it.uniparthenope.sette_e_mezzo.strategyPattern.Giocatore;
 import it.uniparthenope.sette_e_mezzo.memento.gameSettings;
-import it.uniparthenope.sette_e_mezzo.observerPattern.Action;
-import it.uniparthenope.sette_e_mezzo.observerPattern.gameObserver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class PlayerSelectionUI implements gameObserver {
+public class PlayerSelectionUI {
 
     // scena d'intermezzo per la creazione dei giocatori
     // prima dell'inizio del gioco
@@ -81,10 +79,6 @@ public class PlayerSelectionUI implements gameObserver {
     }
 
 
-    @Override
-    public void update(Action action, String... message) {
-
-    }
     @FXML
     public void backToMenu(ActionEvent event) throws Exception {
         Main.cambiaScena("menu.fxml", (Stage) ((Node) event.getSource()).getScene().getWindow());

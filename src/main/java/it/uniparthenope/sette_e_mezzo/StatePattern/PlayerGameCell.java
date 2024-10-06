@@ -1,4 +1,4 @@
-package it.uniparthenope.sette_e_mezzo.UI.StatePattern;
+package it.uniparthenope.sette_e_mezzo.StatePattern;
 
 import it.uniparthenope.sette_e_mezzo.strategyPattern.Giocatore;
 import javafx.geometry.Pos;
