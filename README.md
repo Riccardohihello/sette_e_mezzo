@@ -1,19 +1,15 @@
 # Sette E Mezzo Demo
 ![Java](https://img.shields.io/badge/Java-17-blue.svg)
 ![Maven](https://img.shields.io/badge/Maven-3.6.3-blue.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Issues](https://img.shields.io/github/issues/Riccardohihello/sette_e_mezzo)
 
 **Sette e Mezzo** è una simulazione del classico gioco di carte italiano, sviluppato in Java. Il progetto implementa la logica di gioco, la gestione dei giocatori (sia umani che computerizzati) e include funzionalità come il salvataggio e il caricamento delle sessioni di gioco.
 
 ## Indice
 
-- [Installazione](##installazione)
-- [Guida Rapida](##guida-rapida)
-- [Regole del Gioco](##regole-del-gioco)
-- [Funzionalità](##funzionalità)
-- [Struttura del Progetto](##struttura-del-progetto)
-- [Licenza](##licenza)
+- [Installazione](#installazione)
+- [Compilare](#compilare)
+- [Eseguire](#Eseguire)
+- [Struttura del Progetto](#struttura-del-progetto)
 
 ## Installazione
 ### Prerequisiti
@@ -86,6 +82,3 @@ src/
             └── Main.java   // Punto di ingresso del programma
 
 ```
-
-## © Licenza
-Questo progetto è distribuito sotto licenza [MIT](https://choosealicense.com/licenses/mit/). Consulta il file LICENSE per maggiori informazioni.
