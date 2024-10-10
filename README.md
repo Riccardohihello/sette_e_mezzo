@@ -1,110 +1,103 @@
-# Sette E Mezzo Demo
+# Sette E Mezzo Demo 🎮
 ![Java](https://img.shields.io/badge/Java-17-blue.svg)
 ![Maven](https://img.shields.io/badge/Maven-3.6.3-blue.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Issues](https://img.shields.io/github/issues/Riccardohihello/sette_e_mezzo)
 
-**Sette e Mezzo** is a simulation of the classic Italian card game, developed in Java. The project implements the game logic, player management (both human and computer), and includes features like saving and loading game sessions.
+**Sette e Mezzo** è una simulazione del classico gioco di carte italiano, sviluppato in Java. Il progetto implementa la logica di gioco, la gestione dei giocatori (sia umani che computerizzati) e include funzionalità come il salvataggio e il caricamento delle sessioni di gioco.
 
-## Table of Contents
+## 📄 Indice
 
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Game Rules](#game-rules)
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
+- [Installazione](#installazione)
+- [Guida Rapida](#guida-rapida)
+- [Regole del Gioco](#regole-del-gioco)
+- [Funzionalità](#funzionalità)
+- [Struttura del Progetto](#struttura-del-progetto)
+- [Licenza](#licenza)
 
+## ⚙️ Installazione
+### Prerequisiti
 
+- **Java JDK 11** o superiore installato sul tuo sistema
+- **Apache Maven** installato (vedi sotto)
+- **IDE** raccomandato: IntelliJ IDEA
 
+#### Installare Maven
+Per installare Maven, segui questi passaggi:
 
-## Installation
-### Prerequisites
-
-- **Java JDK 11** or higher installed on your system
-- Apache Maven installed (see below)
-- Recommended **IDE**: IntelliJ IDEA
-  
-#### Install Maven
-To install Maven, follow these steps:
-
-Linux:
+**Linux**:
 ``` bash
 sudo apt update
 sudo apt install maven
 ```
-macOS (using Homebrew):
+
+macOS (utilizzando Homebrew):
 
 ``` bash
 brew install maven
 ```
 
-Windows: Download Maven from [here](https://maven.apache.org/download.cgi) and follow the installation guide.
+Windows: Scarica Maven da [qui](https://maven.apache.org/download.cgi) e segui la guida di installazione.
 
-### Clone the Repository
+### 📥 Clonare il Repository
 
-To get the source code, clone this repository using Git:
+Per ottenere il codice sorgente, clona questo repository utilizzando Git:
 
 ```bash
 git clone https://github.com/Riccardohihello/sette_e_mezzo.git
 ```
 
-### Build
+### 🛠️ Compilare
 ```bash
 cd sette_e_mezzo
 mvn clean install
 mvn dependency:copy-dependencies
 ```
-### Run
+### ▶️ Eseguire
 
-After compiling the project, you can run the game from the bin folder:
+Dopo aver compilato il progetto, puoi eseguire il gioco dalla cartella principale:
 ``` bash
 mvn javafx:run
 ```
-Or manually with:
+Oppure con:
 ``` bash
 java --module-path target/dependency --add-modules javafx.controls,javafx.fxml -cp target/sette_e_mezzo-1.0-SNAPSHOT.jar it.uniparthenope.sette_e_mezzo.Main
 ```
 
-## Quick Start
-1. **New Game**: Start a new game, you can select the number of players and modify their names.
-2. **Save/Load Game**: You can save the game state and resume where you left off.
-3. **Computer Stats**: See how many wins has the computer.
-4. **Statistics**: At the end of the game, player stats are displayed.
+## 🚀 Guida Rapida
+1. **Nuova Partita**: Avvia una nuova partita, puoi selezionare il numero di giocatori e modificarne i nomi.
+2. **Salva/Carica Partita**: Puoi salvare lo stato del gioco e riprendere da dove avevi lasciato.
+3. **Statistiche Computer**: Visualizza quante vittorie ha ottenuto il computer.
+4. **Statistiche**: Alla fine della partita, vengono mostrate le statistiche dei giocatori.
 
-## Game Rules
-- The goal is to reach a score as close as possible to 7.5 without exceeding it.
-- Each player can request additional cards or stop.
-- If a player's score exceeds 7.5, they automatically lose.
-- The game ends when all players either stop or lose.
+## 📏 Regole del Gioco
+- L'obiettivo è raggiungere un punteggio il più vicino possibile a 7.5 senza superarlo.
+- Ogni giocatore può richiedere carte aggiuntive o fermarsi.
+- Se il punteggio di un giocatore supera 7.5, perde automaticamente.
+- Il gioco termina quando tutti i giocatori si fermano o perdono.
 
-## Features
-- **Save and Load** game sessions using the **Memento** desing pattern.
-- AI for computer-controlled dealer behavior.
-- Leaderboard to view past games and player statistics.
-- Graphical User Interface (UI) that allows managing all phases of the game intuitively.
+## 🔧 Funzionalità
+- Salva e Carica le sessioni di gioco utilizzando il Memento pattern.
+- IA per il comportamento del banco gestito dal computer.
+- Classifica per visualizzare le partite passate e le statistiche dei giocatori.
+- Interfaccia Grafica (UI) che permette di gestire tutte le fasi del gioco in modo intuitivo.
 
-## Project Structure
+## 📂 Struttura del Progetto
 
 ``` less
 src/
 └── main/
     └── java/
         └── it/uniparthenope/sette_e_mezzo/
-            ├── Game        // Main game logic
-            ├── Player      // Represents a player
-            ├── Deck        // Manages the deck of cards
-            ├── Card        // Represents a single card
-            ├── GameUI      // User interface
-            ├── Memento     // Handles game state saving/loading
-            └── Main.java   // Entry point of the program
+            ├── Game        // Logica principale del gioco
+            ├── Player      // Rappresenta un giocatore
+            ├── Deck        // Gestisce il mazzo di carte
+            ├── Card        // Rappresenta una singola carta
+            ├── GameUI      // Interfaccia utente
+            ├── Memento     // Gestisce il salvataggio/caricamento dello stato del gioco
+            └── Main.java   // Punto di ingresso del programma
 
 ```
-## Contributing
 
-Contributions and suggestions are welcome! Feel free to open a pull request or report issues in the issues section of the repository.
-
-## © License
-
-This project is distributed under the [MIT](https://choosealicense.com/licenses/mit/) License. See the LICENSE file for more information.
+## © Licenza
+Questo progetto è distribuito sotto licenza [MIT](https://choosealicense.com/licenses/mit/). Consulta il file LICENSE per maggiori informazioni.
