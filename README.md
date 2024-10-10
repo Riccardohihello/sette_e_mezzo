@@ -8,12 +8,12 @@
 
 ## 📄 Indice
 
-- [Installazione](#installazione)
-- [Guida Rapida](#guida-rapida)
-- [Regole del Gioco](#regole-del-gioco)
-- [Funzionalità](#funzionalità)
-- [Struttura del Progetto](#struttura-del-progetto)
-- [Licenza](#licenza)
+- [Installazione](##installazione)
+- [Guida Rapida](##guida-rapida)
+- [Regole del Gioco](##regole-del-gioco)
+- [Funzionalità](##funzionalità)
+- [Struttura del Progetto](##struttura-del-progetto)
+- [Licenza](##licenza)
 
 ## ⚙️ Installazione
 ### Prerequisiti
