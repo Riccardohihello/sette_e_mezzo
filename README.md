@@ -1,4 +1,4 @@
-# Sette E Mezzo Demo 🎮
+# Sette E Mezzo Demo
 ![Java](https://img.shields.io/badge/Java-17-blue.svg)
 ![Maven](https://img.shields.io/badge/Maven-3.6.3-blue.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
@@ -6,7 +6,7 @@
 
 **Sette e Mezzo** è una simulazione del classico gioco di carte italiano, sviluppato in Java. Il progetto implementa la logica di gioco, la gestione dei giocatori (sia umani che computerizzati) e include funzionalità come il salvataggio e il caricamento delle sessioni di gioco.
 
-## 📄 Indice
+## Indice
 
 - [Installazione](##installazione)
 - [Guida Rapida](##guida-rapida)
@@ -15,7 +15,7 @@
 - [Struttura del Progetto](##struttura-del-progetto)
 - [Licenza](##licenza)
 
-## ⚙️ Installazione
+## Installazione
 ### Prerequisiti
 
 - **Java JDK 11** o superiore installato sul tuo sistema
@@ -39,7 +39,7 @@ brew install maven
 
 Windows: Scarica Maven da [qui](https://maven.apache.org/download.cgi) e segui la guida di installazione.
 
-### 📥 Clonare il Repository
+### Clonare il Repository
 
 Per ottenere il codice sorgente, clona questo repository utilizzando Git:
 
@@ -47,13 +47,13 @@ Per ottenere il codice sorgente, clona questo repository utilizzando Git:
 git clone https://github.com/Riccardohihello/sette_e_mezzo.git
 ```
 
-### 🛠️ Compilare
+### Compilare
 ```bash
 cd sette_e_mezzo
 mvn clean install
 mvn dependency:copy-dependencies
 ```
-### ▶️ Eseguire
+### Eseguire
 
 Dopo aver compilato il progetto, puoi eseguire il gioco dalla cartella principale:
 ``` bash
@@ -64,25 +64,13 @@ Oppure con:
 java --module-path target/dependency --add-modules javafx.controls,javafx.fxml -cp target/sette_e_mezzo-1.0-SNAPSHOT.jar it.uniparthenope.sette_e_mezzo.Main
 ```
 
-## 🚀 Guida Rapida
+## Guida Rapida del gioco
 1. **Nuova Partita**: Avvia una nuova partita, puoi selezionare il numero di giocatori e modificarne i nomi.
 2. **Salva/Carica Partita**: Puoi salvare lo stato del gioco e riprendere da dove avevi lasciato.
 3. **Statistiche Computer**: Visualizza quante vittorie ha ottenuto il computer.
 4. **Statistiche**: Alla fine della partita, vengono mostrate le statistiche dei giocatori.
 
-## 📏 Regole del Gioco
-- L'obiettivo è raggiungere un punteggio il più vicino possibile a 7.5 senza superarlo.
-- Ogni giocatore può richiedere carte aggiuntive o fermarsi.
-- Se il punteggio di un giocatore supera 7.5, perde automaticamente.
-- Il gioco termina quando tutti i giocatori si fermano o perdono.
-
-## 🔧 Funzionalità
-- Salva e Carica le sessioni di gioco utilizzando il Memento pattern.
-- IA per il comportamento del banco gestito dal computer.
-- Classifica per visualizzare le partite passate e le statistiche dei giocatori.
-- Interfaccia Grafica (UI) che permette di gestire tutte le fasi del gioco in modo intuitivo.
-
-## 📂 Struttura del Progetto
+## Struttura del Progetto
 
 ``` less
 src/
