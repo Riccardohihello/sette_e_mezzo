@@ -23,7 +23,24 @@
 ### Prerequisites
 
 - **Java JDK 11** or higher installed on your system
+- Apache Maven installed (see below)
 - Recommended **IDE**: IntelliJ IDEA
+  
+#### Install Maven
+To install Maven, follow these steps:
+
+Linux:
+``` bash
+sudo apt update
+sudo apt install maven
+```
+macOS (using Homebrew):
+
+``` bash
+brew install maven
+```
+
+Windows: Download Maven from [here](https://maven.apache.org/download.cgi) and follow the installation guide.
 
 ### Clone the Repository
 
@@ -88,6 +105,6 @@ src/
 
 Contributions and suggestions are welcome! Feel free to open a pull request or report issues in the issues section of the repository.
 
-## License
+## © License
 
 This project is distributed under the [MIT](https://choosealicense.com/licenses/mit/) License. See the LICENSE file for more information.
