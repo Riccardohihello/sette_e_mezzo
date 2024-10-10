@@ -37,7 +37,7 @@ macOS (utilizzando Homebrew):
 brew install maven
 ```
 
-Windows: Scarica Maven da [qui](https://maven.apache.org/download.cgi) e segui la guida di installazione.
+Windows: Scarica Maven da [qui](https://maven.apache.org/download.cgi).
 
 ### Clonare il Repository
 
