@@ -2,7 +2,6 @@
 ![Java](https://img.shields.io/badge/Java-17-blue.svg)
 ![Maven](https://img.shields.io/badge/Maven-3.6.3-blue.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Build Status](https://img.shields.io/github/actions/workflow/status/Riccardohihello/sette_e_mezzo/maven.yml)
 ![Issues](https://img.shields.io/github/issues/Riccardohihello/sette_e_mezzo)
 
 **Sette e Mezzo** is a simulation of the classic Italian card game, developed in Java. The project implements the game logic, player management (both human and computer), and includes features like saving and loading game sessions.
